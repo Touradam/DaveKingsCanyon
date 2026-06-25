@@ -1,20 +1,23 @@
 /**
- * Kings Canyon Land - Site Interactions
- * Nav, hero video, scroll reveal, lightbox, lazy video embeds, contact form
+ * Kings Canyon Land - Midnight Champagne Interactions
+ * Nav, hero effects, scroll reveal, lightbox, lazy video embeds, contact form
  */
 (function () {
   "use strict";
 
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var DESKTOP_NAV = 901;
 
   /* --- DOM References --- */
   var header = document.getElementById("site-header");
   var navToggle = document.getElementById("nav-toggle");
   var siteNav = document.getElementById("site-nav");
   var navLinks = document.querySelectorAll(".nav-link");
-  var heroVideo = document.getElementById("hero-video");
-  var heroVideoControl = document.getElementById("hero-video-control");
+  var hero = document.getElementById("hero");
+  var heroSpotlight = document.getElementById("hero-spotlight");
+  var heroParticles = document.getElementById("hero-particles");
   var revealElements = document.querySelectorAll("[data-reveal]");
+  var tiltElements = document.querySelectorAll("[data-tilt]");
   var lightboxButtons = document.querySelectorAll("[data-lightbox-src]");
   var lightbox = document.getElementById("lightbox");
   var lightboxImage = document.getElementById("lightbox-image");
@@ -56,6 +59,10 @@
     }
 
     return url;
+  }
+
+  function isFinePointer() {
+    return window.matchMedia("(pointer: fine)").matches;
   }
 
   /* --- Footer Year --- */
@@ -108,7 +115,7 @@
 
     navLinks.forEach(function (link) {
       link.addEventListener("click", function () {
-        if (window.innerWidth < 1024) {
+        if (window.innerWidth < DESKTOP_NAV) {
           closeNav();
         }
       });
@@ -122,47 +129,78 @@
     });
   }
 
-  /* --- Hero Video Controls --- */
-  function setHeroPlaying(isPlaying) {
-    if (!heroVideoControl) return;
+  /* --- Hero Spotlight --- */
+  if (hero && heroSpotlight && !prefersReducedMotion && isFinePointer()) {
+    hero.addEventListener("mousemove", function (e) {
+      var rect = hero.getBoundingClientRect();
+      var x = ((e.clientX - rect.left) / rect.width) * 100;
+      var y = ((e.clientY - rect.top) / rect.height) * 100;
+      hero.style.setProperty("--spotlight-x", x + "%");
+      hero.style.setProperty("--spotlight-y", y + "%");
+      hero.classList.add("is-spotlight-active");
+    });
 
-    var iconPause = heroVideoControl.querySelector(".icon-pause");
-    var iconPlay = heroVideoControl.querySelector(".icon-play");
-
-    heroVideoControl.setAttribute("aria-pressed", isPlaying ? "true" : "false");
-    heroVideoControl.setAttribute(
-      "aria-label",
-      isPlaying ? "Pause background video" : "Play background video"
-    );
-
-    if (iconPause) iconPause.hidden = !isPlaying;
-    if (iconPlay) iconPlay.hidden = isPlaying;
-  }
-
-  if (heroVideo && heroVideoControl) {
-    if (prefersReducedMotion) {
-      heroVideo.pause();
-      heroVideo.removeAttribute("autoplay");
-      setHeroPlaying(false);
-    } else {
-      heroVideo.play().catch(function () {
-        setHeroPlaying(false);
-      });
-      setHeroPlaying(true);
-    }
-
-    heroVideoControl.addEventListener("click", function () {
-      if (heroVideo.paused) {
-        heroVideo.play();
-        setHeroPlaying(true);
-      } else {
-        heroVideo.pause();
-        setHeroPlaying(false);
-      }
+    hero.addEventListener("mouseleave", function () {
+      hero.classList.remove("is-spotlight-active");
     });
   }
 
-  /* --- Scroll Reveal --- */
+  /* --- Hero Particles --- */
+  if (heroParticles && !prefersReducedMotion) {
+    var particleCount = window.innerWidth < 640 ? 8 : 14;
+
+    for (var i = 0; i < particleCount; i++) {
+      var particle = document.createElement("span");
+      particle.className = "hero-particle";
+      particle.style.left = Math.random() * 100 + "%";
+      particle.style.top = 40 + Math.random() * 60 + "%";
+      particle.style.setProperty("--particle-duration", 10 + Math.random() * 8 + "s");
+      particle.style.setProperty("--particle-delay", Math.random() * 6 + "s");
+      particle.style.width = particle.style.height = 2 + Math.random() * 2 + "px";
+      heroParticles.appendChild(particle);
+    }
+  }
+
+  /* --- 3D Tilt on Concept Images --- */
+  if (!prefersReducedMotion && isFinePointer()) {
+    var tiltTargets = tiltElements.length
+      ? tiltElements
+      : document.querySelectorAll(".concept-image-btn");
+
+    tiltTargets.forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var rect = el.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        el.style.setProperty("--tilt-y", x * 6 + "deg");
+        el.style.setProperty("--tilt-x", -y * 6 + "deg");
+      });
+
+      el.addEventListener("mouseleave", function () {
+        el.style.setProperty("--tilt-x", "0deg");
+        el.style.setProperty("--tilt-y", "0deg");
+      });
+    });
+  }
+
+  /* --- Scroll Reveal with Stagger --- */
+  function applyStaggerDelays() {
+    var groups = document.querySelectorAll(
+      ".about-grid, .concepts-list, .video-grid, .potential-list, .quick-facts, .contact-grid"
+    );
+
+    groups.forEach(function (group) {
+      var items = group.querySelectorAll("[data-reveal]");
+      items.forEach(function (el, index) {
+        if (!el.style.getPropertyValue("--reveal-delay")) {
+          el.style.setProperty("--reveal-delay", index * 80 + "ms");
+        }
+      });
+    });
+  }
+
+  applyStaggerDelays();
+
   if (revealElements.length && "IntersectionObserver" in window) {
     var revealObserver = new IntersectionObserver(
       function (entries) {
@@ -173,7 +211,7 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -32px 0px" }
     );
 
     revealElements.forEach(function (el) {
@@ -362,11 +400,10 @@
 
       formSuccess.hidden = false;
       formSuccess.textContent =
-        "Your email client should open shortly. If it does not, please use the listing agent link above.";
+        "Your email app should open shortly. If it does not, use the listing agent link above.";
     });
   }
 
-  /* --- Smooth scroll for reduced motion --- */
   if (prefersReducedMotion) {
     document.documentElement.style.scrollBehavior = "auto";
   }
