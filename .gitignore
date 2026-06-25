@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+.cursor/
+*.log
+
+# Local media assets (wire into index.html locally; do not commit large binaries)
+*.mp4
+*.jpeg
+*.jpg
+*.png
+*.webp
