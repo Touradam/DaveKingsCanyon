@@ -35,8 +35,10 @@
   var calendarGrid = document.getElementById("calendar-grid");
   var calendarPrev = document.getElementById("calendar-prev");
   var calendarNext = document.getElementById("calendar-next");
+  var schedulerFormLink = document.getElementById("scheduler-form-link");
   var footerYear = document.getElementById("footer-year");
 
+  var lightboxTrigger = null;
   var schedulerTrigger = null;
   var scrollTicking = false;
   var calendarView = new Date();
@@ -88,6 +90,15 @@
 
   function isFinePointer() {
     return window.matchMedia("(pointer: fine)").matches;
+  }
+
+  function resolveSiteUrl(url) {
+    if (!url || /^https?:\/\//i.test(url) || url.indexOf("//") === 0) {
+      return url;
+    }
+
+    var base = window.__SITE_BASE__ || "";
+    return base + url.replace(/^\.\//, "");
   }
 
   /* --- Footer Year --- */
@@ -329,11 +340,11 @@
       video.preload = "none";
       video.title = title;
       if (poster) {
-        video.poster = poster;
+        video.poster = resolveSiteUrl(poster);
       }
 
       var source = document.createElement("source");
-      source.src = url;
+      source.src = resolveSiteUrl(url);
       source.type = "video/mp4";
       video.appendChild(source);
       container.appendChild(video);
@@ -439,6 +450,12 @@
     if (schedulerSelectedDate) {
       schedulerSelectedDate.textContent = dateFormatter.format(selectedDate);
     }
+    if (schedulerFormLink) {
+      var formBase = schedulerFormLink.getAttribute("data-form-base") || schedulerFormLink.href.split("?")[0];
+      var formQuery = schedulerFormLink.getAttribute("data-form-query") || "pvs=105";
+      var dateParam = "showing_date=" + encodeURIComponent(dateFormatter.format(selectedDate));
+      schedulerFormLink.href = formBase + "?" + formQuery + "&" + dateParam;
+    }
     showSchedulerStep("form");
   }
 
@@ -473,7 +490,8 @@
 
   if (scheduler && calendarGrid) {
     schedulerTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function () {
+      trigger.addEventListener("click", function (e) {
+        e.preventDefault();
         openScheduler(trigger);
       });
     });

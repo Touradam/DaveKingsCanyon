@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    (function () {
+      var isGhPages = location.hostname.endsWith("github.io");
+      var segments = location.pathname.split("/").filter(Boolean);
+      if (isGhPages && segments.length && !/\.[a-z0-9]+$/i.test(segments[segments.length - 1])) {
+        var baseHref = "/" + segments[0] + "/";
+        var baseEl = document.createElement("base");
+        baseEl.href = baseHref;
+        document.head.appendChild(baseEl);
+        window.__SITE_BASE__ = baseHref;
+      } else {
+        window.__SITE_BASE__ = "";
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="More than 1,000 acres of California land for sale on Kings Canyon Highway. A rare foothills parcel with national park access and strong hospitality development potential.">
   <title>Kings Canyon Land | 410 Hectares for Sale in Dunlap, California</title>
@@ -72,7 +87,12 @@
         <p class="hero-address">44138 E. Kings Canyon Road, Dunlap, California 93621</p>
         <p class="hero-subtitle">On State Highway 180, the Gateway to the Sierras</p>
         <div class="hero-actions">
-          <button class="btn btn--primary" type="button" data-open-scheduler>Schedule a Showing</button>
+          <a
+            class="btn btn--primary"
+            href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
+            data-open-scheduler
+            role="button"
+          >Schedule a Showing</a>
           <a class="btn btn--secondary" href="#about">Explore the Property</a>
         </div>
       </div>
@@ -418,7 +438,12 @@
             <p class="scheduling-panel-note">
               Choose your preferred showing date, then complete the short request form with your contact details.
             </p>
-            <button class="btn btn--primary btn--large" type="button" data-open-scheduler>Schedule a Showing</button>
+            <a
+              class="btn btn--primary btn--large"
+              href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
+              data-open-scheduler
+              role="button"
+            >Schedule a Showing</a>
           </div>
         </div>
       </div>
@@ -467,6 +492,8 @@
           class="btn btn--primary btn--large"
           id="scheduler-form-link"
           href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
+          data-form-base="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2"
+          data-form-query="pvs=105"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -488,6 +515,6 @@
     </figure>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
