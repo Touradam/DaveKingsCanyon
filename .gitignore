@@ -2,10 +2,15 @@
 Thumbs.db
 .cursor/
 *.log
+Archive/
 
-# Local media assets (wire into index.html locally; do not commit large binaries)
+# Large local videos stay untracked
 *.mp4
+
+# Ignore loose image files, but always track site assets for GitHub Pages
 *.jpeg
 *.jpg
 *.png
 *.webp
+!assets/images/
+!assets/images/**
