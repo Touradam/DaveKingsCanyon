@@ -494,12 +494,6 @@
     if (schedulerSelectedDate) {
       schedulerSelectedDate.textContent = dateFormatter.format(selectedDate);
     }
-    if (schedulerFormLink) {
-      var formBase = schedulerFormLink.getAttribute("data-form-base") || schedulerFormLink.href.split("?")[0];
-      var formQuery = schedulerFormLink.getAttribute("data-form-query") || "pvs=105";
-      var dateParam = "showing_date=" + encodeURIComponent(dateFormatter.format(selectedDate));
-      schedulerFormLink.href = formBase + "?" + formQuery + "&" + dateParam;
-    }
     showSchedulerStep("form");
   }
 
