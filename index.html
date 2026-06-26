@@ -55,6 +55,7 @@
         <ul class="nav-list">
           <li><a class="nav-link" href="#about">Location</a></li>
           <li><a class="nav-link" href="#concepts">Concepts</a></li>
+          <li><a class="nav-link" href="#galleries">Gallery</a></li>
           <li><a class="nav-link" href="#videos">Videos</a></li>
           <li><a class="nav-link" href="#potential">Potential</a></li>
           <li><a class="nav-link nav-link--cta" href="#contact">Contact</a></li>
@@ -66,11 +67,11 @@
   <main id="main-content">
     <section class="hero" id="hero" aria-label="Property overview">
       <div class="hero-media">
-        <!-- ASSET: Replace src with [HERO_IMAGE] -->
+        <!-- TODO: replace with bright daytime hero image once resort rendering is finalized. -->
         <img
           class="hero-image"
-          src="assets/images/concept-site-plan.jpeg"
-          alt="Site plan of the Kings Canyon property along Highway 180 in the Sierra Nevada foothills"
+          src="assets/images/hero-daytime-placeholder.jpg"
+          alt="Bright daytime view of the Kings Canyon property along Highway 180 in the Sierra Nevada foothills"
           fetchpriority="high"
           width="1920"
           height="1080"
@@ -83,15 +84,16 @@
 
       <div class="hero-content" data-reveal>
         <p class="hero-eyebrow">Dunlap, California &middot; Kings Canyon Highway</p>
-        <h1 class="hero-title">410 acres of pristine California land for sale</h1>
+        <h1 class="hero-title">410 Acres of Beautiful High Sierras Land near Kings Canyon National Park</h1>
         <p class="hero-address">44138 E. Kings Canyon Road, Dunlap, California 93621</p>
         <p class="hero-subtitle">On State Highway 180, the Gateway to the Sierras</p>
         <div class="hero-actions">
+          <!-- TODO: realtor may provide a more direct contact link later. -->
           <a
             class="btn btn--primary"
-            href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
-            data-open-scheduler
-            role="button"
+            href="https://www.prospectreal.com/"
+            target="_blank"
+            rel="noopener noreferrer"
           >Schedule a Showing</a>
           <a class="btn btn--secondary" href="#about">Explore the Property</a>
         </div>
@@ -109,21 +111,28 @@
         <div class="about-grid">
           <div class="about-copy" data-reveal>
             <p>
-              Set in the Sierra Nevada foothills at Dunlap, an unincorporated community in Fresno County, this parcel sits at roughly 1,900 feet of elevation on Highway 180. The route is known as the Gateway to the Sierras and marks the start of the 50-mile Kings Canyon Scenic Byway. Fresno is about 38 miles to the west. The entrance to Sequoia and Kings Canyon National Parks at Grant Grove is only 19 to 20 miles away.
+              Set at the snowline of the Sierra Nevada foothills near Squaw Valley in unincorporated Fresno County, this parcel sits at roughly 4,500 feet of elevation right off of Highway 180. The route is known as the Gateway to the Sierras and is part of a 50-mile Kings Canyon Scenic Byway. Fresno is about 38 miles to the west. The entrance to Kings Canyon and Sequoia National Parks is only 7&frac12; miles away.
             </p>
             <p>
-              The setting combines warm, dry Mediterranean summers with mild winters and occasional foothill snow. Oak woodlands, rolling terrain, and open mountain views surround the land. Giant Sequoia National Monument, the Kings River, Pine Flat Reservoir, and Wonder Valley are all close by, making this a natural stopping point for travelers headed into the parks.
+              The setting combines warm, dry Mediterranean summers with mild winters and occasional foothill snow. Oak woodlands, rolling terrain, and open mountain views surround the land. Nearby attractions include: The General Grant Grove of giant redwoods, which contains the &lsquo;Nation&rsquo;s Christmas Tree.&rsquo; The majestic Kings Canyon is one of the deepest canyons in the country and contains the Kings River, the Boyden Caverns, and the beautiful Cedar Grove. Sequoia National Park, which contains the world&rsquo;s largest tree, the General Sherman, is only 36 miles away on the beautiful Generals Highway.
             </p>
-            <p>
-              Rare size, scenic character, direct highway frontage, and proximity to two national parks make this an outstanding candidate for tourism and hospitality investment.
+            <p class="about-callout">
+              Rare recreational zoning, scenic character, direct highway frontage, and proximity to two national parks make this an outstanding candidate for a tourism and hospitality investment.
             </p>
           </div>
 
           <aside class="about-aside" data-reveal>
             <div class="map-wrapper">
+              <!--
+                TODO: Swap this embed for a Google My Maps custom map with POI pins.
+                1. Create a map at https://www.google.com/maps/d/
+                2. Add markers from mapPointsOfInterest in script.js
+                3. Replace src below with the My Maps embed URL (Share > Embed a map)
+              -->
               <iframe
                 class="map-embed"
-                title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621"
+                id="property-map"
+                title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621 and nearby points of interest"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps?q=44138+E+Kings+Canyon+Road,+Dunlap,+CA+93621&output=embed"
@@ -133,28 +142,24 @@
 
             <dl class="quick-facts">
               <div class="quick-fact">
-                <dt>Acreage</dt>
-                <dd>410 acres</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Elevation</dt>
-                <dd>~1,900 feet</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Distance to Fresno</dt>
-                <dd>~38 miles east</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Distance to Kings Canyon NP</dt>
-                <dd>19 to 20 miles</dd>
+                <dt>Zoning</dt>
+                <dd>Recreational Zoning</dd>
               </div>
               <div class="quick-fact">
                 <dt>Highway Frontage</dt>
-                <dd>State Highway 180</dd>
+                <dd>5 miles of highway frontage</dd>
               </div>
               <div class="quick-fact">
-                <dt>Climate</dt>
-                <dd>Mediterranean summers, mild winters</dd>
+                <dt>Elevation</dt>
+                <dd>~4,500 ft elevation</dd>
+              </div>
+              <div class="quick-fact">
+                <dt>Distance to Fresno</dt>
+                <dd>38 miles east of Fresno</dd>
+              </div>
+              <div class="quick-fact">
+                <dt>Distance to Parks</dt>
+                <dd>7&frac12; miles to Kings Canyon &amp; Sequoia National Park entrance</dd>
               </div>
             </dl>
           </aside>
@@ -162,16 +167,20 @@
       </div>
     </section>
 
-    <!-- DEVELOPMENT CONCEPTS GALLERY -->
+    <!-- DEVELOPMENT CONCEPTS -->
     <section class="section section--concepts" id="concepts" aria-labelledby="concepts-heading">
       <div class="container">
         <header class="section-header section-header--center" data-reveal>
           <p class="section-eyebrow">Development Concepts</p>
-          <h2 class="section-title" id="concepts-heading">Four Ways to Build on This Land</h2>
+          <h2 class="section-title" id="concepts-heading">Development Concepts</h2>
           <p class="section-lead">
             These sample concepts show what 410 acres can support. Select any rendering to view it full size.
           </p>
         </header>
+
+        <p class="concept-fine-print" data-reveal>
+          This sale includes three tax lots: 105 acres zoned recreational; 68 acres zoned recreational with a two-acre carve-out for the Snowline Lodge, which has a long-term lease until 2050; and 240 acres zoned RC 40, which allows for six home sites on 40 acres each.
+        </p>
 
         <div class="concepts-list">
           <article class="concept-card" data-reveal>
@@ -179,14 +188,15 @@
               class="concept-image-btn"
               type="button"
               data-tilt
-              data-lightbox-src="assets/images/concept-site-plan.jpeg"
-              data-lightbox-alt="Site plan showing secluded campground and RV resort zones within oak woodlands"
-              aria-label="View Secluded Campground rendering full size"
+              data-lightbox-src="assets/images/resort-rendering-placeholder.jpg"
+              data-lightbox-alt="AI rendering of a grand resort on the recreational-zoned parcels near Kings Canyon"
+              aria-label="View Grand Resort rendering full size"
             >
+              <!-- TODO: AI rendering of a grand resort placed within the red-circled area (the two recreational-zoned parcels minus the Snowline Lodge carve-out), styled on the motif of the local Tachi Yokut Tribe. Reference: https://www.tachi-yokut-nsn.gov/ -->
               <img
                 class="concept-image"
-                src="assets/images/concept-site-plan.jpeg"
-                alt="Site plan showing secluded campground and RV resort zones within oak woodlands"
+                src="assets/images/resort-rendering-placeholder.jpg"
+                alt="Placeholder rendering of a grand destination resort on the Kings Canyon property"
                 loading="lazy"
                 width="900"
                 height="600"
@@ -194,9 +204,12 @@
               <span class="concept-zoom-hint">Click to enlarge</span>
             </button>
             <div class="concept-body">
-              <h3 class="concept-title">Secluded Campground</h3>
+              <h3 class="concept-title">Grand Resort</h3>
               <p class="concept-desc">
-                Individual campsites nest into brush and trees, screened from one another so guests enjoy privacy, quiet, and a direct connection to the landscape.
+                With over 800,000 visitors each year to Kings Canyon National Park, there is more than enough traffic to sustain a large destination resort. The National Park Service has removed the private lodges within the park and replaced them with rustic accommodations. This is the only private land zoned recreational that has all the necessary attributes for building a luxury complex.
+              </p>
+              <p class="concept-desc">
+                This unique property has enough buildable land, miles of highway access, close proximity to the park entrance (7.5 miles), access to a known aquifer, and electrical power in place. There will be no significant nearby competition.
               </p>
             </div>
           </article>
@@ -206,13 +219,13 @@
               class="concept-image-btn"
               type="button"
               data-tilt
-              data-lightbox-src="assets/images/concept-cliffside-resort.jpeg"
+              data-lightbox-src="assets/images/glamping-rendering-placeholder.jpg"
               data-lightbox-alt="Rendering of luxury cliffside cabins and glamping-style lodging at dusk"
               aria-label="View Glamping Resort rendering full size"
             >
               <img
                 class="concept-image"
-                src="assets/images/concept-cliffside-resort.jpeg"
+                src="assets/images/glamping-rendering-placeholder.jpg"
                 alt="Rendering of luxury cliffside cabins and glamping-style lodging at dusk"
                 loading="lazy"
                 width="900"
@@ -229,28 +242,50 @@
           </article>
 
           <article class="concept-card" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/concept-grand-resort.jpeg"
-              data-lightbox-alt="Rendering of a grand destination resort with lodge, pool, restaurant, and premium cabins"
-              aria-label="View Grand Resort rendering full size"
-            >
-              <img
-                class="concept-image"
-                src="assets/images/concept-grand-resort.jpeg"
-                alt="Rendering of a grand destination resort with lodge, pool, restaurant, and premium cabins"
-                loading="lazy"
-                width="900"
-                height="600"
+            <div class="concept-images-dual">
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-tilt
+                data-lightbox-src="assets/images/campground-panoramic-placeholder.jpg"
+                data-lightbox-alt="Panoramic gravel camping area with campers on the Kings Canyon property"
+                aria-label="View panoramic campground rendering full size"
               >
-              <span class="concept-zoom-hint">Click to enlarge</span>
-            </button>
+                <!-- TODO: campers composited into the panoramic gravel camping area (high-res original in Dropbox). -->
+                <img
+                  class="concept-image"
+                  src="assets/images/campground-panoramic-placeholder.jpg"
+                  alt="Placeholder rendering of campers in the panoramic gravel camping area"
+                  loading="lazy"
+                  width="900"
+                  height="600"
+                >
+                <span class="concept-zoom-hint">Click to enlarge</span>
+              </button>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-tilt
+                data-lightbox-src="assets/images/campground-manzanita-placeholder.jpg"
+                data-lightbox-alt="Camper placed next to manzanita trees on the Kings Canyon property"
+                aria-label="View manzanita campground rendering full size"
+              >
+                <!-- TODO: a camper placed next to the manzanita trees (high-res original in Dropbox). -->
+                <img
+                  class="concept-image"
+                  src="assets/images/campground-manzanita-placeholder.jpg"
+                  alt="Placeholder rendering of a camper next to manzanita trees"
+                  loading="lazy"
+                  width="900"
+                  height="600"
+                >
+                <span class="concept-zoom-hint">Click to enlarge</span>
+              </button>
+            </div>
             <div class="concept-body">
-              <h3 class="concept-title">Grand Resort</h3>
+              <h3 class="concept-title">Campground</h3>
               <p class="concept-desc">
-                A full destination resort with lodge rooms, dining, a pool, pickleball courts, walking trails, a conference center, and generous parking for guests and events.
+                Individual campsites nest into brush and trees, screened from one another so guests enjoy privacy, quiet, and a direct connection to the landscape.
               </p>
             </div>
           </article>
@@ -260,14 +295,14 @@
               class="concept-image-btn"
               type="button"
               data-tilt
-              data-lightbox-src="assets/images/concept-site-plan.jpeg"
-              data-lightbox-alt="Site plan showing a private estate and small boutique campground on the property"
-              aria-label="View Private Estate and Boutique Camp rendering full size"
+              data-lightbox-src="assets/images/caretaker-residence-placeholder.jpg"
+              data-lightbox-alt="Rendering of a small campground with a luxury caretaker residence overlooking the San Joaquin Valley"
+              aria-label="View Small Campground and Caretaker Residence rendering full size"
             >
               <img
                 class="concept-image"
-                src="assets/images/concept-site-plan.jpeg"
-                alt="Site plan showing a private estate and small boutique campground on the property"
+                src="assets/images/caretaker-residence-placeholder.jpg"
+                alt="Placeholder rendering of a small campground and luxury caretaker residence"
                 loading="lazy"
                 width="900"
                 height="600"
@@ -275,9 +310,9 @@
               <span class="concept-zoom-hint">Click to enlarge</span>
             </button>
             <div class="concept-body">
-              <h3 class="concept-title">Private Estate + Boutique Camp</h3>
+              <h3 class="concept-title">Combination: Small Campground + Luxury Caretaker&rsquo;s Residence</h3>
               <p class="concept-desc">
-                A five-site boutique campground paired with a grand caretaker residence of roughly 12,000 square feet. More detail on this concept will follow in a future update.
+                If you are looking for a small, extremely manageable business combined with a luxury home, then this option is for you. Envision a small five-to-ten dry-site, self-service campground and your &lsquo;caretaker&rsquo;s residence,&rsquo; which has no legal limits for size. Dry camping means no electrical, water, or sewer hookups. All campers are self-contained for at least one night and sometimes simply need a level, safe place to park for the evening. The payment system can be either online or via a drop-box. No campfires would be allowed. The only maintenance would be routine cleaning around the sites and occasional trash pickup. The campground would sit near the highway entrance, and your caretaker&rsquo;s residence could be situated anywhere else on the property, including atop the ridge overlooking the grand San Joaquin Valley.
               </p>
             </div>
           </article>
@@ -328,6 +363,123 @@
               data-video-title="Promotional overview of the Kings Canyon property"
             ></div>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTO GALLERIES -->
+    <section class="section section--galleries" id="galleries" aria-labelledby="galleries-heading">
+      <div class="container">
+        <header class="section-header section-header--center" data-reveal>
+          <p class="section-eyebrow">Photo Galleries</p>
+          <h2 class="section-title" id="galleries-heading">Explore the Land and the Region</h2>
+        </header>
+
+        <div class="gallery-subsection" data-reveal>
+          <h3 class="gallery-subtitle">The Property</h3>
+          <p class="gallery-note">High-resolution originals for all property photos are in Dropbox.</p>
+          <div class="gallery-grid">
+            <!-- TODO: replace with on-site property photo (high-res original in Dropbox). -->
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/property-view-placeholder.jpg"
+              data-lightbox-alt="Open mountain view from the Kings Canyon property"
+              aria-label="View property mountain view full size"
+            >
+              <img src="assets/images/property-view-placeholder.jpg" alt="Open mountain view from the Kings Canyon property" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">Mountain views</span>
+            </button>
+            <!-- TODO: replace with on-site manzanita photo (high-res original in Dropbox). -->
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/property-manzanita-placeholder.jpg"
+              data-lightbox-alt="Manzanita trees on the Kings Canyon property"
+              aria-label="View manzanita trees full size"
+            >
+              <img src="assets/images/property-manzanita-placeholder.jpg" alt="Manzanita trees on the Kings Canyon property" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">Manzanita groves</span>
+            </button>
+            <!-- TODO: replace with on-site gravel area photo (high-res original in Dropbox). -->
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/property-gravel-placeholder.jpg"
+              data-lightbox-alt="Panoramic gravel camping area on the Kings Canyon property"
+              aria-label="View gravel camping area full size"
+            >
+              <img src="assets/images/property-gravel-placeholder.jpg" alt="Panoramic gravel camping area on the Kings Canyon property" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">Gravel camping area</span>
+            </button>
+            <!-- TODO: replace with on-site ridge photo (high-res original in Dropbox). -->
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/property-ridge-placeholder.jpg"
+              data-lightbox-alt="Ridge overlooking the San Joaquin Valley from the Kings Canyon property"
+              aria-label="View ridge view full size"
+            >
+              <img src="assets/images/property-ridge-placeholder.jpg" alt="Ridge overlooking the San Joaquin Valley from the Kings Canyon property" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">Ridge overlook</span>
+            </button>
+          </div>
+        </div>
+
+        <figure class="night-sky-highlight" data-reveal>
+          <!-- TODO: replace with on-site night sky photo (high-res original in Dropbox). -->
+          <button
+            class="gallery-item gallery-item--wide"
+            type="button"
+            data-lightbox-src="assets/images/property-night-sky-placeholder.jpg"
+            data-lightbox-alt="Milky Way over granite boulders on the Kings Canyon property ridge"
+            aria-label="View night sky photo full size"
+          >
+            <img src="assets/images/property-night-sky-placeholder.jpg" alt="Milky Way over granite boulders on the Kings Canyon property ridge" loading="lazy" width="1280" height="720">
+          </button>
+          <figcaption class="night-sky-caption">
+            Lie back on the giant granite boulders along the ridge and look up at the Milky Way. Billions of stars so close and bright they feel within reach. The dark Sierra skies here deliver a night sky that city dwellers rarely get to see.
+          </figcaption>
+        </figure>
+
+        <div class="gallery-subsection" data-reveal>
+          <h3 class="gallery-subtitle">Nearby Attractions</h3>
+          <!-- TODO: use only public-domain/NPS-credited images from https://www.nps.gov/seki/index.htm; include attribution where required. -->
+          <p class="gallery-note">
+            Illustrative images shown; replace with NPS public-domain photography before final publish. See <a href="https://www.nps.gov/seki/index.htm" target="_blank" rel="noopener noreferrer">Sequoia &amp; Kings Canyon National Parks</a>.
+          </p>
+          <div class="gallery-grid">
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/attraction-grant-grove-placeholder.jpg"
+              data-lightbox-alt="General Grant Grove of giant sequoias in Kings Canyon National Park"
+              aria-label="View General Grant Grove full size"
+            >
+              <img src="assets/images/attraction-grant-grove-placeholder.jpg" alt="General Grant Grove of giant sequoias in Kings Canyon National Park" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">General Grant Grove</span>
+            </button>
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/attraction-kings-canyon-placeholder.jpg"
+              data-lightbox-alt="Kings Canyon, one of the deepest canyons in North America"
+              aria-label="View Kings Canyon full size"
+            >
+              <img src="assets/images/attraction-kings-canyon-placeholder.jpg" alt="Kings Canyon, one of the deepest canyons in North America" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">Kings Canyon</span>
+            </button>
+            <button
+              class="gallery-item"
+              type="button"
+              data-lightbox-src="assets/images/attraction-general-sherman-placeholder.jpg"
+              data-lightbox-alt="General Sherman Tree, the world's largest tree, in Sequoia National Park"
+              aria-label="View General Sherman Tree full size"
+            >
+              <img src="assets/images/attraction-general-sherman-placeholder.jpg" alt="General Sherman Tree, the world's largest tree, in Sequoia National Park" loading="lazy" width="640" height="480">
+              <span class="gallery-caption">General Sherman Tree</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -416,11 +568,11 @@
               This is a rare chance to acquire a large foothills parcel on the Kings Canyon Scenic Byway. Contact the listing agent for pricing, due diligence materials, and to arrange a site visit.
             </p>
 
-            <!-- ASSET: Replace href with [REALTOR_URL] -->
+            <!-- TODO: realtor may provide a more direct contact link later. -->
             <a
               class="btn btn--primary btn--large"
               id="realtor-link"
-              href="[REALTOR_URL]"
+              href="https://www.prospectreal.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -433,16 +585,16 @@
             </address>
           </div>
 
-          <div class="scheduling-panel" data-reveal>
-            <h3 class="scheduling-panel-title">Request a Site Visit</h3>
-            <p class="scheduling-panel-note">
-              Choose your preferred showing date, then complete the short request form with your contact details.
+          <div class="contact-cta-panel" data-reveal>
+            <h3 class="contact-cta-panel-title">Schedule a Showing</h3>
+            <p class="contact-cta-panel-note">
+              Contact the listing agent through Prospect Real Estate to arrange a private site visit and receive pricing and due diligence materials.
             </p>
             <a
               class="btn btn--primary btn--large"
-              href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
-              data-open-scheduler
-              role="button"
+              href="https://www.prospectreal.com/"
+              target="_blank"
+              rel="noopener noreferrer"
             >Schedule a Showing</a>
           </div>
         </div>
@@ -458,51 +610,6 @@
       <a class="footer-top" href="#hero">Back to top</a>
     </div>
   </footer>
-
-  <!-- Showing scheduler -->
-  <div class="scheduler" id="showing-scheduler" hidden role="dialog" aria-modal="true" aria-labelledby="scheduler-title">
-    <div class="scheduler-panel">
-      <button class="scheduler-close" id="scheduler-close" type="button" aria-label="Close scheduling calendar">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-
-      <div class="scheduler-step" id="scheduler-step-calendar">
-        <h2 class="scheduler-title" id="scheduler-title">Pick a Showing Date</h2>
-        <p class="scheduler-lead">Select an available date for your private property tour.</p>
-
-        <div class="calendar">
-          <div class="calendar-header">
-            <button class="calendar-nav" id="calendar-prev" type="button" aria-label="Previous month">&lsaquo;</button>
-            <p class="calendar-month" id="calendar-month" aria-live="polite"></p>
-            <button class="calendar-nav" id="calendar-next" type="button" aria-label="Next month">&rsaquo;</button>
-          </div>
-          <div class="calendar-weekdays" aria-hidden="true">
-            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-          </div>
-          <div class="calendar-grid" id="calendar-grid" role="grid" aria-labelledby="calendar-month"></div>
-        </div>
-      </div>
-
-      <div class="scheduler-step" id="scheduler-step-form" hidden>
-        <h2 class="scheduler-title">Complete Your Request</h2>
-        <p class="scheduler-lead">
-          You selected <strong id="scheduler-selected-date"></strong>. Please fill out the showing request form with your name, contact details, and preferred time.
-        </p>
-        <a
-          class="btn btn--primary btn--large"
-          id="scheduler-form-link"
-          href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
-          data-form-base="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2"
-          data-form-query="pvs=105"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Continue to Request Form
-        </a>
-        <button class="btn btn--secondary" id="scheduler-back" type="button">Choose Another Date</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged rendering">

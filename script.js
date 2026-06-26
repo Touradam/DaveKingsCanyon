@@ -1,6 +1,6 @@
 /**
  * Kings Canyon Land - Midnight Champagne Interactions
- * Nav, hero effects, scroll reveal, lightbox, lazy video embeds, showing scheduler
+ * Nav, hero effects, scroll reveal, lightbox, lazy video embeds, map POI data
  */
 (function () {
   "use strict";
@@ -24,38 +24,54 @@
   var lightboxCaption = document.getElementById("lightbox-caption");
   var lightboxClose = document.getElementById("lightbox-close");
   var videoEmbeds = document.querySelectorAll(".video-embed");
-  var scheduler = document.getElementById("showing-scheduler");
-  var schedulerClose = document.getElementById("scheduler-close");
-  var schedulerTriggers = document.querySelectorAll("[data-open-scheduler]");
-  var schedulerStepCalendar = document.getElementById("scheduler-step-calendar");
-  var schedulerStepForm = document.getElementById("scheduler-step-form");
-  var schedulerSelectedDate = document.getElementById("scheduler-selected-date");
-  var schedulerBack = document.getElementById("scheduler-back");
-  var calendarMonth = document.getElementById("calendar-month");
-  var calendarGrid = document.getElementById("calendar-grid");
-  var calendarPrev = document.getElementById("calendar-prev");
-  var calendarNext = document.getElementById("calendar-next");
-  var schedulerFormLink = document.getElementById("scheduler-form-link");
   var footerYear = document.getElementById("footer-year");
 
   var lightboxTrigger = null;
-  var schedulerTrigger = null;
   var scrollTicking = false;
-  var calendarView = new Date();
-  calendarView.setDate(1);
-  var selectedDate = null;
 
-  var dateFormatter = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  var monthFormatter = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  /*
+   * Map points of interest for Google My Maps custom embed.
+   * TODO: Create a map at https://www.google.com/maps/d/ with these markers,
+   * then replace the iframe src in index.html with the My Maps embed URL.
+   */
+  window.mapPointsOfInterest = [
+    {
+      name: "Snowline Lodge (Property)",
+      address: "44138 E Kings Canyon Road, Dunlap, CA 93621",
+      lat: 36.7614,
+      lng: -119.1025,
+    },
+    {
+      name: "General Grant Grove",
+      lat: 36.7489,
+      lng: -118.9734,
+    },
+    {
+      name: "Kings Canyon National Park Entrance",
+      lat: 36.7889,
+      lng: -118.6753,
+    },
+    {
+      name: "Sequoia National Park / General Sherman",
+      lat: 36.5649,
+      lng: -118.7725,
+    },
+    {
+      name: "Boyden Caverns",
+      lat: 36.8331,
+      lng: -118.9667,
+    },
+    {
+      name: "Cedar Grove",
+      lat: 36.7942,
+      lng: -118.5553,
+    },
+    {
+      name: "Kings River",
+      lat: 36.8200,
+      lng: -118.6800,
+    },
+  ];
 
   /* --- Utility --- */
   function isPlaceholderUrl(url) {
@@ -222,7 +238,7 @@
   /* --- Scroll Reveal with Stagger --- */
   function applyStaggerDelays() {
     var groups = document.querySelectorAll(
-      ".about-grid, .concepts-list, .video-grid, .potential-list, .quick-facts, .contact-grid"
+      ".about-grid, .concepts-list, .video-grid, .potential-list, .quick-facts, .contact-grid, .gallery-grid, .gallery-subsection"
     );
 
     groups.forEach(function (group) {
@@ -371,167 +387,6 @@
     });
   } else {
     videoEmbeds.forEach(buildVideoEmbed);
-  }
-
-  /* --- Showing Scheduler --- */
-  function startOfDay(date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  function isSameDay(a, b) {
-    return (
-      a.getFullYear() === b.getFullYear() &&
-      a.getMonth() === b.getMonth() &&
-      a.getDate() === b.getDate()
-    );
-  }
-
-  function renderCalendar() {
-    if (!calendarGrid || !calendarMonth) return;
-
-    var today = startOfDay(new Date());
-    var year = calendarView.getFullYear();
-    var month = calendarView.getMonth();
-    var firstDay = new Date(year, month, 1).getDay();
-    var daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    calendarMonth.textContent = monthFormatter.format(calendarView);
-    calendarGrid.innerHTML = "";
-
-    for (var i = 0; i < firstDay; i++) {
-      var empty = document.createElement("span");
-      empty.className = "calendar-day calendar-day--empty";
-      empty.setAttribute("aria-hidden", "true");
-      calendarGrid.appendChild(empty);
-    }
-
-    for (var day = 1; day <= daysInMonth; day++) {
-      var date = new Date(year, month, day);
-      var button = document.createElement("button");
-      button.type = "button";
-      button.className = "calendar-day";
-      button.textContent = String(day);
-      button.setAttribute("role", "gridcell");
-      button.setAttribute(
-        "aria-label",
-        dateFormatter.format(date)
-      );
-
-      if (startOfDay(date) < today) {
-        button.disabled = true;
-        button.classList.add("calendar-day--disabled");
-      } else {
-        if (selectedDate && isSameDay(date, selectedDate)) {
-          button.classList.add("is-selected");
-          button.setAttribute("aria-selected", "true");
-        }
-
-        button.addEventListener("click", function (pickedDate) {
-          return function () {
-            selectShowingDate(pickedDate);
-          };
-        }(date));
-      }
-
-      calendarGrid.appendChild(button);
-    }
-  }
-
-  function showSchedulerStep(step) {
-    if (!schedulerStepCalendar || !schedulerStepForm) return;
-
-    var onCalendar = step === "calendar";
-    schedulerStepCalendar.hidden = !onCalendar;
-    schedulerStepForm.hidden = onCalendar;
-  }
-
-  function selectShowingDate(date) {
-    selectedDate = startOfDay(date);
-    if (schedulerSelectedDate) {
-      schedulerSelectedDate.textContent = dateFormatter.format(selectedDate);
-    }
-    if (schedulerFormLink) {
-      var formBase = schedulerFormLink.getAttribute("data-form-base") || schedulerFormLink.href.split("?")[0];
-      var formQuery = schedulerFormLink.getAttribute("data-form-query") || "pvs=105";
-      var dateParam = "showing_date=" + encodeURIComponent(dateFormatter.format(selectedDate));
-      schedulerFormLink.href = formBase + "?" + formQuery + "&" + dateParam;
-    }
-    showSchedulerStep("form");
-  }
-
-  function openScheduler(trigger) {
-    if (!scheduler) return;
-
-    schedulerTrigger = trigger || null;
-    selectedDate = null;
-    calendarView = new Date();
-    calendarView.setDate(1);
-    showSchedulerStep("calendar");
-    renderCalendar();
-    scheduler.hidden = false;
-    document.body.style.overflow = "hidden";
-
-    if (schedulerClose) {
-      schedulerClose.focus();
-    }
-  }
-
-  function closeScheduler() {
-    if (!scheduler) return;
-
-    scheduler.hidden = true;
-    document.body.style.overflow = "";
-
-    if (schedulerTrigger) {
-      schedulerTrigger.focus();
-      schedulerTrigger = null;
-    }
-  }
-
-  if (scheduler && calendarGrid) {
-    schedulerTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function (e) {
-        e.preventDefault();
-        openScheduler(trigger);
-      });
-    });
-
-    if (schedulerClose) {
-      schedulerClose.addEventListener("click", closeScheduler);
-    }
-
-    if (schedulerBack) {
-      schedulerBack.addEventListener("click", function () {
-        showSchedulerStep("calendar");
-        renderCalendar();
-      });
-    }
-
-    if (calendarPrev) {
-      calendarPrev.addEventListener("click", function () {
-        calendarView.setMonth(calendarView.getMonth() - 1);
-        renderCalendar();
-      });
-    }
-
-    if (calendarNext) {
-      calendarNext.addEventListener("click", function () {
-        calendarView.setMonth(calendarView.getMonth() + 1);
-        renderCalendar();
-      });
-    }
-
-    scheduler.addEventListener("click", function (e) {
-      if (e.target === scheduler) {
-        closeScheduler();
-      }
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (!scheduler.hidden && e.key === "Escape") {
-        closeScheduler();
-      }
-    });
   }
 
   if (prefersReducedMotion) {
