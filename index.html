@@ -88,13 +88,11 @@
         <p class="hero-address">44138 E. Kings Canyon Road, Dunlap, California 93621</p>
         <p class="hero-subtitle">On State Highway 180, the Gateway to the Sierras</p>
         <div class="hero-actions">
-          <!-- TODO: realtor may provide a more direct contact link later. -->
-          <a
+          <button
             class="btn btn--primary"
-            href="https://www.prospectreal.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >Schedule a Showing</a>
+            type="button"
+            data-open-scheduler
+          >Schedule a Showing</button>
           <a class="btn btn--secondary" href="#about">Explore the Property</a>
         </div>
       </div>
@@ -377,7 +375,6 @@
 
         <div class="gallery-subsection" data-reveal>
           <h3 class="gallery-subtitle">The Property</h3>
-          <p class="gallery-note">High-resolution originals for all property photos are in Dropbox.</p>
           <div class="gallery-grid">
             <!-- TODO: replace with on-site property photo (high-res original in Dropbox). -->
             <button
@@ -572,7 +569,7 @@
             <a
               class="btn btn--primary btn--large"
               id="realtor-link"
-              href="https://www.prospectreal.com/"
+              href="https://prospectreal.idxbroker.com/idx/details/listing/a074/648976/0-E-Kings-Canyon-Road-Dunlap-CA-93621"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -585,18 +582,17 @@
             </address>
           </div>
 
-          <div class="contact-cta-panel" data-reveal>
+          <form id="contact-form" class="contact-cta-panel" data-reveal>
             <h3 class="contact-cta-panel-title">Schedule a Showing</h3>
             <p class="contact-cta-panel-note">
-              Contact the listing agent through Prospect Real Estate to arrange a private site visit and receive pricing and due diligence materials.
+              Choose your preferred showing date for a private property tour.
             </p>
-            <a
+            <button
               class="btn btn--primary btn--large"
-              href="https://www.prospectreal.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >Schedule a Showing</a>
-          </div>
+              type="button"
+              data-open-scheduler
+            >Schedule a Showing</button>
+          </form>
         </div>
       </div>
     </section>
@@ -610,6 +606,52 @@
       <a class="footer-top" href="#hero">Back to top</a>
     </div>
   </footer>
+
+  <!-- Showing scheduler -->
+  <div class="scheduler" id="showing-scheduler" hidden role="dialog" aria-modal="true" aria-labelledby="scheduler-title">
+    <div class="scheduler-panel">
+      <button class="scheduler-close" id="scheduler-close" type="button" aria-label="Close scheduling calendar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="scheduler-step" id="scheduler-step-calendar">
+        <h2 class="scheduler-title" id="scheduler-title">Pick a Showing Date</h2>
+        <p class="scheduler-lead">Select an available date for your private property tour.</p>
+
+        <div class="calendar">
+          <div class="calendar-header">
+            <button class="calendar-nav" id="calendar-prev" type="button" aria-label="Previous month">&lsaquo;</button>
+            <p class="calendar-month" id="calendar-month" aria-live="polite"></p>
+            <button class="calendar-nav" id="calendar-next" type="button" aria-label="Next month">&rsaquo;</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="calendar-grid" id="calendar-grid" role="grid" aria-labelledby="calendar-month"></div>
+        </div>
+      </div>
+
+      <!-- TODO: re-enable request form step when showing workflow is ready. -->
+      <div class="scheduler-step" id="scheduler-step-form" hidden>
+        <h2 class="scheduler-title">Complete Your Request</h2>
+        <p class="scheduler-lead">
+          You selected <strong id="scheduler-selected-date"></strong>. Please fill out the showing request form with your name, contact details, and preferred time.
+        </p>
+        <a
+          class="btn btn--primary btn--large"
+          id="scheduler-form-link"
+          href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
+          data-form-base="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2"
+          data-form-query="pvs=105"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Continue to Request Form
+        </a>
+        <button class="btn btn--secondary" id="scheduler-back" type="button">Choose Another Date</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged rendering">
