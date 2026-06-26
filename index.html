@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -88,11 +88,12 @@
         <p class="hero-address">44138 E. Kings Canyon Road, Dunlap, California 93621</p>
         <p class="hero-subtitle">On State Highway 180, the Gateway to the Sierras</p>
         <div class="hero-actions">
-          <button
+          <a
             class="btn btn--primary"
-            type="button"
+            href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
             data-open-scheduler
-          >Schedule a Showing</button>
+            role="button"
+          >Schedule a Showing</a>
           <a class="btn btn--secondary" href="#about">Explore the Property</a>
         </div>
       </div>
@@ -585,13 +586,14 @@
           <form id="contact-form" class="contact-cta-panel" data-reveal>
             <h3 class="contact-cta-panel-title">Schedule a Showing</h3>
             <p class="contact-cta-panel-note">
-              Choose your preferred showing date for a private property tour.
+              Choose your preferred showing date, then complete the short request form with your contact details.
             </p>
-            <button
+            <a
               class="btn btn--primary btn--large"
-              type="button"
+              href="https://touradam.notion.site/d99632cc8c2b4bada501df49ac58b9f2?pvs=105"
               data-open-scheduler
-            >Schedule a Showing</button>
+              role="button"
+            >Schedule a Showing</a>
           </form>
         </div>
       </div>
@@ -631,7 +633,6 @@
         </div>
       </div>
 
-      <!-- TODO: re-enable request form step when showing workflow is ready. -->
       <div class="scheduler-step" id="scheduler-step-form" hidden>
         <h2 class="scheduler-title">Complete Your Request</h2>
         <p class="scheduler-lead">
@@ -664,6 +665,6 @@
     </figure>
   </div>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=2" defer></script>
 </body>
 </html>

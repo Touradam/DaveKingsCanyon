@@ -491,8 +491,16 @@
 
   function selectShowingDate(date) {
     selectedDate = startOfDay(date);
-    renderCalendar();
-    // TODO: advance to request form when showing workflow is ready.
+    if (schedulerSelectedDate) {
+      schedulerSelectedDate.textContent = dateFormatter.format(selectedDate);
+    }
+    if (schedulerFormLink) {
+      var formBase = schedulerFormLink.getAttribute("data-form-base") || schedulerFormLink.href.split("?")[0];
+      var formQuery = schedulerFormLink.getAttribute("data-form-query") || "pvs=105";
+      var dateParam = "showing_date=" + encodeURIComponent(dateFormatter.format(selectedDate));
+      schedulerFormLink.href = formBase + "?" + formQuery + "&" + dateParam;
+    }
+    showSchedulerStep("form");
   }
 
   function openScheduler(trigger) {
@@ -505,6 +513,7 @@
     showSchedulerStep("calendar");
     renderCalendar();
     scheduler.hidden = false;
+    scheduler.removeAttribute("hidden");
     document.body.style.overflow = "hidden";
 
     if (schedulerClose) {
@@ -516,6 +525,7 @@
     if (!scheduler) return;
 
     scheduler.hidden = true;
+    scheduler.setAttribute("hidden", "");
     document.body.style.overflow = "";
 
     if (schedulerTrigger) {
@@ -525,11 +535,11 @@
   }
 
   if (scheduler && calendarGrid) {
-    schedulerTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function (e) {
-        e.preventDefault();
-        openScheduler(trigger);
-      });
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest("[data-open-scheduler]");
+      if (!trigger) return;
+      e.preventDefault();
+      openScheduler(trigger);
     });
 
     if (schedulerClose) {
