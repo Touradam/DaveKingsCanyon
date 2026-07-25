@@ -80,6 +80,11 @@ iframe {
   max-width: 100%;
 }
 
+/* Keep images proportional when width/height attributes are set */
+img {
+  height: auto;
+}
+
 a {
   color: var(--gold-light);
   text-decoration-thickness: 1px;
@@ -181,6 +186,7 @@ a:hover {
   letter-spacing: -0.02em;
   line-height: 1.12;
   color: var(--text);
+  text-wrap: balance;
 }
 
 .section-lead {
@@ -299,17 +305,32 @@ a:hover {
   z-index: 1000;
   height: var(--header-height);
   transition:
-    background var(--transition),
     box-shadow var(--transition),
     border-color var(--transition);
   border-bottom: 1px solid transparent;
 }
 
-.site-header.is-scrolled {
+/* Blurred backdrop lives on a pseudo-element: backdrop-filter on the header
+   itself would turn it into the containing block for the fixed mobile nav
+   overlay and break the fullscreen menu. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(12, 12, 15, 0.92);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.site-header.is-scrolled {
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(12px);
+}
+
+.site-header.is-scrolled::before {
+  opacity: 1;
 }
 
 .header-inner {
@@ -499,8 +520,8 @@ body.nav-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100svh;
   min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--ink);
 }
@@ -621,6 +642,20 @@ body.nav-open {
   justify-content: center;
 }
 
+@media (max-width: 479px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(100%, 20rem);
+    margin-inline: auto;
+  }
+
+  .contact-info .btn,
+  .contact-cta-panel .btn {
+    width: 100%;
+  }
+}
+
 /* --- About --- */
 .about-grid {
   display: grid;
@@ -723,13 +758,13 @@ body.nav-open {
 
 @media (min-width: 640px) {
   .quick-facts {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
   .about-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: start;
   }
 }
@@ -851,9 +886,9 @@ body.nav-open {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
   .concept-card {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--space-lg);
   }
 
@@ -915,17 +950,35 @@ body.nav-open {
   position: absolute;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--space-sm);
   padding: var(--space-md);
   text-align: center;
-  color: var(--text-dim);
-  font-size: 0.9375rem;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background:
+    radial-gradient(ellipse at center, rgba(196, 163, 90, 0.06) 0%, transparent 70%),
+    var(--surface);
 }
 
-.video-placeholder code {
-  color: var(--gold);
-  font-family: var(--font-math);
+.video-placeholder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.125rem;
+  color: var(--gold-light);
+  background: var(--ink-raised);
+  border: 1px solid var(--border-gold);
+  border-radius: 50%;
+  box-shadow: var(--shadow-gold);
 }
 
 .video-item--featured {
@@ -1119,9 +1172,9 @@ body.nav-open {
   line-height: 1.6;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
   .potential-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 }
@@ -1200,7 +1253,9 @@ body.nav-open {
 .scheduler-panel {
   position: relative;
   width: min(100%, 28rem);
-  padding: var(--space-lg);
+  max-height: min(90svh, 90vh);
+  overflow-y: auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
   background: var(--surface);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-xl);
@@ -1329,7 +1384,7 @@ body.nav-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: 0;
   font-family: var(--font-body);
   font-size: 0.9375rem;
@@ -1371,9 +1426,9 @@ body.nav-open {
   opacity: 0.45;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 901px) {
   .contact-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 }
