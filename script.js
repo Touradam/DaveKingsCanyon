@@ -364,7 +364,10 @@
 
     if (isPlaceholderUrl(url)) {
       container.innerHTML =
-        '<div class="video-placeholder">Replace <code>data-video-url</code> with your video URL</div>';
+        '<div class="video-placeholder">' +
+        '<span class="video-placeholder-icon" aria-hidden="true">&#9654;</span>' +
+        '<span>Footage coming soon</span>' +
+        "</div>";
       container.dataset.loaded = "true";
       return;
     }
