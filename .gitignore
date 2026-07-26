@@ -14,3 +14,22 @@ Archive/
 *.webp
 !assets/images/
 !assets/images/**
+
+# Ignore extra copies of source images already curated into assets/images/
+assets/images/Giant Forest museum.jpeg
+assets/images/Giant Sequoia Tree in Winter.jpeg
+assets/images/Giant Sequoia Trees.jpeg
+assets/images/Kings Canyon.jpeg
+assets/images/concept-site-plan-poster.jpg
+
+# Ignore local working folders not needed for the site
+3d/
+Dropbox/
+KingsCanyonroad.com/
+Site/
+Website Verbiage.docx
+assets/RV/
+assets/Toovy Trust Property Landmarks (1).pdf
+assets/local attraction/
+assets/LOCAL WILDLIFE/
+assets/RealImages/
