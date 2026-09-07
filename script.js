@@ -24,6 +24,9 @@
   var lightboxImage = document.getElementById("lightbox-image");
   var lightboxCaption = document.getElementById("lightbox-caption");
   var lightboxClose = document.getElementById("lightbox-close");
+  var lightboxPrev = document.getElementById("lightbox-prev");
+  var lightboxNext = document.getElementById("lightbox-next");
+  var lightboxCounter = document.getElementById("lightbox-counter");
   var videoEmbeds = document.querySelectorAll(".video-embed");
   var scheduler = document.getElementById("showing-scheduler");
   var schedulerClose = document.getElementById("scheduler-close");
@@ -40,6 +43,8 @@
   var footerYear = document.getElementById("footer-year");
 
   var lightboxTrigger = null;
+  var lightboxGallery = null;
+  var lightboxIndex = 0;
   var schedulerTrigger = null;
   var scrollTicking = false;
   var calendarView = new Date();
@@ -357,11 +362,76 @@
   }
 
   /* --- Lightbox --- */
+  function updateLightboxCounter() {
+    if (!lightboxCounter) return;
+    if (lightboxGallery && lightboxGallery.length > 1) {
+      lightboxCounter.textContent =
+        lightboxIndex + 1 + " / " + lightboxGallery.length;
+    }
+  }
+
+  function setLightboxGallery(trigger, src) {
+    lightboxGallery = null;
+    lightboxIndex = 0;
+
+    var cycleImg = trigger
+      ? trigger.querySelector("img[data-cycle-images]")
+      : null;
+
+    if (cycleImg) {
+      var sources = cycleImg
+        .getAttribute("data-cycle-images")
+        .split(",")
+        .map(function (item) {
+          return item.trim();
+        })
+        .filter(Boolean);
+
+      if (sources.length > 1) {
+        lightboxGallery = sources;
+        var found = sources.indexOf(src);
+        lightboxIndex = found === -1 ? 0 : found;
+      }
+    }
+
+    var hasGallery = lightboxGallery !== null;
+    if (lightboxPrev) lightboxPrev.hidden = !hasGallery;
+    if (lightboxNext) lightboxNext.hidden = !hasGallery;
+    if (lightboxCounter) lightboxCounter.hidden = !hasGallery;
+  }
+
+  function stepLightbox(delta) {
+    if (!lightboxGallery) return;
+
+    lightboxIndex =
+      (lightboxIndex + delta + lightboxGallery.length) % lightboxGallery.length;
+    var next = lightboxGallery[lightboxIndex];
+
+    lightboxImage.classList.add("is-stepping");
+
+    window.setTimeout(function () {
+      lightboxImage.src = next;
+      updateLightboxCounter();
+
+      if (lightboxImage.decode) {
+        lightboxImage.decode().then(function () {
+          lightboxImage.classList.remove("is-stepping");
+        }).catch(function () {
+          lightboxImage.classList.remove("is-stepping");
+        });
+      } else {
+        lightboxImage.classList.remove("is-stepping");
+      }
+    }, 200);
+  }
+
   function openLightbox(src, alt, trigger) {
     lightboxTrigger = trigger;
+    setLightboxGallery(trigger, src);
     lightboxImage.src = src;
     lightboxImage.alt = alt;
     lightboxCaption.textContent = alt;
+    updateLightboxCounter();
     lightbox.hidden = false;
     document.body.style.overflow = "hidden";
     lightboxClose.focus();
@@ -370,6 +440,7 @@
   function closeLightbox() {
     lightbox.hidden = true;
     lightboxImage.src = "";
+    lightboxGallery = null;
     document.body.style.overflow = "";
     if (lightboxTrigger) {
       lightboxTrigger.focus();
@@ -390,6 +461,18 @@
 
     lightboxClose.addEventListener("click", closeLightbox);
 
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener("click", function () {
+        stepLightbox(-1);
+      });
+    }
+
+    if (lightboxNext) {
+      lightboxNext.addEventListener("click", function () {
+        stepLightbox(1);
+      });
+    }
+
     lightbox.addEventListener("click", function (e) {
       if (e.target === lightbox) {
         closeLightbox();
@@ -397,8 +480,13 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (!lightbox.hidden && e.key === "Escape") {
+      if (lightbox.hidden) return;
+      if (e.key === "Escape") {
         closeLightbox();
+      } else if (e.key === "ArrowLeft") {
+        stepLightbox(-1);
+      } else if (e.key === "ArrowRight") {
+        stepLightbox(1);
       }
     });
   }

@@ -1656,6 +1656,52 @@ body.nav-open {
   box-shadow: var(--shadow-gold);
 }
 
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: var(--surface);
+  color: var(--gold-light);
+  border: 1px solid var(--border-gold);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.lightbox-nav:hover {
+  background: var(--surface-hover);
+  box-shadow: var(--shadow-gold);
+}
+
+.lightbox-nav--prev {
+  left: var(--space-md);
+}
+
+.lightbox-nav--next {
+  right: var(--space-md);
+}
+
+.lightbox-nav[hidden],
+.lightbox-counter[hidden] {
+  display: none;
+}
+
+.lightbox-counter {
+  margin: var(--space-xs) 0 0;
+  text-align: center;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+}
+
 .lightbox-figure {
   margin: 0;
   max-width: min(100%, var(--container-max));
@@ -1669,6 +1715,11 @@ body.nav-open {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-gold);
   box-shadow: var(--shadow-lg);
+  transition: opacity 0.2s ease;
+}
+
+.lightbox-image.is-stepping {
+  opacity: 0;
 }
 
 .lightbox-caption {
