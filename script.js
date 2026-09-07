@@ -18,6 +18,7 @@
   var heroParticles = document.getElementById("hero-particles");
   var revealElements = document.querySelectorAll("[data-reveal]");
   var tiltElements = document.querySelectorAll("[data-tilt]");
+  var cycleImages = document.querySelectorAll("img[data-cycle-images]");
   var lightboxButtons = document.querySelectorAll("[data-lightbox-src]");
   var lightbox = document.getElementById("lightbox");
   var lightboxImage = document.getElementById("lightbox-image");
@@ -260,6 +261,54 @@
         el.style.setProperty("--tilt-x", "0deg");
         el.style.setProperty("--tilt-y", "0deg");
       });
+    });
+  }
+
+  /* --- Concept Image Cycler --- */
+  if (cycleImages.length && !prefersReducedMotion) {
+    cycleImages.forEach(function (img) {
+      var sources = img
+        .getAttribute("data-cycle-images")
+        .split(",")
+        .map(function (src) {
+          return src.trim();
+        })
+        .filter(Boolean);
+
+      if (sources.length < 2) return;
+
+      // Preload every frame so crossfades never wait on the network
+      sources.forEach(function (src) {
+        var preloader = new Image();
+        preloader.src = src;
+      });
+
+      var lightboxBtn = img.closest("[data-lightbox-src]");
+      var currentIndex = 0;
+
+      window.setInterval(function () {
+        currentIndex = (currentIndex + 1) % sources.length;
+        var next = sources[currentIndex];
+        img.classList.add("is-cycling");
+
+        window.setTimeout(function () {
+          img.src = next;
+          if (lightboxBtn) {
+            lightboxBtn.setAttribute("data-lightbox-src", next);
+          }
+
+          // Fade back in once the frame is decoded and ready to paint
+          if (img.decode) {
+            img.decode().then(function () {
+              img.classList.remove("is-cycling");
+            }).catch(function () {
+              img.classList.remove("is-cycling");
+            });
+          } else {
+            img.classList.remove("is-cycling");
+          }
+        }, 450);
+      }, 4500);
     });
   }
 

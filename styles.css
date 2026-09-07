@@ -819,7 +819,13 @@ body.nav-open {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition:
+    transform var(--transition-slow),
+    opacity 0.45s ease;
+}
+
+.concept-image.is-cycling {
+  opacity: 0;
 }
 
 .concept-image-btn:hover .concept-image {
