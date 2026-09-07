@@ -21,6 +21,15 @@ assets/images/Giant Sequoia Tree in Winter.jpeg
 assets/images/Giant Sequoia Trees.jpeg
 assets/images/Kings Canyon.jpeg
 assets/images/concept-site-plan-poster.jpg
+assets/images/1525788270477.webp
+assets/images/images (1).jpg
+assets/images/images.jpg
+
+# Design and sign working files stay local
+*.psd
+*.zip
+sign*.svg
+sign*.pdf
 
 # Ignore local working folders not needed for the site
 3d/
@@ -28,8 +37,10 @@ Dropbox/
 KingsCanyonroad.com/
 Site/
 Website Verbiage.docx
+tools/
 assets/RV/
 assets/Toovy Trust Property Landmarks (1).pdf
 assets/local attraction/
+assets/local vegetation/
 assets/LOCAL WILDLIFE/
 assets/RealImages/
