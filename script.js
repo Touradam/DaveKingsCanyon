@@ -489,6 +489,42 @@
         stepLightbox(1);
       }
     });
+
+    /* Swipe navigation on touch devices: up/left = next, down/right = previous */
+    var swipeStartX = 0;
+    var swipeStartY = 0;
+    var SWIPE_MIN = 48;
+
+    lightbox.addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length !== 1) return;
+        swipeStartX = e.touches[0].clientX;
+        swipeStartY = e.touches[0].clientY;
+      },
+      { passive: true }
+    );
+
+    lightbox.addEventListener(
+      "touchend",
+      function (e) {
+        if (!lightboxGallery || e.changedTouches.length !== 1) return;
+
+        var dx = e.changedTouches[0].clientX - swipeStartX;
+        var dy = e.changedTouches[0].clientY - swipeStartY;
+        var absX = Math.abs(dx);
+        var absY = Math.abs(dy);
+
+        if (absX < SWIPE_MIN && absY < SWIPE_MIN) return;
+
+        if (absY >= absX) {
+          stepLightbox(dy < 0 ? 1 : -1);
+        } else {
+          stepLightbox(dx < 0 ? 1 : -1);
+        }
+      },
+      { passive: true }
+    );
   }
 
   /* --- Lazy Video Embeds --- */
