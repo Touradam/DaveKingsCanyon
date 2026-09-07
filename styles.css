@@ -1665,20 +1665,23 @@ body.nav-open {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  background: var(--surface);
-  color: var(--gold-light);
-  border: 1px solid var(--border-gold);
+  background: transparent;
+  color: rgba(226, 200, 135, 0.5);
+  border: 1px solid transparent;
   border-radius: 50%;
   cursor: pointer;
   transform: translateY(-50%);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
   transition:
+    color var(--transition),
     background var(--transition),
-    box-shadow var(--transition);
+    border-color var(--transition);
 }
 
 .lightbox-nav:hover {
-  background: var(--surface-hover);
-  box-shadow: var(--shadow-gold);
+  color: var(--gold-light);
+  background: rgba(12, 12, 15, 0.45);
+  border-color: var(--border-gold);
 }
 
 .lightbox-nav--prev {
