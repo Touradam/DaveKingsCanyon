@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -55,11 +55,9 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul class="nav-list">
-          <li><a class="nav-link" href="#about">Location</a></li>
+          <li><a class="nav-link" href="#location">Location</a></li>
           <li><a class="nav-link" href="#concepts">Concepts</a></li>
           <li><a class="nav-link" href="#financial">Financial</a></li>
-          <li><a class="nav-link" href="#galleries">Gallery</a></li>
-          <li><a class="nav-link" href="#videos">Videos</a></li>
           <li><a class="nav-link" href="#potential">Potential</a></li>
           <li><a class="nav-link nav-link--cta" href="#contact">Contact</a></li>
         </ul>
@@ -72,11 +70,11 @@
       <div class="hero-media">
         <img
           class="hero-image"
-          src="assets/images/hero-daytime.jpg"
-          alt="Aerial view of oak and chaparral hillsides on the 420-acre Kings Canyon property along Highway 180"
+          src="assets/images/hero-rendering.jpg"
+          alt="Rendering of a grand destination resort with a lake on the 420-acre Kings Canyon property along Highway 180"
           fetchpriority="high"
-          width="1920"
-          height="1080"
+          width="1536"
+          height="1024"
         >
       </div>
 
@@ -89,12 +87,6 @@
         <p class="hero-address">44138 E. Kings Canyon Road, Dunlap, California 93621</p>
         <p class="hero-subtitle">Recreational zoning with miles of highway frontage and magnificent valley views</p>
         <div class="hero-actions">
-          <a
-            class="btn btn--primary"
-            href="#"
-            data-open-scheduler
-            role="button"
-          >Schedule a Showing</a>
           <a class="btn btn--secondary" href="#about">Explore the Property</a>
         </div>
       </div>
@@ -111,65 +103,75 @@
         <div class="about-grid">
           <div class="about-copy" data-reveal>
             <p>
-              On Highway 180, the properties include more than four hundred acres of rolling Sierra Nevada foothills near Squaw Valley in unincorporated Fresno County. At roughly 4,500 feet of elevation, the parcels sit along the Kings Canyon Scenic Byway, the 50-mile route known as the Gateway to the Sierras. Fresno is 38 miles to the west. The entrance to Kings Canyon and Sequoia National Parks is only 8 miles away.
+              420 acres in three parcels with so many possibilities. At roughly 4,500 feet of elevation, the parcels sit along the Kings Canyon Scenic Byway, the 50-mile route known as the Gateway to the Sierras. Fresno is 38 miles to the west. The entrance to Kings Canyon and Sequoia National Parks is only 8 miles away&hellip;.
             </p>
             <p>
               Warm, dry Mediterranean summers give way to mild winters with occasional foothill snow. Oak woodlands, chaparral slopes, ancient manzanita, and massive granite outcrops define the terrain. Aerial views reveal ridge lines that look out over layered valleys, a mountain ideal for multiple houses or a private estate, and enough flat land to build a grand resort, glamping, and campgrounds. There is an option for a boutique business with a small self-service dry campground and a beautiful caretaker&rsquo;s residence.
             </p>
             <p>
-              Just beyond the property: General Grant Grove and the Nation&rsquo;s Christmas Tree is 11 miles away; Kings Canyon, one of the deepest canyons in the country, with the Kings River, Boyden Caverns, and Cedar Grove at its base. Sequoia National Park, home to the General Sherman Tree, the largest tree in the world, is just 36 miles away on the Generals Highway.
+              Just beyond the property: General Grant Grove and the Nation&rsquo;s Christmas Tree is 11 miles away; Kings Canyon, one of the deepest canyons in the country, with the Kings River, Boyden Caverns, and Cedar Grove at its base. Sequoia National Park, home to the General Sherman Tree, the largest tree in the world, is just 36 miles away on the Generals Highway. National parks, giant sequoia groves, waterfalls and caves are all within easy reach of the property.
             </p>
             <p class="about-callout">
               Recreational zoning, miles of highway frontage, and proximity to two national parks position this land as a credible candidate for tourism, hospitality, or a destination resort.
             </p>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <aside class="about-aside" data-reveal>
-            <div class="map-wrapper">
-              <!--
-                TODO: Swap this embed for a Google My Maps custom map with POI pins.
-                1. Create a map at https://www.google.com/maps/d/
-                2. Add markers from mapPointsOfInterest in script.js
-                3. Replace src below with the My Maps embed URL (Share > Embed a map)
-              -->
-              <iframe
-                class="map-embed"
-                id="property-map"
-                title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621 and nearby points of interest"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=44138+E+Kings+Canyon+Road,+Dunlap,+CA+93621&output=embed"
-                allowfullscreen
-              ></iframe>
+    <!-- LOCATION -->
+    <section class="section section--location" id="location" aria-labelledby="location-heading">
+      <div class="container">
+        <header class="section-header" data-reveal>
+          <p class="section-eyebrow">Location</p>
+          <h2 class="section-title" id="location-heading">On the Kings Canyon Scenic Byway</h2>
+        </header>
+
+        <div class="location-grid">
+          <div class="map-wrapper" data-reveal>
+            <!--
+              TODO: Swap this embed for a Google My Maps custom map with POI pins.
+              1. Create a map at https://www.google.com/maps/d/
+              2. Add markers from mapPointsOfInterest in script.js
+              3. Replace src below with the My Maps embed URL (Share > Embed a map)
+            -->
+            <iframe
+              class="map-embed"
+              id="property-map"
+              title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621 and nearby points of interest"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=44138+E+Kings+Canyon+Road,+Dunlap,+CA+93621&output=embed"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <dl class="quick-facts" data-reveal>
+            <div class="quick-fact">
+              <dt>Zoning</dt>
+              <dd>177 acres zoned recreational, 243 acres zoned RC 40</dd>
             </div>
-
-            <dl class="quick-facts">
-              <div class="quick-fact">
-                <dt>Zoning</dt>
-                <dd>177 acres zoned recreational, 243 acres zoned RC 40</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Highway Frontage</dt>
-                <dd>Miles of highway frontage</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Elevation</dt>
-                <dd>~4,500 ft elevation</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Distance to Fresno</dt>
-                <dd>38 miles east of Fresno</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Distance to Parks</dt>
-                <dd>8 miles to Kings Canyon &amp; Sequoia National Park entrance</dd>
-              </div>
-              <div class="quick-fact">
-                <dt>Solar</dt>
-                <dd>South-facing property makes it ideal for solar energy</dd>
-              </div>
-            </dl>
-          </aside>
+            <div class="quick-fact">
+              <dt>Highway Frontage</dt>
+              <dd>Miles of highway frontage</dd>
+            </div>
+            <div class="quick-fact">
+              <dt>Elevation</dt>
+              <dd>~4,500 ft elevation</dd>
+            </div>
+            <div class="quick-fact">
+              <dt>Distance to Fresno</dt>
+              <dd>38 miles east of Fresno</dd>
+            </div>
+            <div class="quick-fact">
+              <dt>Distance to Parks</dt>
+              <dd>8 miles to Kings Canyon &amp; Sequoia National Park entrance</dd>
+            </div>
+            <div class="quick-fact">
+              <dt>Solar</dt>
+              <dd>South-facing property makes it ideal for solar energy</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -179,9 +181,9 @@
       <div class="container">
         <header class="section-header section-header--center" data-reveal>
           <p class="section-eyebrow">Development Concepts</p>
-          <h2 class="section-title" id="concepts-heading">Four Paths for 420 Acres</h2>
+          <h2 class="section-title" id="concepts-heading">Multiple Paths for Development</h2>
           <p class="section-lead">
-            Sample concepts illustrate what this land can support. These are starting points for a vision, not finished plans. Select any rendering to view it in full size.
+            Sample concepts illustrate what this land can support. These are starting points for a vision, not finished plans. Select any rendering to explore it further.
           </p>
         </header>
 
@@ -193,7 +195,7 @@
               data-tilt
               data-lightbox-src="assets/images/resort-01.jpg"
               data-lightbox-alt="AI rendering of a grand resort on the recreational-zoned parcels near Kings Canyon"
-              aria-label="View Grand Resort rendering full size"
+              aria-label="Explore Grand Resort rendering"
             >
               <img
                 class="concept-image"
@@ -205,7 +207,7 @@
                 height="1024"
                 data-cycle-images="assets/images/resort-01.jpg,assets/images/resort-02.jpg,assets/images/resort-03.jpg,assets/images/resort-04.jpg,assets/images/resort-05.jpg,assets/images/resort-06.jpg,assets/images/resort-11.jpg,assets/images/resort-22.jpg,assets/images/resort-44.jpg,assets/images/resort-55.jpg,assets/images/resort-66.jpg"
               >
-              <span class="concept-zoom-hint">Click to enlarge</span>
+              <span class="concept-zoom-hint">Click to explore</span>
             </button>
             <div class="concept-body">
               <h3 class="concept-title">Grand Resort</h3>
@@ -223,21 +225,21 @@
               class="concept-image-btn"
               type="button"
               data-tilt
-              data-lightbox-src="assets/images/glamping-01.jpg"
-              data-lightbox-alt="Rendering of luxury cliffside cabins and glamping-style lodging at dusk"
-              aria-label="View Glamping Resort rendering full size"
+              data-lightbox-src="assets/images/glamping-yokuts-01.jpg"
+              data-lightbox-alt="Rendering of Yokuts-style glamping tents on a ridge at dusk"
+              aria-label="Explore Glamping Resort rendering"
             >
               <img
                 class="concept-image"
-                src="assets/images/glamping-01.jpg"
-                alt="Rendering of luxury cliffside cabins and glamping-style lodging at dusk"
+                src="assets/images/glamping-yokuts-01.jpg"
+                alt="Rendering of Yokuts-style glamping tents on a ridge at dusk"
                 loading="lazy"
                 decoding="async"
-                width="1536"
-                height="1024"
-                data-cycle-images="assets/images/glamping-01.jpg,assets/images/glamping-02.jpg,assets/images/glamping-03.jpg,assets/images/glamping-04.jpg,assets/images/glamping-05.jpg,assets/images/glamping-06.jpg,assets/images/glamping-07.jpg,assets/images/glamping-08.jpg,assets/images/glamping-09.jpg,assets/images/glamping-10.jpg,assets/images/glamping-11.jpg,assets/images/glamping-12.jpg,assets/images/glamping-13.jpg"
+                width="1024"
+                height="768"
+                data-cycle-images="assets/images/glamping-yokuts-01.jpg,assets/images/glamping-yokuts-02.jpg,assets/images/glamping-yokuts-03.jpg,assets/images/glamping-yokuts-04.jpg,assets/images/glamping-yokuts-05.jpg,assets/images/glamping-yokuts-06.jpg,assets/images/glamping-yokuts-07.jpg,assets/images/glamping-yokuts-08.jpg,assets/images/glamping-yokuts-09.jpg,assets/images/glamping-yokuts-10.jpg,assets/images/glamping-yokuts-11.jpg,assets/images/glamping-yokuts-12.jpg"
               >
-              <span class="concept-zoom-hint">Click to enlarge</span>
+              <span class="concept-zoom-hint">Click to explore</span>
             </button>
             <div class="concept-body">
               <h3 class="concept-title">Glamping Resort</h3>
@@ -255,7 +257,7 @@
                 data-tilt
                 data-lightbox-src="assets/images/campground-panoramic.jpg"
                 data-lightbox-alt="Panoramic gravel clearing on the Kings Canyon property, ready for camping"
-                aria-label="View panoramic campground area full size"
+                aria-label="Explore panoramic campground area"
               >
                 <img
                   class="concept-image"
@@ -266,7 +268,7 @@
                   width="900"
                   height="600"
                 >
-                <span class="concept-zoom-hint">Click to enlarge</span>
+                <span class="concept-zoom-hint">Click to explore</span>
               </button>
               <button
                 class="concept-image-btn"
@@ -274,7 +276,7 @@
                 data-tilt
                 data-lightbox-src="assets/images/campground-manzanita.jpg"
                 data-lightbox-alt="Manzanita in bloom beside a sandy clearing on the Kings Canyon property"
-                aria-label="View manzanita campground area full size"
+                aria-label="Explore manzanita campground area"
               >
                 <img
                   class="concept-image"
@@ -285,7 +287,7 @@
                   width="900"
                   height="600"
                 >
-                <span class="concept-zoom-hint">Click to enlarge</span>
+                <span class="concept-zoom-hint">Click to explore</span>
               </button>
             </div>
             <div class="concept-body">
@@ -301,26 +303,56 @@
               class="concept-image-btn"
               type="button"
               data-tilt
-              data-lightbox-src="assets/images/caretaker-01.jpg"
-              data-lightbox-alt="Rendering of a luxury caretaker's residence on the Kings Canyon property"
-              aria-label="View caretaker's residence rendering full size"
+              data-lightbox-src="assets/images/caretaker-kc22.jpg"
+              data-lightbox-alt="Rendering of a luxury caretaker's residence with a pool above the San Joaquin Valley"
+              aria-label="Explore caretaker's residence renderings"
             >
               <img
                 class="concept-image"
-                src="assets/images/caretaker-01.jpg"
-                alt="Rendering of a luxury caretaker's residence on the Kings Canyon property"
+                src="assets/images/caretaker-kc22.jpg"
+                alt="Rendering of a luxury caretaker's residence with a pool above the San Joaquin Valley"
                 loading="lazy"
                 decoding="async"
                 width="1536"
                 height="1024"
-                data-cycle-images="assets/images/caretaker-01.jpg,assets/images/caretaker-02.jpg,assets/images/caretaker-03.jpg,assets/images/caretaker-04.jpg,assets/images/caretaker-05.jpg,assets/images/caretaker-06.jpg"
+                data-no-cycle
+                data-cycle-images="assets/images/caretaker-kc22.jpg,assets/images/caretaker-kc23.jpg,assets/images/caretaker-01.jpg,assets/images/caretaker-02.jpg,assets/images/caretaker-03.jpg,assets/images/caretaker-04.jpg,assets/images/caretaker-05.jpg,assets/images/caretaker-06.jpg"
               >
-              <span class="concept-zoom-hint">Click to enlarge</span>
+              <span class="concept-zoom-hint">Click to explore</span>
             </button>
             <div class="concept-body">
               <h3 class="concept-title">Hybrid Model: Small Campground + Luxury Caretaker&rsquo;s Residence</h3>
               <p class="concept-desc">
                 For buyers seeking a manageable business paired with a private residence, this concept combines a small five-to-ten dry-site, self-service campground with a caretaker&rsquo;s home that carries no legal size limit. Dry camping means no electrical, water, or sewer hookups. Self-contained campers need only a level, safe place to park for the night. Payment can be handled online or through a drop-box. No campfires would be allowed. Maintenance stays simple: routine cleaning around the sites and occasional trash pickup. The campground would sit near the highway entrance, while the residence could be built anywhere else on the property, including atop the ridge overlooking the beautiful San Joaquin Valley.
+              </p>
+            </div>
+          </article>
+
+          <article class="concept-card" data-reveal>
+            <button
+              class="concept-image-btn"
+              type="button"
+              data-tilt
+              data-lightbox-src="assets/images/estate-01.jpg"
+              data-lightbox-alt="Rendering of a private estate with a circular driveway overlooking the San Joaquin Valley"
+              aria-label="Explore Private Estate rendering"
+            >
+              <img
+                class="concept-image"
+                src="assets/images/estate-01.jpg"
+                alt="Rendering of a private estate with a circular driveway overlooking the San Joaquin Valley"
+                loading="lazy"
+                decoding="async"
+                width="1536"
+                height="1024"
+                data-cycle-images="assets/images/estate-01.jpg,assets/images/estate-02.jpg,assets/images/estate-03.jpg"
+              >
+              <span class="concept-zoom-hint">Click to explore</span>
+            </button>
+            <div class="concept-body">
+              <h3 class="concept-title">Private Estate</h3>
+              <p class="concept-desc">
+                Imagine a custom built estate on the top of Sontag Point with amazing views of the San Joaquin Valley below. The ultimate private getaway with hundreds of acres to explore in private. This luxury home would be sited on the 240 acre parcel allowing for the remaining 180 acres to be reserved as a future investment for development.
               </p>
             </div>
           </article>
@@ -337,7 +369,7 @@
         </header>
 
         <details class="financial-details" data-reveal>
-          <summary class="financial-summary">View lots, lease, taxes, and sale price</summary>
+          <summary class="financial-summary">View lots, lease, and tax details</summary>
           <div class="financial-body">
             <p>
               This sale includes three tax lots: 105 acres zoned recreational; 72 acres zoned recreational with a two-acre carve-out for the Snowline Lodge, which has a long-term lease until 2050; and 243 acres zoned RC 40, which allows for up to six home sites on 40 acres each.
@@ -354,309 +386,9 @@
                 <span>Liability insurance</span>
                 <strong>$1,500.00</strong>
               </li>
-              <li class="financial-price">
-                <span>Sale price for all three lots</span>
-                <strong>$3,000,000.00</strong>
-              </li>
             </ul>
           </div>
         </details>
-      </div>
-    </section>
-
-    <!-- VIDEO GALLERY -->
-    <section class="section section--videos" id="videos" aria-labelledby="videos-heading">
-      <div class="container">
-        <header class="section-header section-header--center" data-reveal>
-          <p class="section-eyebrow">On-Site Media</p>
-          <h2 class="section-title" id="videos-heading">See It From Every Angle</h2>
-          <p class="section-lead">
-            Fly in from above, walk the hillsides, and review earlier promotional footage of the land.
-          </p>
-        </header>
-
-        <div class="video-grid">
-          <!-- ASSET: Replace data-video-url with [GOOGLE_EARTH_FLYIN_VIDEO_URL] -->
-          <figure class="video-item video-item--featured" data-reveal>
-            <figcaption class="video-caption">Aerial Approach</figcaption>
-            <div
-              class="video-embed"
-              data-video-url="assets/videos/google-earth-flyin.mp4"
-              data-video-title="Google Earth fly-in from California down to the property"
-              data-video-poster="assets/images/concept-site-plan.jpeg"
-            ></div>
-          </figure>
-
-          <!-- ASSET: Replace data-video-url with [WALKING_TRAIL_VIDEO_URL] -->
-          <figure class="video-item" data-reveal>
-            <figcaption class="video-caption">On-Site Walking Tour</figcaption>
-            <div
-              class="video-embed"
-              data-video-url="[WALKING_TRAIL_VIDEO_URL]"
-              data-video-title="Walking tour of trails on the Kings Canyon property"
-              data-video-poster="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1280&q=80"
-            ></div>
-          </figure>
-
-          <!-- ASSET: Replace data-video-url with [PROMO_VIDEO_URL] -->
-          <figure class="video-item" data-reveal>
-            <figcaption class="video-caption">Seller Overview</figcaption>
-            <div
-              class="video-embed"
-              data-video-url="https://www.youtube.com/embed/Scxs7L0vhZ4"
-              data-video-title="Promotional overview of the Kings Canyon property"
-            ></div>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHOTO GALLERIES -->
-    <section class="section section--galleries" id="galleries" aria-labelledby="galleries-heading">
-      <div class="container">
-        <header class="section-header section-header--center" data-reveal>
-          <p class="section-eyebrow">Photo Galleries</p>
-          <h2 class="section-title" id="galleries-heading">Walk the Ridge. Read the Land.</h2>
-        </header>
-
-        <div class="gallery-subsection" data-reveal>
-          <h3 class="gallery-subtitle">The Property</h3>
-          <div class="gallery-grid">
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/property-view.jpg"
-              data-lightbox-alt="Layered foothill valleys seen from a granite ridge on the Kings Canyon property"
-              aria-label="View ridge panorama full size"
-            >
-              <img src="assets/images/property-view.jpg" alt="Layered foothill valleys seen from a granite ridge on the Kings Canyon property" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Valley panorama</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/property-manzanita.jpg"
-              data-lightbox-alt="Specimen manzanita tree in bloom on the Kings Canyon property"
-              aria-label="View manzanita tree full size"
-            >
-              <img src="assets/images/property-manzanita.jpg" alt="Specimen manzanita tree in bloom on the Kings Canyon property" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Specimen manzanita</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/property-gravel.jpg"
-              data-lightbox-alt="Open gravel clearing suited for camping on the Kings Canyon property"
-              aria-label="View gravel camping area full size"
-            >
-              <img src="assets/images/property-gravel.jpg" alt="Open gravel clearing suited for camping on the Kings Canyon property" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Gravel clearing</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/property-turnout-gate.jpg"
-              data-lightbox-alt="Turnout gate and for-sale sign with QR code at the Kings Canyon property entrance"
-              aria-label="View turnout gate and sign full size"
-            >
-              <img src="assets/images/property-turnout-gate.jpg" alt="Turnout gate and for-sale sign with QR code at the Kings Canyon property entrance" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Turnout gate and sign</span>
-            </button>
-          </div>
-        </div>
-
-        <figure class="night-sky-highlight" data-reveal>
-          <button
-            class="gallery-item gallery-item--wide"
-            type="button"
-            data-lightbox-src="assets/images/property-night-sky.jpg"
-            data-lightbox-alt="Broad granite shelf on the ridge of the Kings Canyon property"
-            aria-label="View granite ridge shelf full size"
-          >
-            <img src="assets/images/property-night-sky.jpg" alt="Broad granite shelf on the ridge of the Kings Canyon property" loading="lazy" decoding="async" width="1280" height="720">
-          </button>
-          <figcaption class="night-sky-caption">
-            Rest on the broad granite shelves along the ridge while listening to your favorite bands play. Marvel at the beautiful backdrop behind the stage. At night this remote elevation has a star-strewn nightscape that city dwellers rarely see.
-          </figcaption>
-        </figure>
-
-        <div class="gallery-subsection" data-reveal>
-          <h3 class="gallery-subtitle">Nearby Attractions</h3>
-          <p class="gallery-note">
-            National parks, giant sequoia groves, waterfalls, and caves are all within reach of the property.
-          </p>
-          <div class="gallery-grid">
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-kings-canyon.jpeg"
-              data-lightbox-alt="Kings Canyon, one of the deepest canyons in North America"
-              aria-label="View Kings Canyon full size"
-            >
-              <img src="assets/images/attraction-kings-canyon.jpeg" alt="Kings Canyon, one of the deepest canyons in North America" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Kings Canyon</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-giant-sequoia-trees.jpeg"
-              data-lightbox-alt="Giant sequoia trees in the Sierra Nevada"
-              aria-label="View Giant Sequoia Trees full size"
-            >
-              <img src="assets/images/attraction-giant-sequoia-trees.jpeg" alt="Giant sequoia trees in the Sierra Nevada" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Giant Sequoia Trees</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-giant-sequoia-winter.jpeg"
-              data-lightbox-alt="Giant sequoia tree in winter"
-              aria-label="View Giant Sequoia in Winter full size"
-            >
-              <img src="assets/images/attraction-giant-sequoia-winter.jpeg" alt="Giant sequoia tree in winter" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Giant Sequoia in Winter</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-cedar-grove-1.jpeg"
-              data-lightbox-alt="Cedar Grove in Kings Canyon"
-              aria-label="View Cedar Grove full size"
-            >
-              <img src="assets/images/attraction-cedar-grove-1.jpeg" alt="Cedar Grove in Kings Canyon" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Cedar Grove</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-mist-falls.jpeg"
-              data-lightbox-alt="Mist Falls in Kings Canyon"
-              aria-label="View Mist Falls full size"
-            >
-              <img src="assets/images/attraction-mist-falls.jpeg" alt="Mist Falls in Kings Canyon" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Mist Falls</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-zumwalt-meadow.jpeg"
-              data-lightbox-alt="Zumwalt Meadow in Kings Canyon"
-              aria-label="View Zumwalt Meadow full size"
-            >
-              <img src="assets/images/attraction-zumwalt-meadow.jpeg" alt="Zumwalt Meadow in Kings Canyon" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Zumwalt Meadow</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-boyden-narrows.jpg"
-              data-lightbox-alt="Boyden Narrows near Boyden Caverns"
-              aria-label="View Boyden Narrows full size"
-            >
-              <img src="assets/images/attraction-boyden-narrows.jpg" alt="Boyden Narrows near Boyden Caverns" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Boyden Narrows</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/attraction-boyden-imagination-grotto.jpg"
-              data-lightbox-alt="Boyden Imagination Grotto inside Boyden Caverns"
-              aria-label="View Boyden Imagination Grotto full size"
-            >
-              <img src="assets/images/attraction-boyden-imagination-grotto.jpg" alt="Boyden Imagination Grotto inside Boyden Caverns" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Boyden Imagination Grotto</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="gallery-subsection" data-reveal>
-          <h3 class="gallery-subtitle">Local Wildlife</h3>
-          <p class="gallery-note">
-            Wildlife common to the Sierra foothills and canyon country around the property.
-          </p>
-          <div class="gallery-grid">
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-bobcat.jpeg"
-              data-lightbox-alt="Bobcat in the Sierra foothills"
-              aria-label="View Bobcat full size"
-            >
-              <img src="assets/images/wildlife-bobcat.jpeg" alt="Bobcat in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Bobcat</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-california-quail.jpeg"
-              data-lightbox-alt="California Quail in the Sierra foothills"
-              aria-label="View California Quail full size"
-            >
-              <img src="assets/images/wildlife-california-quail.jpeg" alt="California Quail in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">California Quail</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-cinnamon-black-bear.jpeg"
-              data-lightbox-alt="Cinnamon black bear in the Sierra foothills"
-              aria-label="View Cinnamon Black Bear full size"
-            >
-              <img src="assets/images/wildlife-cinnamon-black-bear.jpeg" alt="Cinnamon black bear in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Cinnamon Black Bear</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-marmots.jpeg"
-              data-lightbox-alt="Marmots in the Sierra Nevada"
-              aria-label="View Marmots full size"
-            >
-              <img src="assets/images/wildlife-marmots.jpeg" alt="Marmots in the Sierra Nevada" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Marmots</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-mountain-lion.jpeg"
-              data-lightbox-alt="Mountain lion in the Sierra foothills"
-              aria-label="View Mountain Lion full size"
-            >
-              <img src="assets/images/wildlife-mountain-lion.jpeg" alt="Mountain lion in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Mountain Lion</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-red-tailed-hawk.jpeg"
-              data-lightbox-alt="Red-tailed hawk in the Sierra foothills"
-              aria-label="View Red-Tailed Hawk full size"
-            >
-              <img src="assets/images/wildlife-red-tailed-hawk.jpeg" alt="Red-tailed hawk in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Red-Tailed Hawk</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-turkey-vultures.jpeg"
-              data-lightbox-alt="Turkey vultures in the Sierra foothills"
-              aria-label="View Turkey Vultures full size"
-            >
-              <img src="assets/images/wildlife-turkey-vultures.jpeg" alt="Turkey vultures in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">Turkey Vultures</span>
-            </button>
-            <button
-              class="gallery-item"
-              type="button"
-              data-lightbox-src="assets/images/wildlife-white-tailed-deer.jpeg"
-              data-lightbox-alt="White-tailed deer in the Sierra foothills"
-              aria-label="View White-Tailed Deer full size"
-            >
-              <img src="assets/images/wildlife-white-tailed-deer.jpeg" alt="White-tailed deer in the Sierra foothills" loading="lazy" decoding="async" width="640" height="480">
-              <span class="gallery-caption">White-Tailed Deer</span>
-            </button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -761,19 +493,6 @@
               Dunlap, California 93621
             </address>
           </div>
-
-          <form id="contact-form" class="contact-cta-panel" data-reveal>
-            <h3 class="contact-cta-panel-title">Schedule a Showing</h3>
-            <p class="contact-cta-panel-note">
-              Choose your preferred showing date, then contact the listing agent to confirm your private tour.
-            </p>
-            <a
-              class="btn btn--primary btn--large"
-              href="#"
-              data-open-scheduler
-              role="button"
-            >Schedule a Showing</a>
-          </form>
         </div>
       </div>
     </section>
@@ -787,49 +506,6 @@
       <a class="footer-top" href="#hero">Back to top</a>
     </div>
   </footer>
-
-  <!-- Showing scheduler -->
-  <div class="scheduler" id="showing-scheduler" hidden role="dialog" aria-modal="true" aria-labelledby="scheduler-title">
-    <div class="scheduler-panel">
-      <button class="scheduler-close" id="scheduler-close" type="button" aria-label="Close scheduling calendar">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-
-      <div class="scheduler-step" id="scheduler-step-calendar">
-        <h2 class="scheduler-title" id="scheduler-title">Pick a Showing Date</h2>
-        <p class="scheduler-lead">Select an available date for your private property tour.</p>
-
-        <div class="calendar">
-          <div class="calendar-header">
-            <button class="calendar-nav" id="calendar-prev" type="button" aria-label="Previous month">&lsaquo;</button>
-            <p class="calendar-month" id="calendar-month" aria-live="polite"></p>
-            <button class="calendar-nav" id="calendar-next" type="button" aria-label="Next month">&rsaquo;</button>
-          </div>
-          <div class="calendar-weekdays" aria-hidden="true">
-            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-          </div>
-          <div class="calendar-grid" id="calendar-grid" role="grid" aria-labelledby="calendar-month"></div>
-        </div>
-      </div>
-
-      <div class="scheduler-step" id="scheduler-step-form" hidden>
-        <h2 class="scheduler-title">Next Step</h2>
-        <p class="scheduler-lead">
-          You selected <strong id="scheduler-selected-date"></strong>. For now, please visit the listing page to contact the agent and arrange your showing.
-        </p>
-        <a
-          class="btn btn--primary btn--large"
-          id="scheduler-form-link"
-          href="https://prospectreal.idxbroker.com/idx/details/listing/a074/648976/0-E-Kings-Canyon-Road-Dunlap-CA-93621"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Go to Listing Page
-        </a>
-        <button class="btn btn--secondary" id="scheduler-back" type="button">Choose Another Date</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Enlarged rendering">
@@ -849,6 +525,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=6" defer></script>
+  <script src="script.js?v=7" defer></script>
 </body>
 </html>
