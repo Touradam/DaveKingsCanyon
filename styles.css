@@ -1261,11 +1261,30 @@ html.js .hero.is-parallax .hero-content {
   margin-bottom: var(--space-md);
 }
 
+.contact-agent {
+  margin-bottom: var(--space-md);
+}
+
 .contact-agent-name {
   margin: var(--space-xs) 0 0;
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
+  color: var(--gold-light);
+}
+
+.contact-agent-detail {
+  margin: var(--space-xs) 0 0;
+}
+
+.contact-agent-detail a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.contact-agent-detail a:hover,
+.contact-agent-detail a:focus-visible {
   color: var(--gold-light);
 }
 
