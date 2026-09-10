@@ -465,6 +465,7 @@
     updateLightboxCounter();
     lightbox.hidden = false;
     document.body.style.overflow = "hidden";
+    document.body.classList.add("modal-open");
     lightboxClose.focus();
   }
 
@@ -473,6 +474,7 @@
     lightboxImage.src = "";
     lightboxGallery = null;
     document.body.style.overflow = "";
+    document.body.classList.remove("modal-open");
     if (lightboxTrigger) {
       lightboxTrigger.focus();
       lightboxTrigger = null;
@@ -556,6 +558,77 @@
       },
       { passive: true }
     );
+  }
+
+  /* --- Sticky Mobile CTA Bar ---
+     Shows once the hero is scrolled past, hides while the contact
+     section is in view so the CTA is never duplicated, and can be
+     dismissed for the rest of the session. */
+  var mobileCta = document.getElementById("mobile-cta");
+  var mobileCtaDismiss = document.getElementById("mobile-cta-dismiss");
+  var contactSection = document.getElementById("contact");
+  var ctaDismissed = false;
+  var ctaPastHero = false;
+  var ctaContactVisible = false;
+
+  try {
+    ctaDismissed = window.sessionStorage.getItem("kc-cta-dismissed") === "1";
+  } catch (err) {
+    ctaDismissed = false;
+  }
+
+  function updateMobileCta() {
+    if (!mobileCta) return;
+    var show = ctaPastHero && !ctaContactVisible && !ctaDismissed;
+    mobileCta.classList.toggle("is-visible", show);
+    mobileCta.setAttribute("aria-hidden", show ? "false" : "true");
+  }
+
+  if (mobileCta && "IntersectionObserver" in window) {
+    if (hero) {
+      var heroObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            ctaPastHero =
+              !entry.isIntersecting && entry.boundingClientRect.top < 0;
+            updateMobileCta();
+          });
+        },
+        { threshold: 0 }
+      );
+      heroObserver.observe(hero);
+    }
+
+    if (contactSection) {
+      var contactObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            ctaContactVisible = entry.isIntersecting;
+            updateMobileCta();
+          });
+        },
+        { threshold: 0.15 }
+      );
+      contactObserver.observe(contactSection);
+    }
+  } else if (mobileCta && hero) {
+    /* Fallback without IntersectionObserver: show after the hero */
+    window.addEventListener("scroll", function () {
+      ctaPastHero = window.scrollY > hero.offsetHeight * 0.9;
+      updateMobileCta();
+    }, { passive: true });
+  }
+
+  if (mobileCtaDismiss) {
+    mobileCtaDismiss.addEventListener("click", function () {
+      ctaDismissed = true;
+      try {
+        window.sessionStorage.setItem("kc-cta-dismissed", "1");
+      } catch (err) {
+        /* storage unavailable, dismissal lasts for this page view */
+      }
+      updateMobileCta();
+    });
   }
 
   if (prefersReducedMotion) {

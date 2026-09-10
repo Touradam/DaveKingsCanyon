@@ -1326,6 +1326,86 @@ html.js .hero.is-parallax .hero-content {
   transform: translateY(-1px);
 }
 
+/* --- Sticky Mobile CTA ---
+   Fixed bottom bar on small screens. Slides in after the hero, hides
+   while the contact section is visible, and never covers content
+   because the body gets matching bottom padding. */
+.mobile-cta {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem;
+  background: rgba(18, 18, 26, 0.92);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(calc(100% + 1.5rem));
+  visibility: hidden;
+  transition:
+    transform 0.45s var(--ease-out),
+    visibility 0.45s;
+}
+
+.mobile-cta.is-visible {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.mobile-cta-link {
+  flex: 1;
+  min-height: 2.75rem;
+  padding-block: 0.625rem;
+}
+
+.mobile-cta-dismiss {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.mobile-cta-dismiss:hover {
+  color: var(--text);
+  border-color: var(--border-gold);
+}
+
+/* Never compete with the lightbox or the open nav overlay */
+body.modal-open .mobile-cta,
+body.nav-open .mobile-cta {
+  transform: translateY(calc(100% + 1.5rem));
+  visibility: hidden;
+}
+
+@media (min-width: 901px) {
+  .mobile-cta {
+    display: none;
+  }
+}
+
+/* Reserve space so the fixed bar never covers footer content */
+@media (max-width: 900px) {
+  html.js body {
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom));
+  }
+}
+
 /* --- Lightbox --- */
 .lightbox {
   position: fixed;
