@@ -34,6 +34,12 @@
   var lightboxIndex = 0;
   var scrollTicking = false;
 
+  /* Hero parallax state */
+  var heroMedia = hero ? hero.querySelector(".hero-media") : null;
+  var heroContent = hero ? hero.querySelector(".hero-content") : null;
+  var parallaxQuery = window.matchMedia("(min-width: 768px)");
+  var parallaxOn = false;
+
   /*
    * Map points of interest for Google My Maps custom embed.
    * TODO: Create a map at https://www.google.com/maps/d/ with these markers,
@@ -98,11 +104,12 @@
     if (!scrollTicking) {
       window.requestAnimationFrame(function () {
         updateHeaderScroll();
+        updateParallax();
         scrollTicking = false;
       });
       scrollTicking = true;
     }
-  });
+  }, { passive: true });
 
   updateHeaderScroll();
 
@@ -177,6 +184,59 @@
       particle.style.width = particle.style.height = 2 + Math.random() * 2 + "px";
       heroParticles.appendChild(particle);
     }
+  }
+
+  /* --- Hero Parallax ---
+     Layered depth on scroll: the image drifts down slowly while the
+     content rises and gently fades. Desktop only, since the effect is
+     simplified away on small screens and under reduced motion. */
+  function updateParallax() {
+    if (!parallaxOn || !hero) return;
+    var heroHeight = hero.offsetHeight;
+    var scrolled = window.scrollY;
+    if (scrolled > heroHeight) return;
+    var progress = Math.min(scrolled / heroHeight, 1);
+    heroMedia.style.transform =
+      "translate3d(0," + (progress * 5).toFixed(2) + "%,0) scale(1.12)";
+    heroContent.style.transform =
+      "translate3d(0," + (progress * -36).toFixed(1) + "px,0)";
+    heroContent.style.opacity = (1 - progress * 0.85).toFixed(3);
+  }
+
+  function syncParallax() {
+    var canRun = !!(hero && heroMedia && heroContent);
+    var shouldEnable = canRun && parallaxQuery.matches && !prefersReducedMotion;
+    if (shouldEnable === parallaxOn) return;
+    parallaxOn = shouldEnable;
+
+    if (parallaxOn) {
+      hero.classList.add("is-parallax");
+      // Parallax owns the hero content transform, so hand its reveal over
+      if (heroContent.hasAttribute("data-reveal")) {
+        heroContent.removeAttribute("data-reveal");
+        heroContent.setAttribute("data-parallax-reveal", "");
+      }
+      updateParallax();
+    } else {
+      hero.classList.remove("is-parallax");
+      heroMedia.style.transform = "";
+      heroContent.style.transform = "";
+      heroContent.style.opacity = "";
+      if (heroContent.hasAttribute("data-parallax-reveal")) {
+        heroContent.removeAttribute("data-parallax-reveal");
+        heroContent.setAttribute("data-reveal", "");
+        // Already in view, so mark it visible instead of hiding it again
+        heroContent.classList.add("is-visible");
+      }
+    }
+  }
+
+  syncParallax();
+
+  if (typeof parallaxQuery.addEventListener === "function") {
+    parallaxQuery.addEventListener("change", syncParallax);
+  } else if (typeof parallaxQuery.addListener === "function") {
+    parallaxQuery.addListener(syncParallax);
   }
 
   /* --- 3D Tilt on Concept Images --- */

@@ -648,12 +648,41 @@ body.nav-open {
 .hero-media {
   position: absolute;
   inset: 0;
+  will-change: transform;
 }
 
 .hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Gentle Ken Burns drift, transform only so it stays on the GPU */
+  animation: hero-drift 28s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.06) translate3d(0, -1.5%, 0);
+  }
+}
+
+/* Cinematic entrance for hero content when parallax owns its reveal */
+@keyframes hero-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html.js .hero.is-parallax .hero-content {
+  animation: hero-content-in 1s var(--ease-out) 0.15s backwards;
+  will-change: transform, opacity;
 }
 
 .hero-overlay {
@@ -1470,6 +1499,15 @@ body.nav-open {
 
   .concept-image-btn:hover .concept-image {
     transform: none;
+  }
+
+  .hero-image {
+    animation: none;
+  }
+
+  html.js .hero.is-parallax .hero-content {
+    animation: none;
+    will-change: auto;
   }
 
   .hero-spotlight,
