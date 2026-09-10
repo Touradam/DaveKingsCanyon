@@ -1,50 +1,92 @@
 /* ============================================================
-   Kings Canyon Land - Midnight Champagne
-   Premium dark surfaces, champagne-gold accents, depth motion
+   Kings Canyon Land: Midnight Champagne, refined
+   ------------------------------------------------------------
+   Design direction
+   - Surfaces: layered dark ink and charcoal, hairline borders,
+     soft shadows. Depth comes from layering, not heavy effects.
+   - Accent: champagne gold (#c4a35a) reserved for CTAs, focus
+     states, and key highlights. Contrast on ink is about 8:1.
+   - Type: Outfit for display, DM Sans for body. Fluid scale,
+     tight display tracking, relaxed line height for reading.
+   - Spacing: fluid scale from xs to 2xl, wide section rhythm.
+   - Motion: slow, eased, cinematic. transform and opacity only.
+     Parallax and tilt are disabled on small screens and under
+     prefers-reduced-motion. CTAs never animate out of reach.
+   - Mobile CTA: fixed bottom bar under 901px, appears after the
+     hero, hides while the contact section is visible, and is
+     dismissible. Body gets bottom padding so it never covers
+     content.
    ============================================================ */
 
 /* --- Design Tokens --- */
 :root {
+  /* Color */
   --gold: #c4a35a;
   --gold-light: #e2c887;
   --gold-dark: #9a7b3c;
   --gold-glow: rgba(196, 163, 90, 0.35);
+  --gold-soft: rgba(196, 163, 90, 0.1);
   --ink: #0c0c0f;
+  --ink-deep: #08080b;
   --ink-raised: #12121a;
   --surface: #18181f;
   --surface-hover: #1f1f28;
   --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
   --border-gold: rgba(196, 163, 90, 0.25);
   --text: #eceae4;
-  --text-muted: #9c9a94;
-  --text-dim: #6b6963;
+  --text-muted: #a5a39c;
+  --text-dim: #75736c;
 
+  /* Type */
   --font-display: "Outfit", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
   --font-math: "Cambria Math", Cambria, Georgia, serif;
+  --fs-eyebrow: 0.75rem;
+  --fs-small: 0.875rem;
+  --fs-body: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --fs-lead: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);
+  --fs-h2: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  --fs-hero: clamp(2.375rem, 1.55rem + 4.2vw, 4.25rem);
+  --lh-display: 1.08;
+  --lh-title: 1.14;
+  --lh-body: 1.65;
+  --lh-relaxed: 1.75;
+  --ls-eyebrow: 0.18em;
+  --ls-tight: -0.02em;
+  --ls-display: -0.03em;
 
+  /* Spacing */
   --space-xs: clamp(0.5rem, 1vw, 0.75rem);
   --space-sm: clamp(0.75rem, 1.5vw, 1rem);
   --space-md: clamp(1.25rem, 2.5vw, 2rem);
   --space-lg: clamp(2rem, 4vw, 3.5rem);
   --space-xl: clamp(3rem, 6vw, 5rem);
+  --space-2xl: clamp(3.5rem, 8vw, 6.5rem);
 
+  /* Layout */
   --container-max: 76rem;
   --header-height: 4.5rem;
+  --header-height-scrolled: 3.875rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
   --radius-lg: 1.25rem;
   --radius-xl: 1.5rem;
 
+  /* Elevation */
   --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --shadow-md: 0 10px 36px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 56px rgba(0, 0, 0, 0.55);
   --shadow-gold: 0 4px 24px var(--gold-glow);
 
+  /* Motion */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --transition: 0.35s var(--ease);
-  --transition-slow: 0.55s var(--ease);
+  --transition-slow: 0.6s var(--ease-out);
 
+  /* Effect state, driven from script.js */
   --spotlight-x: 50%;
   --spotlight-y: 50%;
   --tilt-x: 0deg;
@@ -66,8 +108,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  line-height: 1.65;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text);
   background-color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -127,7 +169,7 @@ a:hover {
 }
 
 .section {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-2xl);
   position: relative;
 }
 
@@ -170,9 +212,9 @@ a:hover {
 .section-eyebrow {
   margin: 0 0 var(--space-xs);
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: var(--fs-eyebrow);
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
   color: var(--gold);
 }
@@ -180,32 +222,37 @@ a:hover {
 .section-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+  font-size: var(--fs-h2);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-title);
   color: var(--text);
   text-wrap: balance;
 }
 
 .section-lead {
   margin: var(--space-sm) 0 0;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  font-size: var(--fs-lead);
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: var(--lh-relaxed);
 }
 
-/* --- Scroll Reveal --- */
+/* --- Scroll Reveal ---
+   Hidden state is gated behind html.js so the page stays fully
+   readable when JavaScript is disabled. */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
   transition:
-    opacity var(--transition-slow) var(--ease),
-    transform var(--transition-slow) var(--ease);
+    opacity var(--transition-slow),
+    transform var(--transition-slow);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-[data-reveal].is-visible {
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+html.js [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -613,10 +660,10 @@ body.nav-open {
 .hero-title {
   margin: 0 0 var(--space-md);
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 1.5rem + 4vw, 4rem);
+  font-size: var(--fs-hero);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-display);
   color: var(--text);
   text-wrap: balance;
 }
@@ -855,9 +902,9 @@ body.nav-open {
 .concept-title {
   margin: 0 0 var(--space-xs);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  font-size: var(--fs-h3);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-tight);
   color: var(--text);
 }
 
@@ -1301,7 +1348,8 @@ body.nav-open {
     transition-duration: 0.01ms !important;
   }
 
-  [data-reveal] {
+  html.js [data-reveal],
+  html.js [data-reveal].is-visible {
     opacity: 1;
     transform: none;
   }
