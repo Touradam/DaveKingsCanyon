@@ -883,17 +883,6 @@ body.nav-open {
   border-bottom: 1px solid var(--border);
 }
 
-.concept-images-dual {
-  display: grid;
-  gap: var(--space-sm);
-}
-
-@media (min-width: 480px) {
-  .concept-images-dual {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 @media (min-width: 901px) {
   .concept-card {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
