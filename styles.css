@@ -923,6 +923,15 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
+/* Map hidden: keep it out of the layout and let facts use the full width */
+.map-wrapper[hidden] {
+  display: none;
+}
+
+.location-grid--map-hidden {
+  grid-template-columns: 1fr;
+}
+
 /* --- Concepts --- */
 .concepts-list {
   display: flex;
