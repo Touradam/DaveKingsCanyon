@@ -239,24 +239,59 @@
     parallaxQuery.addListener(syncParallax);
   }
 
-  /* --- 3D Tilt on Concept Images --- */
+  /* --- 3D Tilt on Concept Images ---
+     Pointer position sets a target rotation, then a rAF loop eases the
+     current rotation toward it for a smooth, weighted feel. */
   if (!prefersReducedMotion && isFinePointer()) {
     var tiltTargets = tiltElements.length
       ? tiltElements
       : document.querySelectorAll(".concept-image-btn");
 
+    var TILT_MAX = 6;
+    var TILT_EASE = 0.12;
+
     tiltTargets.forEach(function (el) {
-      el.addEventListener("mousemove", function (e) {
+      var targetX = 0;
+      var targetY = 0;
+      var currentX = 0;
+      var currentY = 0;
+      var rafId = null;
+
+      function renderTilt() {
+        currentX += (targetX - currentX) * TILT_EASE;
+        currentY += (targetY - currentY) * TILT_EASE;
+        el.style.setProperty("--tilt-x", currentX.toFixed(3) + "deg");
+        el.style.setProperty("--tilt-y", currentY.toFixed(3) + "deg");
+
+        if (
+          Math.abs(targetX - currentX) > 0.005 ||
+          Math.abs(targetY - currentY) > 0.005
+        ) {
+          rafId = window.requestAnimationFrame(renderTilt);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function kickTilt() {
+        if (rafId === null) {
+          rafId = window.requestAnimationFrame(renderTilt);
+        }
+      }
+
+      el.addEventListener("pointermove", function (e) {
         var rect = el.getBoundingClientRect();
         var x = (e.clientX - rect.left) / rect.width - 0.5;
         var y = (e.clientY - rect.top) / rect.height - 0.5;
-        el.style.setProperty("--tilt-y", x * 6 + "deg");
-        el.style.setProperty("--tilt-x", -y * 6 + "deg");
+        targetY = x * TILT_MAX;
+        targetX = -y * TILT_MAX;
+        kickTilt();
       });
 
-      el.addEventListener("mouseleave", function () {
-        el.style.setProperty("--tilt-x", "0deg");
-        el.style.setProperty("--tilt-y", "0deg");
+      el.addEventListener("pointerleave", function () {
+        targetX = 0;
+        targetY = 0;
+        kickTilt();
       });
     });
   }
