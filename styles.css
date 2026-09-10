@@ -283,7 +283,8 @@ html.js [data-reveal].is-visible {
 }
 
 .btn:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
+  transition-duration: 0.12s;
 }
 
 .btn:disabled {
@@ -292,16 +293,38 @@ html.js [data-reveal].is-visible {
 }
 
 .btn--primary {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
   color: var(--ink);
   border-color: var(--gold-dark);
   box-shadow: var(--shadow-gold);
 }
 
+/* Slow sheen sweep on hover, pointer-events off so it never blocks taps */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.32) 50%,
+    transparent 70%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.7s var(--ease-out);
+}
+
 .btn--primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px var(--gold-glow);
+  box-shadow: 0 8px 32px var(--gold-glow);
   color: var(--ink);
+}
+
+.btn--primary:hover:not(:disabled)::after {
+  transform: translateX(130%);
 }
 
 .btn--primary:focus-visible {
@@ -351,6 +374,7 @@ html.js [data-reveal].is-visible {
   z-index: 1000;
   height: var(--header-height);
   transition:
+    height var(--transition-slow),
     box-shadow var(--transition),
     border-color var(--transition);
   border-bottom: 1px solid transparent;
@@ -364,13 +388,14 @@ html.js [data-reveal].is-visible {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(12, 12, 15, 0.92);
-  backdrop-filter: blur(12px);
+  background: rgba(12, 12, 15, 0.82);
+  backdrop-filter: blur(14px) saturate(1.15);
   opacity: 0;
   transition: opacity var(--transition);
 }
 
 .site-header.is-scrolled {
+  height: var(--header-height-scrolled);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
@@ -495,6 +520,7 @@ html.js [data-reveal].is-visible {
 }
 
 .nav-link {
+  position: relative;
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 500;
@@ -503,8 +529,28 @@ html.js [data-reveal].is-visible {
   transition: color var(--transition);
 }
 
-.nav-link:hover {
+/* Gold underline that draws in from the left */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3em;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-slow);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
   color: var(--gold-light);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .nav-link--cta {
@@ -514,8 +560,12 @@ html.js [data-reveal].is-visible {
   color: var(--gold-light);
 }
 
+.nav-link--cta::after {
+  display: none;
+}
+
 .nav-link--cta:hover {
-  background: rgba(196, 163, 90, 0.1);
+  background: var(--gold-soft);
   color: var(--gold-light);
 }
 
