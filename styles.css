@@ -1097,23 +1097,19 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-/* --- Financial Details --- */
+/* --- Financial Details: slim hairline accordion --- */
 .financial-details {
   max-width: 52rem;
   margin-inline: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.financial-details:first-of-type {
+  border-top: 1px solid var(--border);
 }
 
 .financial-details[open] {
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-sm);
-}
-
-.financial-details + .financial-details {
-  margin-top: var(--space-sm);
+  border-bottom-color: var(--border-gold);
 }
 
 .financial-summary {
@@ -1121,16 +1117,14 @@ html.js .hero.is-parallax .hero-content {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--space-xs);
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
   color: var(--gold-light);
   cursor: pointer;
   list-style: none;
-  transition:
-    background var(--transition),
-    color var(--transition);
+  transition: color var(--transition);
 }
 
 .financial-summary::-webkit-details-marker {
@@ -1153,14 +1147,18 @@ html.js .hero.is-parallax .hero-content {
   transform: rotate(-135deg);
 }
 
-.financial-summary:hover {
-  background: var(--surface-hover);
+.financial-summary:hover,
+.financial-details[open] .financial-summary {
   color: var(--gold);
 }
 
 .financial-body {
-  padding: var(--space-md);
-  border-top: 1px solid var(--border);
+  padding: var(--space-xs) var(--space-xs) var(--space-md);
+}
+
+/* Keep the map short and wide inside the accordion */
+.financial-body .map-wrapper {
+  aspect-ratio: 16 / 9;
 }
 
 .financial-body p {
