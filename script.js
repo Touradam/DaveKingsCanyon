@@ -584,16 +584,25 @@
     );
   }
 
-  /* --- Sticky Mobile CTA Bar ---
-     Shows once the hero is scrolled past, hides while the contact
-     section is in view so the CTA is never duplicated, and can be
-     dismissed for the rest of the session. */
-  var mobileCta = document.getElementById("mobile-cta");
-  var mobileCtaDismiss = document.getElementById("mobile-cta-dismiss");
+  /* --- Floating Call CTA ---
+     The listing agent stays one tap away: the floater pops in for
+     8 seconds, retreats, then returns every minute. It stops for good
+     once the call link is tapped, stays quiet while the contact
+     section is on screen, and a dismissal lasts the whole session. */
+  var floatingCta = document.getElementById("floating-cta");
+  var floatingCtaDismiss = document.getElementById("floating-cta-dismiss");
+  var floatingCtaCall = floatingCta
+    ? floatingCta.querySelector(".floating-cta-call")
+    : null;
   var contactSection = document.getElementById("contact");
   var ctaDismissed = false;
-  var ctaPastHero = false;
+  var ctaAnswered = false;
   var ctaContactVisible = false;
+  var CTA_SHOW_AFTER = 3000;  /* first appearance, shortly after load */
+  var CTA_VISIBLE_MS = 8000;  /* stays up for 8 seconds */
+  var CTA_EVERY_MS = 60000;   /* then once a minute */
+  var ctaPulseTimer = null;
+  var ctaHideTimer = null;
 
   try {
     ctaDismissed = window.sessionStorage.getItem("kc-cta-dismissed") === "1";
@@ -601,59 +610,101 @@
     ctaDismissed = false;
   }
 
-  function updateMobileCta() {
-    if (!mobileCta) return;
-    var show = ctaPastHero && !ctaContactVisible && !ctaDismissed;
-    mobileCta.classList.toggle("is-visible", show);
-    mobileCta.setAttribute("aria-hidden", show ? "false" : "true");
+  function setFloatingCtaVisible(show) {
+    if (!floatingCta) return;
+    floatingCta.classList.toggle("is-visible", show);
+    floatingCta.setAttribute("aria-hidden", show ? "false" : "true");
   }
 
-  if (mobileCta && "IntersectionObserver" in window) {
-    if (hero) {
-      var heroObserver = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            ctaPastHero =
-              !entry.isIntersecting && entry.boundingClientRect.top < 0;
-            updateMobileCta();
-          });
-        },
-        { threshold: 0 }
-      );
-      heroObserver.observe(hero);
-    }
+  function stopFloatingCta() {
+    window.clearTimeout(ctaPulseTimer);
+    window.clearInterval(ctaPulseTimer);
+    window.clearTimeout(ctaHideTimer);
+    ctaPulseTimer = null;
+    ctaHideTimer = null;
+  }
 
-    if (contactSection) {
-      var contactObserver = new IntersectionObserver(
+  function pulseFloatingCta() {
+    if (ctaDismissed || ctaAnswered || ctaContactVisible) return;
+    setFloatingCtaVisible(true);
+    ctaHideTimer = window.setTimeout(function () {
+      setFloatingCtaVisible(false);
+    }, CTA_VISIBLE_MS);
+  }
+
+  function startFloatingCta() {
+    if (!floatingCta || ctaDismissed) return;
+    ctaPulseTimer = window.setTimeout(function () {
+      pulseFloatingCta();
+      ctaPulseTimer = window.setInterval(pulseFloatingCta, CTA_EVERY_MS);
+    }, CTA_SHOW_AFTER);
+  }
+
+  if (floatingCta) {
+    startFloatingCta();
+
+    if (contactSection && "IntersectionObserver" in window) {
+      var ctaContactObserver = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
             ctaContactVisible = entry.isIntersecting;
-            updateMobileCta();
+            if (ctaContactVisible) {
+              window.clearTimeout(ctaHideTimer);
+              setFloatingCtaVisible(false);
+            }
           });
         },
         { threshold: 0.15 }
       );
-      contactObserver.observe(contactSection);
+      ctaContactObserver.observe(contactSection);
     }
-  } else if (mobileCta && hero) {
-    /* Fallback without IntersectionObserver: show after the hero */
-    window.addEventListener("scroll", function () {
-      ctaPastHero = window.scrollY > hero.offsetHeight * 0.9;
-      updateMobileCta();
-    }, { passive: true });
+
+    if (floatingCtaDismiss) {
+      floatingCtaDismiss.addEventListener("click", function () {
+        ctaDismissed = true;
+        try {
+          window.sessionStorage.setItem("kc-cta-dismissed", "1");
+        } catch (err) {
+          /* storage unavailable, dismissal lasts for this page view */
+        }
+        stopFloatingCta();
+        setFloatingCtaVisible(false);
+      });
+    }
+
+    if (floatingCtaCall) {
+      floatingCtaCall.addEventListener("click", function () {
+        /* Visitor is calling: no need to keep asking */
+        ctaAnswered = true;
+        stopFloatingCta();
+        setFloatingCtaVisible(false);
+      });
+    }
   }
 
-  if (mobileCtaDismiss) {
-    mobileCtaDismiss.addEventListener("click", function () {
-      ctaDismissed = true;
-      try {
-        window.sessionStorage.setItem("kc-cta-dismissed", "1");
-      } catch (err) {
-        /* storage unavailable, dismissal lasts for this page view */
+  /* --- Phone Link Helper ---
+     tel: links open the dialer straight away on phones. On desktops
+     without a calling app the click can feel dead, so the number is
+     also copied to the clipboard with a quick inline confirmation. */
+  var phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+  phoneLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      var number = link.getAttribute("href").replace("tel:", "");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(number).catch(function () {});
       }
-      updateMobileCta();
+      if (!link.classList.contains("contact-agent-action")) return;
+      var label = link.querySelector("span");
+      if (!label) return;
+      var original = label.textContent;
+      link.classList.add("is-copied");
+      label.textContent = "Number copied";
+      window.setTimeout(function () {
+        link.classList.remove("is-copied");
+        label.textContent = original;
+      }, 2000);
     });
-  }
+  });
 
   if (prefersReducedMotion) {
     document.documentElement.style.scrollBehavior = "auto";
