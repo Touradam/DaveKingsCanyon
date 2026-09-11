@@ -144,24 +144,6 @@
         </header>
 
         <div class="location-grid location-grid--map-hidden">
-          <div class="map-wrapper" data-reveal hidden>
-            <!--
-              TODO: Swap this embed for a Google My Maps custom map with POI pins.
-              1. Create a map at https://www.google.com/maps/d/
-              2. Add markers from mapPointsOfInterest in script.js
-              3. Replace src below with the My Maps embed URL (Share > Embed a map)
-            -->
-            <iframe
-              class="map-embed"
-              id="property-map"
-              title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621 and nearby points of interest"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps?q=44138+E+Kings+Canyon+Road,+Dunlap,+CA+93621&output=embed"
-              allowfullscreen
-            ></iframe>
-          </div>
-
           <dl class="quick-facts" data-reveal>
             <div class="quick-fact">
               <dt>Zoning</dt>
@@ -384,6 +366,29 @@
             </ul>
           </div>
         </details>
+
+        <details class="financial-details" data-reveal>
+          <summary class="financial-summary">View the property on the map</summary>
+          <div class="financial-body">
+            <div class="map-wrapper">
+              <!--
+                TODO: Swap this embed for a Google My Maps custom map with POI pins.
+                1. Create a map at https://www.google.com/maps/d/
+                2. Add markers from mapPointsOfInterest in script.js
+                3. Replace src below with the My Maps embed URL (Share > Embed a map)
+              -->
+              <iframe
+                class="map-embed"
+                id="property-map"
+                title="Map showing 44138 E. Kings Canyon Road, Dunlap, California 93621 and nearby points of interest"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=44138+E+Kings+Canyon+Road,+Dunlap,+CA+93621&output=embed"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -515,13 +520,18 @@
             </p>
 
             <div class="contact-agent">
+              <p class="contact-agent-eyebrow">Listing Agent</p>
               <p class="contact-agent-name">Cheyenne Mullins</p>
-              <p class="contact-agent-detail">
-                <a href="tel:+15597906432">(559) 790-6432</a>
-              </p>
-              <p class="contact-agent-detail">
-                <a href="mailto:Cheyenne@prospectreal.com">Cheyenne@prospectreal.com</a>
-              </p>
+              <div class="contact-agent-actions">
+                <a class="contact-agent-action" href="tel:+15597906432">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>(559) 790-6432</span>
+                </a>
+                <a class="contact-agent-action" href="mailto:Cheyenne@prospectreal.com">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>Cheyenne@prospectreal.com</span>
+                </a>
+              </div>
             </div>
 
             <address class="contact-address">

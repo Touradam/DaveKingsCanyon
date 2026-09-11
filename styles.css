@@ -959,11 +959,7 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-/* Map hidden: keep it out of the layout and let facts use the full width */
-.map-wrapper[hidden] {
-  display: none;
-}
-
+/* Map lives in the Financial toggle now: facts use the full width */
 .location-grid--map-hidden {
   grid-template-columns: 1fr;
 }
@@ -1114,6 +1110,10 @@ html.js .hero.is-parallax .hero-content {
 .financial-details[open] {
   border-color: var(--border-gold);
   box-shadow: var(--shadow-sm);
+}
+
+.financial-details + .financial-details {
+  margin-top: var(--space-sm);
 }
 
 .financial-summary {
@@ -1389,29 +1389,84 @@ html.js .hero.is-parallax .hero-content {
 
 .contact-agent {
   margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--ink-raised) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-slow),
+    border-color var(--transition-slow),
+    box-shadow var(--transition-slow);
+}
+
+.contact-agent:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+}
+
+.contact-agent-eyebrow {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 .contact-agent-name {
-  margin: var(--space-xs) 0 0;
+  margin: 0 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: var(--gold-light);
+  letter-spacing: var(--ls-tight);
+  color: var(--text);
 }
 
-.contact-agent-detail {
-  margin: var(--space-xs) 0 0;
+.contact-agent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
 }
 
-.contact-agent-detail a {
-  color: var(--text-muted);
+.contact-agent-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(12, 12, 15, 0.5);
+  color: var(--text);
   text-decoration: none;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.contact-agent-action svg {
+  flex-shrink: 0;
+  color: var(--gold);
   transition: color var(--transition);
 }
 
-.contact-agent-detail a:hover,
-.contact-agent-detail a:focus-visible {
+.contact-agent-action:hover,
+.contact-agent-action:focus-visible {
   color: var(--gold-light);
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
+}
+
+.contact-agent-action:active {
+  transform: scale(0.97);
 }
 
 .contact-address {
@@ -1759,7 +1814,10 @@ body.nav-open .mobile-cta {
   .footer-top:hover,
   .local-explorer-tile:hover,
   .local-tab:hover,
-  .local-tab:active {
+  .local-tab:active,
+  .contact-agent:hover,
+  .contact-agent-action:hover,
+  .contact-agent-action:active {
     transform: none;
   }
 }
