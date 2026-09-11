@@ -685,12 +685,19 @@ body.nav-open {
 
 .hero--flippable {
   cursor: pointer;
+  /* Touch polish: no gray tap flash, no double-tap zoom delay,
+     and no accidental text selection while tapping to flip */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hero-face {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .hero-face--back {
