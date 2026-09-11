@@ -1280,6 +1280,112 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
+/* --- Local Gallery: button island + category panels --- */
+.local-gallery {
+  margin-top: var(--space-xl);
+}
+
+.local-gallery-island {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  width: fit-content;
+  margin: 0 auto var(--space-lg);
+  padding: 0.375rem;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid var(--border-gold);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+}
+
+.local-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.local-tab:hover {
+  color: var(--text);
+}
+
+.local-tab:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.local-tab.is-active {
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow: var(--shadow-gold);
+}
+
+.local-gallery-panel {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-sm);
+}
+
+.local-gallery-panel.is-active {
+  display: grid;
+  animation: local-panel-in 0.5s var(--ease-out);
+}
+
+@keyframes local-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.local-photo {
+  display: block;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition);
+}
+
+.local-photo:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.local-photo:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.local-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
 /* --- Contact --- */
 .contact-grid {
   display: grid;

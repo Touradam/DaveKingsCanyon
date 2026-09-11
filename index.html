@@ -457,6 +457,134 @@
             </li>
           </ul>
         </div>
+
+        <!-- LOCAL PHOTO GALLERY: island of category buttons -->
+        <div class="local-gallery" data-reveal>
+          <div class="local-gallery-island" role="tablist" aria-label="Local photo categories">
+            <button
+              class="local-tab is-active"
+              id="local-tab-attractions"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="local-panel-attractions"
+              data-category="attractions"
+            >
+              Local Attractions
+            </button>
+            <button
+              class="local-tab"
+              id="local-tab-vegetation"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="local-panel-vegetation"
+              data-category="vegetation"
+            >
+              Local Vegetation
+            </button>
+            <button
+              class="local-tab"
+              id="local-tab-wildlife"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="local-panel-wildlife"
+              data-category="wildlife"
+            >
+              Local Wildlife
+            </button>
+          </div>
+
+          <div
+            class="local-gallery-panel is-active"
+            id="local-panel-attractions"
+            role="tabpanel"
+            aria-labelledby="local-tab-attractions"
+            data-category="attractions"
+          >
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-kings-canyon.jpg" data-lightbox-alt="Aerial view into Kings Canyon" aria-label="Enlarge photo: Aerial view into Kings Canyon">
+              <img src="assets/images/attraction-kings-canyon.jpg" alt="Aerial view into Kings Canyon" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-sequoia-trees.jpg" data-lightbox-alt="Giant sequoia trees" aria-label="Enlarge photo: Giant sequoia trees">
+              <img src="assets/images/attraction-sequoia-trees.jpg" alt="Giant sequoia trees" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-giant-forest-museum.jpg" data-lightbox-alt="Giant Forest Museum" aria-label="Enlarge photo: Giant Forest Museum">
+              <img src="assets/images/attraction-giant-forest-museum.jpg" alt="Giant Forest Museum" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-cedar-grove.jpg" data-lightbox-alt="Cedar Grove in Kings Canyon" aria-label="Enlarge photo: Cedar Grove in Kings Canyon">
+              <img src="assets/images/attraction-cedar-grove.jpg" alt="Cedar Grove in Kings Canyon" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-mist-falls.jpg" data-lightbox-alt="Mist Falls" aria-label="Enlarge photo: Mist Falls">
+              <img src="assets/images/attraction-mist-falls.jpg" alt="Mist Falls" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/attraction-zumwalt-meadow.jpg" data-lightbox-alt="Zumwalt Meadow" aria-label="Enlarge photo: Zumwalt Meadow">
+              <img src="assets/images/attraction-zumwalt-meadow.jpg" alt="Zumwalt Meadow" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/attraction-kings-canyon.jpg,assets/images/attraction-sequoia-trees.jpg,assets/images/attraction-giant-forest-museum.jpg,assets/images/attraction-cedar-grove.jpg,assets/images/attraction-mist-falls.jpg,assets/images/attraction-zumwalt-meadow.jpg">
+            </button>
+          </div>
+
+          <div
+            class="local-gallery-panel"
+            id="local-panel-vegetation"
+            role="tabpanel"
+            aria-labelledby="local-tab-vegetation"
+            data-category="vegetation"
+            hidden
+          >
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-golden-poppy.jpg" data-lightbox-alt="California golden poppies" aria-label="Enlarge photo: California golden poppies">
+              <img src="assets/images/vegetation-golden-poppy.jpg" alt="California golden poppies" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-gooseberries.jpg" data-lightbox-alt="Flowering gooseberries" aria-label="Enlarge photo: Flowering gooseberries">
+              <img src="assets/images/vegetation-gooseberries.jpg" alt="Flowering gooseberries" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-flowering-manzanita.jpg" data-lightbox-alt="Flowering manzanita" aria-label="Enlarge photo: Flowering manzanita">
+              <img src="assets/images/vegetation-flowering-manzanita.jpg" alt="Flowering manzanita" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-old-manzanita.jpg" data-lightbox-alt="Old manzanita tree" aria-label="Enlarge photo: Old manzanita tree">
+              <img src="assets/images/vegetation-old-manzanita.jpg" alt="Old manzanita tree" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-wildflowers.jpg" data-lightbox-alt="Purple and white wildflowers" aria-label="Enlarge photo: Purple and white wildflowers">
+              <img src="assets/images/vegetation-wildflowers.jpg" alt="Purple and white wildflowers" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/vegetation-waterfall.jpg" data-lightbox-alt="Seasonal waterfall in summer" aria-label="Enlarge photo: Seasonal waterfall in summer">
+              <img src="assets/images/vegetation-waterfall.jpg" alt="Seasonal waterfall in summer" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/vegetation-golden-poppy.jpg,assets/images/vegetation-gooseberries.jpg,assets/images/vegetation-flowering-manzanita.jpg,assets/images/vegetation-old-manzanita.jpg,assets/images/vegetation-wildflowers.jpg,assets/images/vegetation-waterfall.jpg">
+            </button>
+          </div>
+
+          <div
+            class="local-gallery-panel"
+            id="local-panel-wildlife"
+            role="tabpanel"
+            aria-labelledby="local-tab-wildlife"
+            data-category="wildlife"
+            hidden
+          >
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-bobcat.jpg" data-lightbox-alt="Bobcat" aria-label="Enlarge photo: Bobcat">
+              <img src="assets/images/wildlife-bobcat.jpg" alt="Bobcat" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-california-quail.jpg" data-lightbox-alt="California quail" aria-label="Enlarge photo: California quail">
+              <img src="assets/images/wildlife-california-quail.jpg" alt="California quail" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-cinnamon-black-bear.jpg" data-lightbox-alt="Cinnamon black bear" aria-label="Enlarge photo: Cinnamon black bear">
+              <img src="assets/images/wildlife-cinnamon-black-bear.jpg" alt="Cinnamon black bear" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-marmots.jpg" data-lightbox-alt="Marmots" aria-label="Enlarge photo: Marmots">
+              <img src="assets/images/wildlife-marmots.jpg" alt="Marmots" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-mountain-lion.jpg" data-lightbox-alt="Mountain lion" aria-label="Enlarge photo: Mountain lion">
+              <img src="assets/images/wildlife-mountain-lion.jpg" alt="Mountain lion" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-red-tailed-hawk.jpg" data-lightbox-alt="Red-tailed hawk" aria-label="Enlarge photo: Red-tailed hawk">
+              <img src="assets/images/wildlife-red-tailed-hawk.jpg" alt="Red-tailed hawk" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-turkey-vultures.jpg" data-lightbox-alt="Turkey vultures" aria-label="Enlarge photo: Turkey vultures">
+              <img src="assets/images/wildlife-turkey-vultures.jpg" alt="Turkey vultures" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+            <button class="local-photo" type="button" data-lightbox-src="assets/images/wildlife-white-tailed-deer.jpg" data-lightbox-alt="White-tailed deer" aria-label="Enlarge photo: White-tailed deer">
+              <img src="assets/images/wildlife-white-tailed-deer.jpg" alt="White-tailed deer" loading="lazy" decoding="async" data-no-cycle data-cycle-images="assets/images/wildlife-bobcat.jpg,assets/images/wildlife-california-quail.jpg,assets/images/wildlife-cinnamon-black-bear.jpg,assets/images/wildlife-marmots.jpg,assets/images/wildlife-mountain-lion.jpg,assets/images/wildlife-red-tailed-hawk.jpg,assets/images/wildlife-turkey-vultures.jpg,assets/images/wildlife-white-tailed-deer.jpg">
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
