@@ -668,6 +668,31 @@ body.nav-open {
   }
 }
 
+/* 3D flip between the two hero backdrops. The parallax transforms
+   .hero-media, so the flip lives on this inner wrapper to avoid
+   transform conflicts. */
+.hero-flip {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 1.4s var(--ease);
+  will-change: transform;
+}
+
+.hero-flip.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.hero-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.hero-face--back {
+  transform: rotateY(180deg);
+}
+
 /* Cinematic entrance for hero content when parallax owns its reveal */
 @keyframes hero-content-in {
   from {

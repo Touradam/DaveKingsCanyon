@@ -69,14 +69,30 @@
   <main id="main-content">
     <section class="hero" id="hero" aria-label="Property overview">
       <div class="hero-media">
-        <img
-          class="hero-image"
-          src="assets/images/hero-rendering.jpg"
-          alt="Rendering of a grand destination resort with a lake on the 420-acre Kings Canyon property along Highway 180"
-          fetchpriority="high"
-          width="1536"
-          height="1024"
-        >
+        <!-- Flips between the resort rendering and the drone photo -->
+        <div class="hero-flip" id="hero-flip">
+          <div class="hero-face hero-face--front">
+            <img
+              class="hero-image"
+              src="assets/images/hero-rendering.jpg"
+              alt="Rendering of a grand destination resort with a lake on the 420-acre Kings Canyon property along Highway 180"
+              fetchpriority="high"
+              width="1536"
+              height="1024"
+            >
+          </div>
+          <div class="hero-face hero-face--back" aria-hidden="true">
+            <img
+              class="hero-image"
+              src="assets/images/hero-d19.jpg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width="3992"
+              height="2242"
+            >
+          </div>
+        </div>
       </div>
 
       <div class="hero-overlay" aria-hidden="true"></div>

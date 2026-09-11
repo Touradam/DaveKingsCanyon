@@ -239,6 +239,43 @@
     parallaxQuery.addListener(syncParallax);
   }
 
+  /* --- Hero Backdrop Flip ---
+     Alternates between the resort rendering and the drone photo with a
+     3D flip. Pauses while the hero is off screen and stays disabled
+     under reduced motion. */
+  var heroFlip = document.getElementById("hero-flip");
+  if (heroFlip && hero && !prefersReducedMotion) {
+    var flipTimer = null;
+    var FLIP_DELAY = 9000;
+
+    var startHeroFlip = function () {
+      if (flipTimer !== null) return;
+      flipTimer = window.setInterval(function () {
+        heroFlip.classList.toggle("is-flipped");
+      }, FLIP_DELAY);
+    };
+
+    var stopHeroFlip = function () {
+      window.clearInterval(flipTimer);
+      flipTimer = null;
+    };
+
+    if ("IntersectionObserver" in window) {
+      var heroFlipObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            startHeroFlip();
+          } else {
+            stopHeroFlip();
+          }
+        });
+      });
+      heroFlipObserver.observe(hero);
+    } else {
+      startHeroFlip();
+    }
+  }
+
   /* --- 3D Tilt on Concept Images ---
      Pointer position sets a target rotation, then a rAF loop eases the
      current rotation toward it for a smooth, weighted feel. */
