@@ -240,40 +240,16 @@
   }
 
   /* --- Hero Backdrop Flip ---
-     Alternates between the resort rendering and the drone photo with a
-     3D flip. Pauses while the hero is off screen and stays disabled
-     under reduced motion. */
+     Click anywhere on the hero (except links and buttons) to flip
+     between the resort rendering and the drone photo. Disabled under
+     reduced motion. */
   var heroFlip = document.getElementById("hero-flip");
   if (heroFlip && hero && !prefersReducedMotion) {
-    var flipTimer = null;
-    var FLIP_DELAY = 9000;
-
-    var startHeroFlip = function () {
-      if (flipTimer !== null) return;
-      flipTimer = window.setInterval(function () {
-        heroFlip.classList.toggle("is-flipped");
-      }, FLIP_DELAY);
-    };
-
-    var stopHeroFlip = function () {
-      window.clearInterval(flipTimer);
-      flipTimer = null;
-    };
-
-    if ("IntersectionObserver" in window) {
-      var heroFlipObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            startHeroFlip();
-          } else {
-            stopHeroFlip();
-          }
-        });
-      });
-      heroFlipObserver.observe(hero);
-    } else {
-      startHeroFlip();
-    }
+    hero.classList.add("hero--flippable");
+    hero.addEventListener("click", function (e) {
+      if (e.target.closest("a, button")) return;
+      heroFlip.classList.toggle("is-flipped");
+    });
   }
 
   /* --- 3D Tilt on Concept Images ---

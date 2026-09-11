@@ -683,6 +683,10 @@ body.nav-open {
   transform: rotateY(180deg);
 }
 
+.hero--flippable {
+  cursor: pointer;
+}
+
 .hero-face {
   position: absolute;
   inset: 0;
