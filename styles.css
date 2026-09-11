@@ -1280,9 +1280,46 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-/* --- Local Gallery: button island + category panels --- */
-.local-gallery {
+/* --- Local Explorer: invitation tile + button island --- */
+.local-explorer {
   margin-top: var(--space-xl);
+}
+
+.local-explorer-tile {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--ink-raised) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-slow),
+    border-color var(--transition-slow),
+    box-shadow var(--transition-slow);
+}
+
+.local-explorer-tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+}
+
+.local-explorer-eyebrow {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.local-explorer-title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: var(--ls-tight);
 }
 
 .local-gallery-island {
@@ -1291,12 +1328,11 @@ html.js .hero.is-parallax .hero-content {
   justify-content: center;
   gap: 0.25rem;
   width: fit-content;
-  margin: 0 auto var(--space-lg);
+  margin: 0 auto;
   padding: 0.375rem;
-  background: rgba(18, 18, 26, 0.85);
-  border: 1px solid var(--border-gold);
+  background: rgba(12, 12, 15, 0.6);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  box-shadow: var(--shadow-md);
 }
 
 .local-tab {
@@ -1314,11 +1350,15 @@ html.js .hero.is-parallax .hero-content {
   transition:
     color var(--transition),
     background var(--transition),
-    box-shadow var(--transition);
+    box-shadow var(--transition),
+    transform var(--transition);
 }
 
 .local-tab:hover {
-  color: var(--text);
+  color: var(--ink);
+  background: var(--gold);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
 }
 
 .local-tab:focus-visible {
@@ -1326,64 +1366,8 @@ html.js .hero.is-parallax .hero-content {
   outline-offset: 2px;
 }
 
-.local-tab.is-active {
-  background: var(--gold);
-  color: var(--ink);
-  box-shadow: var(--shadow-gold);
-}
-
-.local-gallery-panel {
-  display: none;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: var(--space-sm);
-}
-
-.local-gallery-panel.is-active {
-  display: grid;
-  animation: local-panel-in 0.5s var(--ease-out);
-}
-
-@keyframes local-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.local-photo {
-  display: block;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--surface);
-  cursor: pointer;
-  transition:
-    transform var(--transition),
-    box-shadow var(--transition),
-    border-color var(--transition);
-}
-
-.local-photo:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-md);
-}
-
-.local-photo:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-}
-
-.local-photo img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+.local-tab:active {
+  transform: scale(0.96);
 }
 
 /* --- Contact --- */
@@ -1772,7 +1756,10 @@ body.nav-open .mobile-cta {
   .potential-item:hover,
   .quick-fact:hover,
   .btn--primary:hover,
-  .footer-top:hover {
+  .footer-top:hover,
+  .local-explorer-tile:hover,
+  .local-tab:hover,
+  .local-tab:active {
     transform: none;
   }
 }

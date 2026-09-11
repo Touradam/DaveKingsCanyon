@@ -252,45 +252,11 @@
     });
   }
 
-  /* --- Local Gallery Tabs ---
-     The island of category buttons swaps which photo panel is visible.
-     Each photo opens the shared lightbox, with that category's full
-     set wired as the step-through gallery via data-cycle-images. */
-  var localTabs = Array.prototype.slice.call(document.querySelectorAll(".local-tab"));
-  var localPanels = Array.prototype.slice.call(document.querySelectorAll(".local-gallery-panel"));
-
-  function selectLocalTab(activeTab) {
-    var category = activeTab.getAttribute("data-category");
-    localTabs.forEach(function (tab) {
-      var isActive = tab === activeTab;
-      tab.classList.toggle("is-active", isActive);
-      tab.setAttribute("aria-selected", isActive ? "true" : "false");
-    });
-    localPanels.forEach(function (panel) {
-      var isActive = panel.getAttribute("data-category") === category;
-      panel.classList.toggle("is-active", isActive);
-      panel.hidden = !isActive;
-    });
-  }
-
-  localTabs.forEach(function (tab, index) {
-    tab.addEventListener("click", function () {
-      selectLocalTab(tab);
-    });
-    tab.addEventListener("keydown", function (e) {
-      var next = null;
-      if (e.key === "ArrowRight") {
-        next = localTabs[(index + 1) % localTabs.length];
-      } else if (e.key === "ArrowLeft") {
-        next = localTabs[(index - 1 + localTabs.length) % localTabs.length];
-      }
-      if (next) {
-        e.preventDefault();
-        next.focus();
-        selectLocalTab(next);
-      }
-    });
-  });
+  /* --- Local Explorer Island ---
+     The category pills carry their photo set in data-gallery and open
+     the shared lightbox directly, so the page stays free of image
+     grids until a visitor asks to explore. They are wired up with the
+     other lightbox triggers below. */
 
   /* --- 3D Tilt on Concept Images ---
      Pointer position sets a target rotation, then a rAF loop eases the
@@ -458,23 +424,28 @@
     lightboxGallery = null;
     lightboxIndex = 0;
 
-    var cycleImg = trigger
-      ? trigger.querySelector("img[data-cycle-images]")
-      : null;
+    var sources = null;
 
-    if (cycleImg) {
-      var sources = cycleImg
-        .getAttribute("data-cycle-images")
-        .split(",")
-        .map(function (item) {
-          return item.trim();
-        })
-        .filter(Boolean);
+    if (trigger) {
+      // Island pills carry the gallery on the trigger itself; concept
+      // cards keep it on the enclosed cycling image
+      var galleryAttr = trigger.getAttribute("data-gallery");
+      var cycleImg = trigger.querySelector("img[data-cycle-images]");
+      var list = galleryAttr || (cycleImg ? cycleImg.getAttribute("data-cycle-images") : null);
 
-      if (sources.length > 1) {
-        lightboxGallery = sources;
-        var found = sources.indexOf(src);
-        lightboxIndex = found === -1 ? 0 : found;
+      if (list) {
+        sources = list
+          .split(",")
+          .map(function (item) {
+            return item.trim();
+          })
+          .filter(Boolean);
+
+        if (sources.length > 1) {
+          lightboxGallery = sources;
+          var found = sources.indexOf(src);
+          lightboxIndex = found === -1 ? 0 : found;
+        }
       }
     }
 
