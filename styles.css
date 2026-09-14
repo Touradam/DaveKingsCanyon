@@ -799,12 +799,18 @@ html.js .hero.is-parallax .hero-content {
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
   font-weight: 500;
   color: var(--gold-light);
+  text-shadow:
+    0 1px 6px rgba(12, 12, 15, 0.65),
+    0 0 20px rgba(12, 12, 15, 0.45);
 }
 
 .hero-subtitle {
   margin: 0 0 var(--space-lg);
   font-size: clamp(0.9375rem, 0.875rem + 0.3vw, 1.125rem);
   color: var(--text-muted);
+  text-shadow:
+    0 1px 6px rgba(12, 12, 15, 0.65),
+    0 0 20px rgba(12, 12, 15, 0.45);
 }
 
 .hero-actions {
