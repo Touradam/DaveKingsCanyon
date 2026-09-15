@@ -19,9 +19,10 @@
   var revealElements = document.querySelectorAll("[data-reveal]");
   var tiltElements = document.querySelectorAll("[data-tilt]");
   var cycleImages = document.querySelectorAll("img[data-cycle-images]");
-  var lightboxButtons = document.querySelectorAll("[data-lightbox-src]");
+  var lightboxButtons = document.querySelectorAll("[data-lightbox-src], [data-lightbox-video]");
   var lightbox = document.getElementById("lightbox");
   var lightboxImage = document.getElementById("lightbox-image");
+  var lightboxVideo = document.getElementById("lightbox-video");
   var lightboxCaption = document.getElementById("lightbox-caption");
   var lightboxClose = document.getElementById("lightbox-close");
   var lightboxPrev = document.getElementById("lightbox-prev");
@@ -480,9 +481,40 @@
     }, 200);
   }
 
+  function showLightboxImage() {
+    if (lightboxImage) lightboxImage.hidden = false;
+    if (lightboxVideo) {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute("src");
+      lightboxVideo.load();
+      lightboxVideo.hidden = true;
+    }
+  }
+
+  function showLightboxVideo(src) {
+    if (lightboxImage) {
+      lightboxImage.hidden = true;
+      lightboxImage.src = "";
+    }
+    if (lightboxVideo) {
+      lightboxVideo.hidden = false;
+      lightboxVideo.muted = true;
+      lightboxVideo.defaultMuted = true;
+      lightboxVideo.volume = 0;
+      lightboxVideo.setAttribute("muted", "");
+      lightboxVideo.src = src;
+      lightboxVideo.load();
+      var playPromise = lightboxVideo.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function () {});
+      }
+    }
+  }
+
   function openLightbox(src, alt, trigger) {
     lightboxTrigger = trigger;
     setLightboxGallery(trigger, src);
+    showLightboxImage();
     lightboxImage.src = src;
     lightboxImage.alt = alt;
     lightboxCaption.textContent = alt;
@@ -493,8 +525,24 @@
     lightboxClose.focus();
   }
 
+  function openLightboxVideo(src, alt, trigger) {
+    lightboxTrigger = trigger;
+    lightboxGallery = null;
+    lightboxIndex = 0;
+    if (lightboxPrev) lightboxPrev.hidden = true;
+    if (lightboxNext) lightboxNext.hidden = true;
+    if (lightboxCounter) lightboxCounter.hidden = true;
+    showLightboxVideo(src);
+    lightboxCaption.textContent = alt;
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.body.classList.add("modal-open");
+    lightboxClose.focus();
+  }
+
   function closeLightbox() {
     lightbox.hidden = true;
+    showLightboxImage();
     lightboxImage.src = "";
     lightboxGallery = null;
     document.body.style.overflow = "";
@@ -508,13 +556,24 @@
   if (lightbox && lightboxImage) {
     lightboxButtons.forEach(function (btn) {
       btn.addEventListener("click", function () {
-        openLightbox(
-          btn.getAttribute("data-lightbox-src"),
-          btn.getAttribute("data-lightbox-alt") || "",
-          btn
-        );
+        var videoSrc = btn.getAttribute("data-lightbox-video");
+        var alt = btn.getAttribute("data-lightbox-alt") || "";
+        if (videoSrc) {
+          openLightboxVideo(videoSrc, alt, btn);
+          return;
+        }
+        openLightbox(btn.getAttribute("data-lightbox-src"), alt, btn);
       });
     });
+
+    if (lightboxVideo) {
+      lightboxVideo.addEventListener("volumechange", function () {
+        if (!lightboxVideo.muted || lightboxVideo.volume > 0) {
+          lightboxVideo.muted = true;
+          lightboxVideo.volume = 0;
+        }
+      });
+    }
 
     lightboxClose.addEventListener("click", closeLightbox);
 

@@ -798,11 +798,10 @@ html.js .hero.is-parallax .hero-content {
   width: fit-content;
   margin: 0 auto var(--space-lg);
   padding: var(--space-sm) var(--space-md);
-  background: rgba(12, 12, 15, 0.80);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 12, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.027);
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+
 }
 
 .hero-address {
@@ -1792,6 +1791,23 @@ body.nav-open .floating-cta {
   box-shadow: var(--shadow-lg), 0 0 80px rgba(196, 163, 90, 0.08);
   animation: lightbox-image-in 0.55s var(--ease-out);
   transition: opacity 0.2s ease;
+}
+
+.lightbox-video {
+  display: block;
+  max-height: 78vh;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-lg), 0 0 80px rgba(196, 163, 90, 0.08);
+  background: #000;
+  animation: lightbox-image-in 0.55s var(--ease-out);
+}
+
+.lightbox-video[hidden] {
+  display: none;
 }
 
 .lightbox-image.is-stepping {
