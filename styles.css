@@ -799,13 +799,11 @@ html.js .hero.is-parallax .hero-content {
   max-width: 100%;
   margin: 0 auto var(--space-lg);
   padding: var(--space-sm) var(--space-md);
-  background: rgba(12, 12, 15, 0.28);
+  background: rgba(12, 12, 15, 0.573);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   box-sizing: border-box;
   text-align: center;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero-address {
