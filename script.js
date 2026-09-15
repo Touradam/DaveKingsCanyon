@@ -235,6 +235,66 @@
 
   syncParallax();
 
+  /* --- Hero tagline typewriter --- */
+  (function initHeroWrite() {
+    var lines = document.querySelectorAll(".hero-tagline [data-write-text]");
+    if (!lines.length) return;
+
+    function fillAll() {
+      lines.forEach(function (line) {
+        line.textContent = line.getAttribute("data-write-text") || "";
+        line.classList.remove("is-writing");
+        line.classList.add("is-written");
+      });
+    }
+
+    if (prefersReducedMotion) {
+      fillAll();
+      return;
+    }
+
+    var lineIndex = 0;
+
+    function typeLine(line, done) {
+      var full = line.getAttribute("data-write-text") || "";
+      var i = 0;
+      line.textContent = "";
+      line.classList.add("is-writing");
+      line.classList.remove("is-written");
+
+      function tick() {
+        i += 1;
+        line.textContent = full.slice(0, i);
+        if (i < full.length) {
+          var ch = full.charAt(i - 1);
+          var delay = ch === "." ? 220 : ch === "," ? 90 : 28;
+          window.setTimeout(tick, delay);
+        } else {
+          line.classList.remove("is-writing");
+          line.classList.add("is-written");
+          done();
+        }
+      }
+
+      window.setTimeout(tick, 40);
+    }
+
+    function next() {
+      if (lineIndex >= lines.length) return;
+      var line = lines[lineIndex];
+      lineIndex += 1;
+      typeLine(line, function () {
+        window.setTimeout(next, 320);
+      });
+    }
+
+    lines.forEach(function (line) {
+      line.textContent = "";
+    });
+
+    window.setTimeout(next, 700);
+  })();
+
   if (typeof parallaxQuery.addEventListener === "function") {
     parallaxQuery.addEventListener("change", syncParallax);
   } else if (typeof parallaxQuery.addListener === "function") {

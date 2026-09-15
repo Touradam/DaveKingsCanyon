@@ -803,10 +803,12 @@ html.js .hero.is-parallax .hero-content {
   border: 1px solid rgba(255, 255, 255, 0.027);
   border-radius: var(--radius-lg);
   box-sizing: border-box;
+  text-align: center;
 }
 
 .hero-address {
   margin: 0 0 var(--space-xs);
+  min-height: 1.4em;
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
   font-weight: 500;
   color: var(--gold-light);
@@ -817,11 +819,33 @@ html.js .hero.is-parallax .hero-content {
 
 .hero-subtitle {
   margin: 0;
+  min-height: 1.5em;
   font-size: clamp(0.9375rem, 0.875rem + 0.3vw, 1.125rem);
   color: var(--text-muted);
   text-shadow:
     0 1px 6px rgba(12, 12, 15, 0.85),
     0 0 22px rgba(12, 12, 15, 0.6);
+}
+
+.hero-tagline [data-write-text].is-writing::after {
+  content: "";
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.12em;
+  vertical-align: -0.1em;
+  background: var(--gold-light);
+  animation: hero-caret 0.7s steps(1) infinite;
+}
+
+.hero-tagline [data-write-text].is-written::after {
+  display: none;
+}
+
+@keyframes hero-caret {
+  50% {
+    opacity: 0;
+  }
 }
 
 .hero-actions {
@@ -1944,6 +1968,11 @@ body.nav-open .floating-cta {
   .hero-spotlight,
   .hero-particles {
     display: none;
+  }
+
+  .hero-tagline [data-write-text].is-writing::after {
+    display: none;
+    animation: none;
   }
 
   .map-wrapper:hover,
