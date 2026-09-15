@@ -798,10 +798,10 @@ html.js .hero.is-parallax .hero-content {
   width: fit-content;
   max-width: 100%;
   margin: 0 auto var(--space-lg);
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(12, 12, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.027);
-  border-radius: var(--radius-lg);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
   box-sizing: border-box;
   text-align: center;
 }
