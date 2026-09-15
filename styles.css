@@ -796,12 +796,13 @@ html.js .hero.is-parallax .hero-content {
 
 .hero-tagline {
   width: fit-content;
+  max-width: 100%;
   margin: 0 auto var(--space-lg);
   padding: var(--space-sm) var(--space-md);
   background: rgba(12, 12, 15, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.027);
   border-radius: var(--radius-lg);
-
+  box-sizing: border-box;
 }
 
 .hero-address {
@@ -1784,7 +1785,9 @@ body.nav-open .floating-cta {
 
 .lightbox-image {
   max-height: 78vh;
+  max-width: 100%;
   width: auto;
+  height: auto;
   margin-inline: auto;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-gold);
@@ -1798,6 +1801,7 @@ body.nav-open .floating-cta {
   max-height: 78vh;
   width: auto;
   max-width: 100%;
+  height: auto;
   margin-inline: auto;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-gold);
@@ -1819,6 +1823,80 @@ body.nav-open .floating-cta {
   text-align: center;
   font-size: 0.9375rem;
   color: var(--text-muted);
+}
+
+/* --- Mobile polish --- */
+@media (max-width: 900px) {
+  .hero-tagline {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .hero-address,
+  .hero-subtitle {
+    text-wrap: pretty;
+  }
+
+  .concept-zoom-hint {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .lightbox {
+    padding: max(0.75rem, env(safe-area-inset-top))
+      max(0.75rem, env(safe-area-inset-right))
+      max(0.75rem, env(safe-area-inset-bottom))
+      max(0.75rem, env(safe-area-inset-left));
+  }
+
+  .lightbox-close {
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .lightbox-nav {
+    top: auto;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    transform: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(12, 12, 15, 0.55);
+    border-color: var(--border-gold);
+    color: var(--gold-light);
+  }
+
+  .lightbox-nav--prev {
+    left: max(0.75rem, env(safe-area-inset-left));
+  }
+
+  .lightbox-nav--next {
+    right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .lightbox-figure {
+    max-height: 100%;
+    padding-bottom: 3.5rem;
+  }
+
+  .lightbox-image,
+  .lightbox-video {
+    max-height: min(70vh, calc(100dvh - 8rem));
+  }
+
+  .lightbox-caption {
+    font-size: 0.8125rem;
+    padding-inline: 0.5rem;
+  }
+
+  .parcel-map figcaption {
+    font-size: 0.75rem;
+  }
+
+  .financial-summary {
+    font-size: 0.9375rem;
+    padding-block: var(--space-sm);
+  }
 }
 
 /* --- Reduced Motion --- */
