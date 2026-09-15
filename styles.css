@@ -798,12 +798,14 @@ html.js .hero.is-parallax .hero-content {
   width: fit-content;
   max-width: 100%;
   margin: 0 auto var(--space-lg);
-  padding: 0;
-  background: none;
-  border: 0;
-  border-radius: 0;
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(12, 12, 15, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
   box-sizing: border-box;
   text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero-address {
@@ -1855,6 +1857,10 @@ body.nav-open .floating-cta {
 
 /* --- Mobile polish --- */
 @media (max-width: 900px) {
+  .hero-tagline {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
   .hero-address,
   .hero-subtitle {
     text-wrap: pretty;

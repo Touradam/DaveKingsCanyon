@@ -237,6 +237,7 @@
 
   /* --- Hero tagline typewriter --- */
   (function initHeroWrite() {
+    var tagline = document.querySelector(".hero-tagline[data-write]");
     var lines = document.querySelectorAll(".hero-tagline [data-write-text]");
     if (!lines.length) return;
 
@@ -251,6 +252,11 @@
     if (prefersReducedMotion) {
       fillAll();
       return;
+    }
+
+    // Keep the translucent box at its full size so only the text writes in
+    if (tagline) {
+      tagline.style.minWidth = tagline.offsetWidth + "px";
     }
 
     var lineIndex = 0;
