@@ -32,6 +32,7 @@
 
   var lightboxTrigger = null;
   var lightboxGallery = null;
+  var lightboxGalleryAlts = null;
   var lightboxIndex = 0;
   var scrollTicking = false;
 
@@ -421,8 +422,22 @@
     }
   }
 
+  function currentLightboxAlt(fallback) {
+    if (
+      lightboxGalleryAlts &&
+      lightboxGalleryAlts.length &&
+      lightboxIndex >= 0 &&
+      lightboxIndex < lightboxGalleryAlts.length &&
+      lightboxGalleryAlts[lightboxIndex]
+    ) {
+      return lightboxGalleryAlts[lightboxIndex];
+    }
+    return fallback || "";
+  }
+
   function setLightboxGallery(trigger, src) {
     lightboxGallery = null;
+    lightboxGalleryAlts = null;
     lightboxIndex = 0;
 
     var sources = null;
@@ -446,6 +461,13 @@
           lightboxGallery = sources;
           var found = sources.indexOf(src);
           lightboxIndex = found === -1 ? 0 : found;
+
+          var altsAttr = trigger.getAttribute("data-gallery-alts");
+          if (altsAttr) {
+            lightboxGalleryAlts = altsAttr.split(",").map(function (item) {
+              return item.trim();
+            });
+          }
         }
       }
     }
@@ -462,11 +484,14 @@
     lightboxIndex =
       (lightboxIndex + delta + lightboxGallery.length) % lightboxGallery.length;
     var next = lightboxGallery[lightboxIndex];
+    var nextAlt = currentLightboxAlt("");
 
     lightboxImage.classList.add("is-stepping");
 
     window.setTimeout(function () {
       lightboxImage.src = next;
+      lightboxImage.alt = nextAlt;
+      lightboxCaption.textContent = nextAlt;
       updateLightboxCounter();
 
       if (lightboxImage.decode) {
@@ -515,9 +540,10 @@
     lightboxTrigger = trigger;
     setLightboxGallery(trigger, src);
     showLightboxImage();
+    var resolvedAlt = currentLightboxAlt(alt);
     lightboxImage.src = src;
-    lightboxImage.alt = alt;
-    lightboxCaption.textContent = alt;
+    lightboxImage.alt = resolvedAlt;
+    lightboxCaption.textContent = resolvedAlt;
     updateLightboxCounter();
     lightbox.hidden = false;
     document.body.style.overflow = "hidden";
@@ -545,6 +571,7 @@
     showLightboxImage();
     lightboxImage.src = "";
     lightboxGallery = null;
+    lightboxGalleryAlts = null;
     document.body.style.overflow = "";
     document.body.classList.remove("modal-open");
     if (lightboxTrigger) {
