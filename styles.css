@@ -1818,6 +1818,10 @@ body.nav-open .floating-cta {
   opacity: 0;
 }
 
+.lightbox-image[hidden] {
+  display: none;
+}
+
 .lightbox-caption {
   margin-top: var(--space-sm);
   text-align: center;

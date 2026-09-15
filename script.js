@@ -568,8 +568,20 @@
 
   function closeLightbox() {
     lightbox.hidden = true;
-    showLightboxImage();
-    lightboxImage.src = "";
+    if (lightboxVideo) {
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute("src");
+      lightboxVideo.load();
+      lightboxVideo.hidden = true;
+    }
+    if (lightboxImage) {
+      lightboxImage.src = "";
+      lightboxImage.alt = "";
+      lightboxImage.hidden = true;
+    }
+    if (lightboxCaption) {
+      lightboxCaption.textContent = "";
+    }
     lightboxGallery = null;
     lightboxGalleryAlts = null;
     document.body.style.overflow = "";
