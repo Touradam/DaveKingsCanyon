@@ -798,7 +798,7 @@ html.js .hero.is-parallax .hero-content {
   width: fit-content;
   margin: 0 auto var(--space-lg);
   padding: var(--space-sm) var(--space-md);
-  background: rgba(12, 12, 15, 0.45);
+  background: rgba(12, 12, 15, 0.80);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(8px);
@@ -1746,7 +1746,7 @@ body.nav-open .floating-cta {
 
 .lightbox-nav:hover {
   color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.45);
+  background: rgba(12, 12, 15, 0.28);
   border-color: var(--border-gold);
 }
 
