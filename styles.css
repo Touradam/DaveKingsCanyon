@@ -1855,10 +1855,6 @@ body.nav-open .floating-cta {
 
 /* --- Mobile polish --- */
 @media (max-width: 900px) {
-  .hero-tagline {
-    padding: var(--space-xs) var(--space-sm);
-  }
-
   .hero-address,
   .hero-subtitle {
     text-wrap: pretty;
