@@ -1595,17 +1595,6 @@ html.js .hero.is-parallax .hero-content {
   background: var(--gold-soft);
 }
 
-.contact-address {
-  font-style: normal;
-  font-size: 0.9375rem;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-
-.contact-address strong {
-  color: var(--text-muted);
-}
-
 /* --- Footer --- */
 .site-footer {
   padding: var(--space-lg) 0;
