@@ -1054,11 +1054,46 @@ html.js .hero.is-parallax .hero-content {
   opacity: 0;
 }
 
-/* Before/after pairs: slower, softer crossfade */
-.concept-image--before-after {
-  transition:
-    transform var(--transition-slow),
-    opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+/* Before/after overlay: HGP1 -> HGP2 loop, then hands off to the GP cycle */
+.concept-before-after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--surface);
+  animation: concept-before-after-out 0.8s ease 6.4s forwards;
+}
+
+.concept-before-after .concept-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto;
+}
+
+.concept-before-after .concept-image--before {
+  opacity: 1;
+}
+
+.concept-before-after .concept-image--after {
+  opacity: 0;
+  animation: concept-before-after-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 3.2s forwards;
+}
+
+@keyframes concept-before-after-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes concept-before-after-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .concept-image-btn:hover .concept-image {

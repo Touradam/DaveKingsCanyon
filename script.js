@@ -408,9 +408,6 @@
 
       var lightboxBtn = img.closest("[data-lightbox-src]");
       var currentIndex = 0;
-      var isBeforeAfter = img.classList.contains("concept-image--before-after");
-      var interval = isBeforeAfter ? 7000 : 4500;
-      var fadeOutMs = isBeforeAfter ? 1600 : 450;
 
       window.setInterval(function () {
         currentIndex = (currentIndex + 1) % sources.length;
@@ -433,8 +430,8 @@
           } else {
             img.classList.remove("is-cycling");
           }
-        }, fadeOutMs);
-      }, interval);
+        }, 450);
+      }, 4500);
     });
   }
 
