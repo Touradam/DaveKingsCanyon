@@ -23,6 +23,9 @@
   var lightbox = document.getElementById("lightbox");
   var lightboxImage = document.getElementById("lightbox-image");
   var lightboxVideo = document.getElementById("lightbox-video");
+  var lightboxBaWrap = document.getElementById("lightbox-before-after");
+  var lightboxBaBefore = document.getElementById("lightbox-ba-before");
+  var lightboxBaAfter = document.getElementById("lightbox-ba-after");
   var lightboxCaption = document.getElementById("lightbox-caption");
   var lightboxClose = document.getElementById("lightbox-close");
   var lightboxPrev = document.getElementById("lightbox-prev");
@@ -33,8 +36,28 @@
   var lightboxTrigger = null;
   var lightboxGallery = null;
   var lightboxGalleryAlts = null;
+  var lightboxBeforeAfter = null;
+  var lightboxBaTimer = null;
   var lightboxIndex = 0;
   var scrollTicking = false;
+
+  /* Parse "base|before|after;base|before|after" into a lookup map */
+  function parseBeforeAfterMap(attr) {
+    var map = {};
+    if (!attr) return map;
+    attr.split(";").forEach(function (entry) {
+      var parts = entry
+        .split("|")
+        .map(function (item) {
+          return item.trim();
+        })
+        .filter(Boolean);
+      if (parts.length === 3) {
+        map[parts[0]] = [parts[1], parts[2]];
+      }
+    });
+    return map;
+  }
 
   /* Hero parallax state */
   var heroMedia = hero ? hero.querySelector(".hero-media") : null;
@@ -400,53 +423,110 @@
 
       if (sources.length < 2) return;
 
+      var beforeAfter = parseBeforeAfterMap(
+        img.getAttribute("data-before-after")
+      );
+
       // Preload every frame so crossfades never wait on the network
       sources.forEach(function (src) {
         var preloader = new Image();
         preloader.src = src;
       });
+      Object.keys(beforeAfter).forEach(function (key) {
+        beforeAfter[key].forEach(function (src) {
+          var preloader = new Image();
+          preloader.src = src;
+        });
+      });
 
       var lightboxBtn = img.closest("[data-lightbox-src]");
+      var btn = img.closest(".concept-image-btn");
+      var overlay = btn ? btn.querySelector(".concept-before-after") : null;
+      var overlayBefore = overlay
+        ? overlay.querySelector(".concept-image--before")
+        : null;
+      var overlayAfter = overlay
+        ? overlay.querySelector(".concept-image--after")
+        : null;
+
       var currentIndex = 0;
-      var slotOverlay = img.closest(".concept-image-btn").querySelector(".concept-before-after--slot");
+      var STEP_MS = 4500;
 
-      window.setInterval(function () {
-        currentIndex = (currentIndex + 1) % sources.length;
-        var next = sources[currentIndex];
-        var isSlotStep = slotOverlay && /GP3\.png$/.test(next);
-
-        if (isSlotStep) {
-          slotOverlay.hidden = false;
-          slotOverlay.classList.add("is-active");
-          window.setTimeout(function () {
-            slotOverlay.classList.remove("is-active");
-            window.setTimeout(function () {
-              slotOverlay.hidden = true;
-            }, 500);
-          }, 3400);
-          return;
-        }
-
+      function swapBaseFrame(src) {
         img.classList.add("is-cycling");
 
         window.setTimeout(function () {
-          img.src = next;
+          img.src = src;
           if (lightboxBtn) {
-            lightboxBtn.setAttribute("data-lightbox-src", next);
+            lightboxBtn.setAttribute("data-lightbox-src", src);
           }
 
           // Fade back in once the frame is decoded and ready to paint
-          if (img.decode) {
-            img.decode().then(function () {
-              img.classList.remove("is-cycling");
-            }).catch(function () {
-              img.classList.remove("is-cycling");
-            });
-          } else {
+          var done = function () {
             img.classList.remove("is-cycling");
+          };
+          if (img.decode) {
+            img.decode().then(done).catch(done);
+          } else {
+            done();
           }
         }, 450);
-      }, 4500);
+      }
+
+      // Play the before/after pair over the base frame, then hand back
+      function playBeforeAfter(src, pair, done) {
+        img.src = src;
+        if (lightboxBtn) {
+          lightboxBtn.setAttribute("data-lightbox-src", src);
+        }
+        overlayBefore.src = pair[0];
+        overlayAfter.src = pair[1];
+        overlay.classList.remove("is-after");
+        overlay.hidden = false;
+        // Force a style flush so the fade-in transition runs from opacity 0
+        void overlay.offsetWidth;
+        overlay.classList.add("is-active");
+
+        window.setTimeout(function () {
+          overlay.classList.add("is-after");
+        }, 1200);
+
+        window.setTimeout(function () {
+          overlay.classList.remove("is-active");
+          window.setTimeout(function () {
+            overlay.hidden = true;
+            overlay.classList.remove("is-after");
+            done();
+          }, 550);
+        }, 4600);
+      }
+
+      function advance() {
+        currentIndex = (currentIndex + 1) % sources.length;
+        var next = sources[currentIndex];
+        var pair = beforeAfter[next];
+
+        if (pair && overlay) {
+          playBeforeAfter(next, pair, function () {
+            window.setTimeout(advance, 1400);
+          });
+        } else {
+          swapBaseFrame(next);
+          window.setTimeout(advance, STEP_MS);
+        }
+      }
+
+      // When the first frame has a before/after pair, open the cycle with it
+      var firstPair = beforeAfter[sources[0]];
+      if (firstPair && overlay) {
+        window.setTimeout(function () {
+          playBeforeAfter(sources[0], firstPair, function () {
+            window.setTimeout(advance, 1400);
+          });
+        }, 900);
+      } else {
+        window.setTimeout(advance, STEP_MS);
+      }
     });
   }
 
@@ -519,6 +599,7 @@
   function setLightboxGallery(trigger, src) {
     lightboxGallery = null;
     lightboxGalleryAlts = null;
+    lightboxBeforeAfter = null;
     lightboxIndex = 0;
 
     var sources = null;
@@ -529,6 +610,12 @@
       var galleryAttr = trigger.getAttribute("data-gallery");
       var cycleImg = trigger.querySelector("img[data-cycle-images]");
       var list = galleryAttr || (cycleImg ? cycleImg.getAttribute("data-cycle-images") : null);
+
+      if (cycleImg) {
+        lightboxBeforeAfter = parseBeforeAfterMap(
+          cycleImg.getAttribute("data-before-after")
+        );
+      }
 
       if (list) {
         sources = list
@@ -559,26 +646,65 @@
     if (lightboxCounter) lightboxCounter.hidden = !hasGallery;
   }
 
+  function resetLightboxBeforeAfter() {
+    if (lightboxBaTimer) {
+      window.clearTimeout(lightboxBaTimer);
+      lightboxBaTimer = null;
+    }
+    if (lightboxBaWrap) {
+      lightboxBaWrap.classList.remove("is-after");
+      lightboxBaWrap.hidden = true;
+    }
+    if (lightboxBaBefore) lightboxBaBefore.src = "";
+    if (lightboxBaAfter) {
+      lightboxBaAfter.src = "";
+      lightboxBaAfter.alt = "";
+    }
+  }
+
+  // Show a gallery frame; frames with a before/after pair replay their
+  // transition every time they appear. Returns true when a pair was shown.
+  function presentLightboxFrame(src, alt) {
+    var pair = lightboxBeforeAfter && lightboxBeforeAfter[src];
+
+    if (pair && lightboxBaWrap && lightboxBaBefore && lightboxBaAfter) {
+      if (lightboxBaTimer) {
+        window.clearTimeout(lightboxBaTimer);
+      }
+      lightboxImage.hidden = true;
+      lightboxBaBefore.src = pair[0];
+      lightboxBaAfter.src = pair[1];
+      lightboxBaAfter.alt = alt || "";
+      lightboxBaWrap.classList.remove("is-after");
+      lightboxBaWrap.hidden = false;
+      // Force a style flush so the crossfade replays from the before frame
+      void lightboxBaWrap.offsetWidth;
+      lightboxBaTimer = window.setTimeout(function () {
+        lightboxBaWrap.classList.add("is-after");
+      }, 650);
+      return true;
+    }
+
+    resetLightboxBeforeAfter();
+    lightboxImage.hidden = false;
+    return false;
+  }
+
   function stepLightbox(delta) {
     if (!lightboxGallery) return;
 
-    var prevIndex = lightboxIndex;
     lightboxIndex =
       (lightboxIndex + delta + lightboxGallery.length) % lightboxGallery.length;
     var next = lightboxGallery[lightboxIndex];
     var nextAlt = currentLightboxAlt("");
 
-    // Before/after transition for the first two glamping images
-    var isBeforeAfter =
-      /HGP1\.png$/.test(lightboxGallery[prevIndex] || "") &&
-      /HGP2\.png$/.test(next);
-    var fadeMs = isBeforeAfter ? 1600 : 200;
-
-    if (isBeforeAfter) {
-      lightboxImage.classList.add("is-stepping", "is-stepping--slow");
-    } else {
-      lightboxImage.classList.add("is-stepping");
+    if (presentLightboxFrame(next, nextAlt)) {
+      lightboxCaption.textContent = nextAlt;
+      updateLightboxCounter();
+      return;
     }
+
+    lightboxImage.classList.add("is-stepping");
 
     window.setTimeout(function () {
       lightboxImage.src = next;
@@ -588,17 +714,18 @@
 
       if (lightboxImage.decode) {
         lightboxImage.decode().then(function () {
-          lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
+          lightboxImage.classList.remove("is-stepping");
         }).catch(function () {
-          lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
+          lightboxImage.classList.remove("is-stepping");
         });
       } else {
-        lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
+        lightboxImage.classList.remove("is-stepping");
       }
-    }, fadeMs);
+    }, 200);
   }
 
   function showLightboxImage() {
+    resetLightboxBeforeAfter();
     if (lightboxImage) lightboxImage.hidden = false;
     if (lightboxVideo) {
       lightboxVideo.pause();
@@ -633,8 +760,10 @@
     setLightboxGallery(trigger, src);
     showLightboxImage();
     var resolvedAlt = currentLightboxAlt(alt);
-    lightboxImage.src = src;
-    lightboxImage.alt = resolvedAlt;
+    if (!presentLightboxFrame(src, resolvedAlt)) {
+      lightboxImage.src = src;
+      lightboxImage.alt = resolvedAlt;
+    }
     lightboxCaption.textContent = resolvedAlt;
     updateLightboxCounter();
     lightbox.hidden = false;
@@ -660,6 +789,7 @@
 
   function closeLightbox() {
     lightbox.hidden = true;
+    resetLightboxBeforeAfter();
     if (lightboxVideo) {
       lightboxVideo.pause();
       lightboxVideo.removeAttribute("src");
@@ -676,6 +806,7 @@
     }
     lightboxGallery = null;
     lightboxGalleryAlts = null;
+    lightboxBeforeAfter = null;
     document.body.style.overflow = "";
     document.body.classList.remove("modal-open");
     if (lightboxTrigger) {

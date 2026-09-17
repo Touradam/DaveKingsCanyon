@@ -228,7 +228,7 @@
               data-lightbox-alt="Rendering of a glamping resort concept on the Kings Canyon property"
               aria-label="Explore Glamping Resort rendering"
             >
-              <span class="concept-before-after" aria-hidden="true">
+              <span class="concept-before-after" aria-hidden="true" hidden>
                 <img
                   class="concept-image concept-image--before"
                   src="assets/images/HGP1.png"
@@ -248,26 +248,6 @@
                   height="767"
                 >
               </span>
-              <span class="concept-before-after concept-before-after--slot" id="glamping-hgpa" aria-hidden="true" hidden>
-                <img
-                  class="concept-image concept-image--before"
-                  src="assets/images/HGPa1.png"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  width="1024"
-                  height="767"
-                >
-                <img
-                  class="concept-image concept-image--after"
-                  src="assets/images/HGPa2.png"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  width="1024"
-                  height="767"
-                >
-              </span>
               <img
                 class="concept-image concept-image--cycle"
                 src="assets/images/GP1.jpg"
@@ -277,6 +257,7 @@
                 width="1536"
                 height="1024"
                 data-cycle-images="assets/images/GP1.jpg,assets/images/GP3.png,assets/images/GP4.jpg,assets/images/GP5.jpg,assets/images/GP6.jpg,assets/images/GP7.jpg,assets/images/GP8.jpg,assets/images/GP9.jpg,assets/images/GP10.jpg,assets/images/GP11.jpg,assets/images/GP13.jpg"
+                data-before-after="assets/images/GP1.jpg|assets/images/HGP1.png|assets/images/HGP2.png;assets/images/GP3.png|assets/images/HGPa1.png|assets/images/HGPa2.png"
               >
               <span class="concept-zoom-hint">Click to explore</span>
             </button>
@@ -634,6 +615,10 @@
     </button>
     <figure class="lightbox-figure">
       <img class="lightbox-image" id="lightbox-image" src="" alt="">
+      <span class="lightbox-before-after" id="lightbox-before-after" hidden>
+        <img class="lightbox-ba-image lightbox-ba-image--before" id="lightbox-ba-before" src="" alt="" aria-hidden="true">
+        <img class="lightbox-ba-image lightbox-ba-image--after" id="lightbox-ba-after" src="" alt="">
+      </span>
       <video
         class="lightbox-video"
         id="lightbox-video"
@@ -649,6 +634,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=20" defer></script>
+  <script src="script.js?v=21" defer></script>
 </body>
 </html>
