@@ -1054,6 +1054,12 @@ html.js .hero.is-parallax .hero-content {
   opacity: 0;
 }
 
+.concept-image.is-cycling--slow {
+  transition:
+    transform var(--transition-slow),
+    opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Before/after overlay: HGP1 -> HGP2 loop, then hands off to the GP cycle */
 .concept-before-after {
   position: absolute;

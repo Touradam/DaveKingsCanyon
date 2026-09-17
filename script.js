@@ -408,11 +408,21 @@
 
       var lightboxBtn = img.closest("[data-lightbox-src]");
       var currentIndex = 0;
+      var lastSrc = null;
 
       window.setInterval(function () {
         currentIndex = (currentIndex + 1) % sources.length;
         var next = sources[currentIndex];
-        img.classList.add("is-cycling");
+
+        // Give before/after pairs a slower, softer crossfade
+        var isPairStep = /HGPa?1\.png$/.test(lastSrc || "") && /HGPa?2\.png$/.test(next);
+        var fadeMs = isPairStep ? 1600 : 450;
+
+        if (isPairStep) {
+          img.classList.add("is-cycling", "is-cycling--slow");
+        } else {
+          img.classList.add("is-cycling");
+        }
 
         window.setTimeout(function () {
           img.src = next;
@@ -423,14 +433,15 @@
           // Fade back in once the frame is decoded and ready to paint
           if (img.decode) {
             img.decode().then(function () {
-              img.classList.remove("is-cycling");
+              img.classList.remove("is-cycling", "is-cycling--slow");
             }).catch(function () {
-              img.classList.remove("is-cycling");
+              img.classList.remove("is-cycling", "is-cycling--slow");
             });
           } else {
-            img.classList.remove("is-cycling");
+            img.classList.remove("is-cycling", "is-cycling--slow");
           }
-        }, 450);
+          lastSrc = next;
+        }, fadeMs);
       }, 4500);
     });
   }
