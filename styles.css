@@ -1933,6 +1933,23 @@ body.nav-open .floating-cta {
     padding: 0.3rem 0.7rem;
   }
 
+  /* Stack concept cards as title -> image -> description on mobile */
+  .concept-body {
+    display: contents;
+  }
+
+  .concept-title {
+    order: 1;
+  }
+
+  .concept-image-btn {
+    order: 2;
+  }
+
+  .concept-desc {
+    order: 3;
+  }
+
   .lightbox {
     padding: max(0.75rem, env(safe-area-inset-top))
       max(0.75rem, env(safe-area-inset-right))
