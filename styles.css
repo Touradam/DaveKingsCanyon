@@ -1054,6 +1054,13 @@ html.js .hero.is-parallax .hero-content {
   opacity: 0;
 }
 
+/* Before/after pairs: slower, softer crossfade */
+.concept-image--before-after {
+  transition:
+    transform var(--transition-slow),
+    opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .concept-image-btn:hover .concept-image {
   transform: scale(1.03);
 }
