@@ -562,12 +562,23 @@
   function stepLightbox(delta) {
     if (!lightboxGallery) return;
 
+    var prevIndex = lightboxIndex;
     lightboxIndex =
       (lightboxIndex + delta + lightboxGallery.length) % lightboxGallery.length;
     var next = lightboxGallery[lightboxIndex];
     var nextAlt = currentLightboxAlt("");
 
-    lightboxImage.classList.add("is-stepping");
+    // Before/after transition for the first two glamping images
+    var isBeforeAfter =
+      /HGP1\.png$/.test(lightboxGallery[prevIndex] || "") &&
+      /HGP2\.png$/.test(next);
+    var fadeMs = isBeforeAfter ? 1600 : 200;
+
+    if (isBeforeAfter) {
+      lightboxImage.classList.add("is-stepping", "is-stepping--slow");
+    } else {
+      lightboxImage.classList.add("is-stepping");
+    }
 
     window.setTimeout(function () {
       lightboxImage.src = next;
@@ -577,14 +588,14 @@
 
       if (lightboxImage.decode) {
         lightboxImage.decode().then(function () {
-          lightboxImage.classList.remove("is-stepping");
+          lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
         }).catch(function () {
-          lightboxImage.classList.remove("is-stepping");
+          lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
         });
       } else {
-        lightboxImage.classList.remove("is-stepping");
+        lightboxImage.classList.remove("is-stepping", "is-stepping--slow");
       }
-    }, 200);
+    }, fadeMs);
   }
 
   function showLightboxImage() {
