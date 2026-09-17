@@ -1054,12 +1054,6 @@ html.js .hero.is-parallax .hero-content {
   opacity: 0;
 }
 
-.concept-image.is-cycling--slow {
-  transition:
-    transform var(--transition-slow),
-    opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 /* Before/after overlay: HGP1 -> HGP2 loop, then hands off to the GP cycle */
 .concept-before-after {
   position: absolute;
@@ -1087,6 +1081,29 @@ html.js .hero.is-parallax .hero-content {
 .concept-before-after .concept-image--after {
   opacity: 0;
   animation: concept-before-after-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 3.2s forwards;
+}
+
+/* Slot overlay: replays the same before/after when the cycle reaches it */
+.concept-before-after--slot {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.concept-before-after--slot.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.concept-before-after--slot .concept-image--after {
+  opacity: 0;
+  animation: none;
+  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.concept-before-after--slot.is-active .concept-image--after {
+  opacity: 1;
 }
 
 @keyframes concept-before-after-in {

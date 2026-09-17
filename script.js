@@ -408,21 +408,26 @@
 
       var lightboxBtn = img.closest("[data-lightbox-src]");
       var currentIndex = 0;
-      var lastSrc = null;
+      var slotOverlay = img.closest(".concept-image-btn").querySelector(".concept-before-after--slot");
 
       window.setInterval(function () {
         currentIndex = (currentIndex + 1) % sources.length;
         var next = sources[currentIndex];
+        var isSlotStep = slotOverlay && /GP3\.png$/.test(next);
 
-        // Give before/after pairs a slower, softer crossfade
-        var isPairStep = /HGPa?1\.png$/.test(lastSrc || "") && /HGPa?2\.png$/.test(next);
-        var fadeMs = isPairStep ? 1600 : 450;
-
-        if (isPairStep) {
-          img.classList.add("is-cycling", "is-cycling--slow");
-        } else {
-          img.classList.add("is-cycling");
+        if (isSlotStep) {
+          slotOverlay.hidden = false;
+          slotOverlay.classList.add("is-active");
+          window.setTimeout(function () {
+            slotOverlay.classList.remove("is-active");
+            window.setTimeout(function () {
+              slotOverlay.hidden = true;
+            }, 500);
+          }, 3400);
+          return;
         }
+
+        img.classList.add("is-cycling");
 
         window.setTimeout(function () {
           img.src = next;
@@ -433,15 +438,14 @@
           // Fade back in once the frame is decoded and ready to paint
           if (img.decode) {
             img.decode().then(function () {
-              img.classList.remove("is-cycling", "is-cycling--slow");
+              img.classList.remove("is-cycling");
             }).catch(function () {
-              img.classList.remove("is-cycling", "is-cycling--slow");
+              img.classList.remove("is-cycling");
             });
           } else {
-            img.classList.remove("is-cycling", "is-cycling--slow");
+            img.classList.remove("is-cycling");
           }
-          lastSrc = next;
-        }, fadeMs);
+        }, 450);
       }, 4500);
     });
   }
