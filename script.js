@@ -489,7 +489,7 @@
 
         window.setTimeout(function () {
           overlay.classList.add("is-after");
-        }, 1200);
+        }, 3000);
 
         window.setTimeout(function () {
           overlay.classList.remove("is-active");
@@ -498,7 +498,7 @@
             overlay.classList.remove("is-after");
             done();
           }, 550);
-        }, 4600);
+        }, 6400);
       }
 
       function advance() {
@@ -681,7 +681,7 @@
       void lightboxBaWrap.offsetWidth;
       lightboxBaTimer = window.setTimeout(function () {
         lightboxBaWrap.classList.add("is-after");
-      }, 650);
+      }, 3000);
       return true;
     }
 
