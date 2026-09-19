@@ -369,19 +369,6 @@ html.js [data-reveal].is-visible {
   transform: translateY(-2px);
 }
 
-.hero .btn--secondary,
-.hero .btn--ghost {
-  color: var(--text);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.hero .btn--secondary:hover:not(:disabled),
-.hero .btn--ghost:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--border-gold);
-  color: var(--gold-light);
-}
-
 .btn--large {
   min-height: 3rem;
   padding: 0.875rem 2rem;
@@ -848,13 +835,6 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
-  justify-content: center;
-}
-
 .hero-flip-hint {
   display: none;
   justify-content: center;
@@ -908,13 +888,6 @@ html.js .hero.is-parallax .hero-content {
 }
 
 @media (max-width: 479px) {
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    width: min(100%, 20rem);
-    margin-inline: auto;
-  }
-
   .contact-info .btn {
     width: 100%;
   }
