@@ -1951,6 +1951,8 @@ body.nav-open .floating-cta {
   .hero-flip-hint-set {
     font-size: 0.625rem;
     padding: 0.3rem 0.7rem;
+    letter-spacing: 0.08em;
+    text-align: center;
   }
 
   .hero-address,
