@@ -332,15 +332,61 @@
 
   /* --- Hero Backdrop Flip ---
      Click anywhere on the hero (except links and buttons) to flip
-     between the resort rendering and the drone photo. Disabled under
+     between the resort rendering and the drone photo. On touch,
+     swipe left for before and swipe right for after. Disabled under
      reduced motion. */
   var heroFlip = document.getElementById("hero-flip");
   if (heroFlip && hero && !prefersReducedMotion) {
+    var heroSwipeIgnoreClick = false;
+    var heroTouchX = 0;
+    var heroTouchY = 0;
+
+    function setHeroFlipped(flipped) {
+      hero.classList.toggle("is-flipped", flipped);
+      heroFlip.classList.toggle("is-flipped", flipped);
+      hero.setAttribute(
+        "aria-label",
+        flipped
+          ? "Property overview. Showing the land. Click or swipe right for the rendering."
+          : "Property overview. Showing the resort rendering. Click or swipe left for the land."
+      );
+    }
+
     hero.classList.add("hero--flippable");
+    setHeroFlipped(false);
+
     hero.addEventListener("click", function (e) {
+      if (heroSwipeIgnoreClick) {
+        heroSwipeIgnoreClick = false;
+        return;
+      }
       if (e.target.closest("a, button")) return;
-      heroFlip.classList.toggle("is-flipped");
+      setHeroFlipped(!heroFlip.classList.contains("is-flipped"));
     });
+
+    hero.addEventListener("touchstart", function (e) {
+      if (e.touches.length !== 1) return;
+      heroTouchX = e.touches[0].clientX;
+      heroTouchY = e.touches[0].clientY;
+    }, { passive: true });
+
+    hero.addEventListener("touchend", function (e) {
+      if (e.target.closest("a, button")) return;
+      if (!e.changedTouches.length) return;
+      var touch = e.changedTouches[0];
+      var dx = touch.clientX - heroTouchX;
+      var dy = touch.clientY - heroTouchY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+
+      var flipped = heroFlip.classList.contains("is-flipped");
+      if (dx < 0 && !flipped) {
+        setHeroFlipped(true);
+        heroSwipeIgnoreClick = true;
+      } else if (dx > 0 && flipped) {
+        setHeroFlipped(false);
+        heroSwipeIgnoreClick = true;
+      }
+    }, { passive: true });
   }
 
   /* --- Local Explorer Island ---

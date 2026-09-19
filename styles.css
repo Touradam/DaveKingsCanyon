@@ -688,7 +688,7 @@ body.nav-open {
   /* Touch polish: no gray tap flash, no double-tap zoom delay,
      and no accidental text selection while tapping to flip */
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
+  touch-action: pan-y;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -853,6 +853,58 @@ html.js .hero.is-parallax .hero-content {
   flex-wrap: wrap;
   gap: var(--space-sm);
   justify-content: center;
+}
+
+.hero-flip-hint {
+  display: none;
+  justify-content: center;
+  margin: var(--space-md) 0 0;
+  pointer-events: none;
+}
+
+.hero--flippable .hero-flip-hint {
+  display: flex;
+}
+
+.hero-flip-hint-set {
+  display: none;
+  padding: 0.375rem 0.875rem;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  background: rgba(12, 12, 15, 0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+}
+
+.hero-flip-hint-set--swipe {
+  display: inline-flex;
+}
+
+.hero-flip-hint-set [data-for="back"] {
+  display: none;
+}
+
+.hero.is-flipped .hero-flip-hint-set [data-for="front"] {
+  display: none;
+}
+
+.hero.is-flipped .hero-flip-hint-set [data-for="back"] {
+  display: inline;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-flip-hint-set--swipe {
+    display: none;
+  }
+
+  .hero-flip-hint-set--click {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 479px) {
@@ -1921,6 +1973,11 @@ body.nav-open .floating-cta {
 @media (max-width: 900px) {
   .hero-tagline {
     padding: var(--space-xs) var(--space-sm);
+  }
+
+  .hero-flip-hint-set {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.7rem;
   }
 
   .hero-address,
