@@ -332,9 +332,9 @@
 
   /* --- Hero Backdrop Flip ---
      Click anywhere on the hero (except links and buttons) to flip
-     between the resort rendering and the drone photo. On touch,
-     swipe left for before and swipe right for after. Disabled under
-     reduced motion. */
+     between the concept rendering and the actual site photo. On touch,
+     swipe left for the site photo and swipe right for the rendering.
+     Disabled under reduced motion. */
   var heroFlip = document.getElementById("hero-flip");
   if (heroFlip && hero && !prefersReducedMotion) {
     var heroSwipeIgnoreClick = false;
@@ -347,8 +347,8 @@
       hero.setAttribute(
         "aria-label",
         flipped
-          ? "Property overview. Showing the land. Click or swipe right for the rendering."
-          : "Property overview. Showing the resort rendering. Click or swipe left for the land."
+          ? "Property overview. Showing the actual site photo. Click or swipe right for the concept rendering."
+          : "Property overview. Showing the concept rendering. Click or swipe left for the actual site photo."
       );
     }
 
