@@ -41,6 +41,10 @@
   var lightboxIndex = 0;
   var scrollTicking = false;
 
+  /* Gallery entries carrying this prefix open in the video player instead
+     of the image view, so a card can mix images and a video in one sequence */
+  var LIGHTBOX_VIDEO_PREFIX = "video:";
+
   /* Parse "base|before|after;base|before|after" into a lookup map */
   function parseBeforeAfterMap(attr) {
     var map = {};
@@ -684,6 +688,22 @@
           }
         }
       }
+
+      // A trigger can pair an image gallery with a video (concept cards).
+      // The video rides along as the final gallery frame so visitors step
+      // through the images first and reach the video last.
+      var videoAttr = trigger.getAttribute("data-lightbox-video");
+      if (videoAttr && lightboxGallery) {
+        lightboxGallery.push(LIGHTBOX_VIDEO_PREFIX + videoAttr);
+        if (lightboxGalleryAlts) {
+          while (lightboxGalleryAlts.length < lightboxGallery.length - 1) {
+            lightboxGalleryAlts.push("");
+          }
+          lightboxGalleryAlts.push(
+            trigger.getAttribute("data-lightbox-alt") || ""
+          );
+        }
+      }
     }
 
     var hasGallery = lightboxGallery !== null;
@@ -743,6 +763,19 @@
       (lightboxIndex + delta + lightboxGallery.length) % lightboxGallery.length;
     var next = lightboxGallery[lightboxIndex];
     var nextAlt = currentLightboxAlt("");
+
+    // Video frame: swap the image view for the video player
+    if (next.indexOf(LIGHTBOX_VIDEO_PREFIX) === 0) {
+      showLightboxVideo(next.slice(LIGHTBOX_VIDEO_PREFIX.length));
+      lightboxCaption.textContent = nextAlt;
+      updateLightboxCounter();
+      return;
+    }
+
+    // Stepping from the video back onto an image: restore the image view
+    if (lightboxVideo && !lightboxVideo.hidden) {
+      showLightboxImage();
+    }
 
     if (presentLightboxFrame(next, nextAlt)) {
       lightboxCaption.textContent = nextAlt;
@@ -866,7 +899,14 @@
       btn.addEventListener("click", function () {
         var videoSrc = btn.getAttribute("data-lightbox-video");
         var alt = btn.getAttribute("data-lightbox-alt") || "";
-        if (videoSrc) {
+        // Cards with both an image gallery and a video open the mixed
+        // sequence (images first, video last); video-only cards keep the
+        // plain video lightbox
+        var hasImageGallery = Boolean(
+          btn.getAttribute("data-gallery") ||
+            btn.querySelector("img[data-cycle-images]")
+        );
+        if (videoSrc && !hasImageGallery) {
           openLightboxVideo(videoSrc, alt, btn);
           return;
         }
