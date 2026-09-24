@@ -392,7 +392,8 @@ html.js [data-reveal].is-visible {
 
 /* Blurred backdrop lives on a pseudo-element: backdrop-filter on the header
    itself would turn it into the containing block for the fixed mobile nav
-   overlay and break the fullscreen menu. */
+   overlay and break the fullscreen menu. The backdrop stays fully opaque at
+   all times so the header remains black, scrolled or not. */
 .site-header::before {
   content: "";
   position: absolute;
@@ -400,18 +401,13 @@ html.js [data-reveal].is-visible {
   z-index: -1;
   background: rgba(12, 12, 15, 0.82);
   backdrop-filter: blur(14px) saturate(1.15);
-  opacity: 0;
-  transition: opacity var(--transition);
+  opacity: 1;
 }
 
 .site-header.is-scrolled {
   height: var(--header-height-scrolled);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
-}
-
-.site-header.is-scrolled::before {
-  opacity: 1;
 }
 
 .header-inner {
