@@ -898,6 +898,7 @@ html.js .hero.is-parallax .hero-content {
   font-size: 0.625rem;
   line-height: 1.5;
   text-align: center;
+  white-space: nowrap;
   color: var(--text-muted);
   background: rgba(12, 12, 15, 0.6);
   backdrop-filter: blur(6px);
@@ -1992,12 +1993,13 @@ body.nav-open .floating-cta {
   }
 
   /* Quieter disclaimer on phones: smaller, tighter to the bottom edge,
-     and clear of the home-indicator safe area */
+     and clear of the home-indicator safe area. The vw-linked font size
+     keeps the single-line text from overflowing the narrowest phones. */
   .hero-disclaimer {
     bottom: max(var(--space-xs), env(safe-area-inset-bottom));
     max-width: calc(100% - 1.5rem);
     padding: 0.25rem 0.6rem;
-    font-size: 0.5625rem;
+    font-size: min(0.5625rem, 2.3vw);
     line-height: 1.4;
   }
 
