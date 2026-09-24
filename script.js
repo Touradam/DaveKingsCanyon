@@ -281,10 +281,24 @@
       return;
     }
 
-    // Keep the translucent box at its full size so only the text writes in
-    if (tagline) {
-      tagline.style.minWidth = tagline.offsetWidth + "px";
+    // Keep the translucent box at its full size so only the text writes in.
+    // Measure once with the full text, then re-cap on resize so the pinned
+    // width can never overflow small viewports.
+    var taglineFullWidth = 0;
+
+    function pinTaglineWidth() {
+      if (!tagline) return;
+      if (!taglineFullWidth) {
+        taglineFullWidth = tagline.offsetWidth;
+      }
+      var available = tagline.parentElement
+        ? tagline.parentElement.clientWidth
+        : window.innerWidth;
+      tagline.style.minWidth = Math.min(taglineFullWidth, available) + "px";
     }
+
+    pinTaglineWidth();
+    window.addEventListener("resize", pinTaglineWidth);
 
     var lineIndex = 0;
 
