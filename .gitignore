@@ -6,6 +6,8 @@ Archive/
 
 # Large local videos stay untracked
 *.mp4
+# Exception: videos the live site actually serves
+!assets/images/*.mp4
 
 # Ignore loose image files, but always track site assets for GitHub Pages
 *.jpeg
@@ -30,6 +32,9 @@ assets/images/images.jpg
 *.zip
 sign*.svg
 sign*.pdf
+
+# Local tracker builder, not part of the public site
+task_tracker_setup.js
 
 # Ignore local working folders not needed for the site
 3d/
