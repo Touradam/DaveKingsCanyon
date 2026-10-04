@@ -1690,6 +1690,12 @@ html.js .hero.is-parallax .hero-content {
   color: var(--text);
 }
 
+.contact-agent-license {
+  margin: var(--space-sm) 0 0;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
 .contact-agent-actions {
   display: flex;
   flex-wrap: wrap;
