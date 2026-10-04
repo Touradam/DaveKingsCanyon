@@ -922,6 +922,24 @@ html.js .hero.is-parallax .hero-content {
   .contact-info .btn {
     width: 100%;
   }
+
+  .contact-agent {
+    max-width: none;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .contact-agent-actions {
+    flex-direction: column;
+  }
+
+  .contact-agent-action {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .contact-agent-action span {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* --- About --- */
@@ -1642,7 +1660,7 @@ html.js .hero.is-parallax .hero-content {
   gap: var(--space-lg);
 }
 
-.contact-info p {
+.contact-info > p:not([class]) {
   margin: 0 0 var(--space-md);
   color: var(--text-muted);
   max-width: 32rem;
@@ -1654,7 +1672,10 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .contact-agent {
-  margin-bottom: var(--space-md);
+  display: grid;
+  gap: var(--space-md);
+  max-width: 28rem;
+  margin: 0 0 var(--space-md);
   padding: var(--space-md);
   background: linear-gradient(180deg, var(--surface) 0%, var(--ink-raised) 100%);
   border: 1px solid var(--border-gold);
@@ -1672,8 +1693,13 @@ html.js .hero.is-parallax .hero-content {
   box-shadow: var(--shadow-lg), var(--shadow-gold);
 }
 
+.contact-agent-header {
+  display: grid;
+  gap: 0.35rem;
+}
+
 .contact-agent-eyebrow {
-  margin: 0 0 var(--space-xs);
+  margin: 0;
   font-size: var(--fs-eyebrow);
   font-weight: 600;
   letter-spacing: var(--ls-eyebrow);
@@ -1682,31 +1708,44 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .contact-agent-name {
-  margin: 0 0 var(--space-sm);
+  margin: 0;
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.35rem, 1.2rem + 0.6vw, 1.625rem);
   font-weight: 600;
   letter-spacing: var(--ls-tight);
+  line-height: 1.2;
   color: var(--text);
 }
 
-.contact-agent-license {
-  margin: var(--space-sm) 0 0;
+.contact-agent-role {
+  margin: 0;
   font-size: var(--fs-small);
-  color: var(--text-muted);
+  font-weight: 500;
+  color: var(--gold-light);
 }
 
 .contact-agent-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
+  gap: 0.625rem;
+}
+
+.contact-agent-license {
+  margin: 0;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  color: var(--text-dim);
 }
 
 .contact-agent-action {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(12, 12, 15, 0.5);
