@@ -1113,6 +1113,11 @@ html.js .hero.is-parallax .hero-content {
   grid-template-columns: 1fr;
 }
 
+.section--location .location-details {
+  max-width: none;
+  margin-top: var(--space-lg);
+}
+
 @media (max-width: 719px) {
   .quick-facts {
     grid-template-columns: 1fr;
