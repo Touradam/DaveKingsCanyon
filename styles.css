@@ -1115,6 +1115,9 @@ html.js .hero.is-parallax .hero-content {
 
 .section--location .location-details {
   max-width: none;
+}
+
+.section--location .location-grid + .location-details {
   margin-top: var(--space-lg);
 }
 
