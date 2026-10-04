@@ -1317,42 +1317,122 @@ html.js .hero.is-parallax .hero-content {
   line-height: 1.7;
 }
 
-.financial-docs {
-  display: grid;
-  gap: var(--space-xs);
-  margin: var(--space-md) 0 0;
-  padding: 0;
-  list-style: none;
+.pdf-doc {
+  margin-top: var(--space-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--ink-raised);
+  overflow: hidden;
 }
 
-.financial-docs a {
+.pdf-doc[open] {
+  border-color: var(--border-gold);
+}
+
+.pdf-doc-summary {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
   padding: var(--space-xs) var(--space-sm);
-  background: var(--ink-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
   color: var(--text);
-  text-decoration: none;
-  transition: border-color var(--transition), color var(--transition), background var(--transition);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--transition), background var(--transition);
 }
 
-.financial-docs a:hover,
-.financial-docs a:focus-visible {
-  border-color: var(--border-gold);
+.pdf-doc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pdf-doc-summary::after {
+  content: "";
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--transition);
+}
+
+.pdf-doc[open] .pdf-doc-summary::after {
+  transform: rotate(-135deg);
+}
+
+.pdf-doc-summary:hover,
+.pdf-doc[open] .pdf-doc-summary {
   color: var(--gold-light);
   background: var(--surface);
 }
 
-.financial-docs a span {
-  flex: none;
-  font-size: 0.75rem;
+.pdf-doc-body {
+  padding: 0 var(--space-sm) var(--space-sm);
+  border-top: 1px solid var(--border);
+}
+
+.pdf-doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding: var(--space-sm) 0;
+}
+
+.pdf-doc-download,
+.pdf-doc-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.pdf-doc-download {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+  color: var(--ink);
+  border: 1px solid var(--gold-dark);
+}
+
+.pdf-doc-download:hover,
+.pdf-doc-download:focus-visible {
+  box-shadow: 0 4px 16px var(--gold-glow);
+}
+
+.pdf-doc-open {
+  background: transparent;
+  color: var(--gold-light);
+  border: 1px solid var(--border-gold);
+}
+
+.pdf-doc-open:hover,
+.pdf-doc-open:focus-visible {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.pdf-frame {
+  position: relative;
+  width: 100%;
+  height: min(70vh, 42rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.pdf-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
 }
 
 .financial-facts {
