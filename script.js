@@ -70,9 +70,8 @@
   var parallaxOn = false;
 
   /*
-   * Map points of interest for Google My Maps custom embed.
-   * TODO: Create a map at https://www.google.com/maps/d/ with these markers,
-   * then replace the iframe src in index.html with the My Maps embed URL.
+   * Map points of interest reserved for a future custom property map
+   * (park sites, airport, cities, and related locations).
    */
   window.mapPointsOfInterest = [
     {
