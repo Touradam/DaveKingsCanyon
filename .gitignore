@@ -49,3 +49,9 @@ assets/local attraction/
 assets/local vegetation/
 assets/LOCAL WILDLIFE/
 assets/RealImages/
+
+# Zoning working copies stay local; only the two linked PDFs are tracked
+Zoning/**
+!Zoning/Web_Additions-Zoning/
+!Zoning/Web_Additions-Zoning/Fresno County Zoning R-E Rules1.pdf
+!Zoning/Web_Additions-Zoning/Zoning requirements for RC-40-1.pdf

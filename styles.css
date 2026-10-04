@@ -1317,6 +1317,44 @@ html.js .hero.is-parallax .hero-content {
   line-height: 1.7;
 }
 
+.financial-docs {
+  display: grid;
+  gap: var(--space-xs);
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.financial-docs a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--ink-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+
+.financial-docs a:hover,
+.financial-docs a:focus-visible {
+  border-color: var(--border-gold);
+  color: var(--gold-light);
+  background: var(--surface);
+}
+
+.financial-docs a span {
+  flex: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
 .financial-facts {
   display: grid;
   gap: var(--space-xs);
