@@ -847,7 +847,29 @@
     }
   }
 
+  function pausePropertyLeadVideo() {
+    var leadVideo = document.querySelector(
+      ".property-images-tile--lead .property-images-video"
+    );
+    if (leadVideo) leadVideo.pause();
+  }
+
+  function resumePropertyLeadVideo() {
+    if (prefersReducedMotion) return;
+    var leadVideo = document.querySelector(
+      ".property-images-tile--lead .property-images-video"
+    );
+    if (!leadVideo) return;
+    var rect = leadVideo.getBoundingClientRect();
+    if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+    var playPromise = leadVideo.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(function () {});
+    }
+  }
+
   function openLightbox(src, alt, trigger) {
+    pausePropertyLeadVideo();
     lightboxTrigger = trigger;
     setLightboxGallery(trigger, src);
     showLightboxImage();
@@ -865,6 +887,7 @@
   }
 
   function openLightboxVideo(src, alt, trigger) {
+    pausePropertyLeadVideo();
     lightboxTrigger = trigger;
     lightboxGallery = null;
     lightboxIndex = 0;
@@ -905,6 +928,7 @@
       lightboxTrigger.focus();
       lightboxTrigger = null;
     }
+    resumePropertyLeadVideo();
   }
 
   if (lightbox && lightboxImage) {
@@ -1125,6 +1149,41 @@
       }, 2000);
     });
   });
+
+  /* --- Property Images lead video ---
+     Keep the muted loop playing while the lead tile is on screen.
+     Reduced-motion visitors get the poster only. */
+  var propertyLeadVideo = document.querySelector(
+    ".property-images-tile--lead .property-images-video"
+  );
+
+  if (propertyLeadVideo) {
+    if (prefersReducedMotion) {
+      propertyLeadVideo.removeAttribute("autoplay");
+      propertyLeadVideo.pause();
+    } else {
+      propertyLeadVideo.muted = true;
+      propertyLeadVideo.defaultMuted = true;
+      propertyLeadVideo.setAttribute("muted", "");
+      resumePropertyLeadVideo();
+
+      if ("IntersectionObserver" in window) {
+        var leadVideoObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting && (!lightbox || lightbox.hidden)) {
+                resumePropertyLeadVideo();
+              } else {
+                pausePropertyLeadVideo();
+              }
+            });
+          },
+          { threshold: 0.35 }
+        );
+        leadVideoObserver.observe(propertyLeadVideo);
+      }
+    }
+  }
 
   if (prefersReducedMotion) {
     document.documentElement.style.scrollBehavior = "auto";

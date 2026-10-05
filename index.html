@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -420,21 +420,22 @@
             <button
               class="property-images-tile property-images-tile--lead"
               type="button"
-              data-lightbox-src="assets/images/property-cover.jpeg"
               data-lightbox-video="assets/images/property-drone.mp4"
               data-lightbox-alt="Drone video of the Kings Canyon property"
-              data-gallery="assets/images/property-cover.jpeg,assets/images/property-giant-rock.jpeg,assets/images/property-drone-part.jpeg,assets/images/property-drone-0065.jpeg,assets/images/property-drone-0058.jpeg,assets/images/property-aerial-all.jpeg,assets/images/property-d23.jpg"
-              data-gallery-alts="Cover aerial photograph of the Kings Canyon property,View from the giant rock on the property,Drone photograph across the Kings Canyon property,Drone photograph of oak woodland and ridges,Drone photograph of the property terrain,Wide aerial view of the Kings Canyon property,Aerial photograph of the Kings Canyon property along Highway 180"
-              aria-label="View property photo gallery and drone video"
+              aria-label="Play drone video of the Kings Canyon property"
             >
-              <img
-                src="assets/images/property-cover.jpeg"
-                alt="Cover aerial photograph of the Kings Canyon property"
-                loading="lazy"
-                decoding="async"
-                width="3992"
-                height="2242"
-              >
+              <video
+                class="property-images-video"
+                src="assets/images/property-drone.mp4"
+                poster="assets/images/property-cover.jpeg"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                disablepictureinpicture
+                aria-hidden="true"
+              ></video>
               <span class="property-images-play" aria-hidden="true">
                 <span class="property-images-play-icon"></span>
                 <span class="property-images-play-label">Play video</span>
@@ -1111,6 +1112,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=23" defer></script>
+  <script src="script.js?v=24" defer></script>
 </body>
 </html>

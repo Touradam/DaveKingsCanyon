@@ -1349,7 +1349,8 @@ html.js .hero.is-parallax .hero-content {
   outline-offset: 3px;
 }
 
-.property-images-tile img {
+.property-images-tile img,
+.property-images-tile video {
   display: block;
   width: 100%;
   height: 100%;
@@ -1358,7 +1359,8 @@ html.js .hero.is-parallax .hero-content {
   transition: transform 0.7s var(--ease-out);
 }
 
-.property-images-tile:hover img {
+.property-images-tile:hover img,
+.property-images-tile:hover video {
   transform: scale(1.03);
 }
 
@@ -1366,7 +1368,8 @@ html.js .hero.is-parallax .hero-content {
   cursor: pointer;
 }
 
-.property-images-tile--lead img {
+.property-images-tile--lead img,
+.property-images-tile--lead video {
   aspect-ratio: 16 / 9;
   min-height: 14rem;
 }
@@ -1424,13 +1427,15 @@ html.js .hero.is-parallax .hero-content {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .property-images-tile--lead img {
+  .property-images-tile--lead img,
+  .property-images-tile--lead video {
     min-height: 20rem;
   }
 }
 
 @media (min-width: 960px) {
-  .property-images-tile--lead img {
+  .property-images-tile--lead img,
+  .property-images-tile--lead video {
     min-height: 24rem;
   }
 }
@@ -1438,12 +1443,14 @@ html.js .hero.is-parallax .hero-content {
 @media (prefers-reduced-motion: reduce) {
   .property-images-tile,
   .property-images-tile img,
+  .property-images-tile video,
   .property-images-play {
     transition: none;
   }
 
   .property-images-tile:hover,
   .property-images-tile:hover img,
+  .property-images-tile:hover video,
   .property-images-tile--lead:hover .property-images-play {
     transform: none;
   }
