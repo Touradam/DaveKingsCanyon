@@ -1366,12 +1366,32 @@ html.js .hero.is-parallax .hero-content {
 
 .property-images-tile--lead {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.property-images-poster {
+  display: none;
+}
+
+.property-images-tile--lead.is-poster-only .property-images-poster {
+  display: block;
+}
+
+.property-images-tile--lead.is-poster-only .property-images-video {
+  display: none;
 }
 
 .property-images-tile--lead img,
 .property-images-tile--lead video {
   aspect-ratio: 16 / 9;
-  min-height: 14rem;
+  min-height: 12rem;
+}
+
+.property-images-thumbs .property-images-tile {
+  min-height: 2.75rem;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .property-images-play {
@@ -1429,7 +1449,7 @@ html.js .hero.is-parallax .hero-content {
 
   .property-images-tile--lead img,
   .property-images-tile--lead video {
-    min-height: 20rem;
+    min-height: 18rem;
   }
 }
 
@@ -1437,6 +1457,29 @@ html.js .hero.is-parallax .hero-content {
   .property-images-tile--lead img,
   .property-images-tile--lead video {
     min-height: 24rem;
+  }
+}
+
+/* Touch devices: avoid sticky hover lifts */
+@media (hover: none), (pointer: coarse) {
+  .property-images-tile:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+    border-color: var(--border);
+  }
+
+  .property-images-tile:hover img,
+  .property-images-tile:hover video {
+    transform: none;
+  }
+
+  .property-images-tile--lead:hover .property-images-play {
+    transform: translate(-50%, -50%);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .property-images-tile:active {
+    border-color: var(--border-gold);
   }
 }
 
@@ -2774,9 +2817,58 @@ body.nav-open .floating-cta {
     max-height: min(70vh, calc(100dvh - 8rem));
   }
 
+  .lightbox-video {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .lightbox-caption {
     font-size: 0.8125rem;
     padding-inline: 0.5rem;
+  }
+
+  .property-images {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    /* Clear the fixed mobile call bar when it is visible */
+    padding-bottom: calc(var(--space-md) + 4.75rem + env(safe-area-inset-bottom));
+  }
+
+  .property-images-header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .property-images-lead {
+    font-size: var(--fs-body);
+  }
+
+  .property-images-grid {
+    gap: 0.625rem;
+  }
+
+  .property-images-thumbs {
+    gap: 0.625rem;
+  }
+
+  .property-images-tile {
+    border-radius: var(--radius-md);
+  }
+
+  .property-images-tile--lead img,
+  .property-images-tile--lead video {
+    min-height: 11.5rem;
+  }
+
+  .property-images-thumbs .property-images-tile img {
+    aspect-ratio: 4 / 3;
+    min-height: 5.75rem;
+  }
+
+  .property-images-play {
+    gap: 0.5rem;
+    padding: 0.7rem 1.05rem 0.7rem 0.85rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
   }
 
   .parcel-map figcaption {

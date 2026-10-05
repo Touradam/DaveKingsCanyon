@@ -838,6 +838,8 @@
       lightboxVideo.defaultMuted = true;
       lightboxVideo.volume = 0;
       lightboxVideo.setAttribute("muted", "");
+      lightboxVideo.setAttribute("playsinline", "");
+      lightboxVideo.setAttribute("webkit-playsinline", "");
       lightboxVideo.src = src;
       lightboxVideo.load();
       var playPromise = lightboxVideo.play();
@@ -845,6 +847,31 @@
         playPromise.catch(function () {});
       }
     }
+  }
+
+  /* Skip inline autoplay of the large drone clip on phones, touch-first
+     devices, Save-Data, and slow networks. Those visitors get the poster
+     and load the video only when they open the lightbox. */
+  function canAutoplayPropertyLeadVideo() {
+    if (prefersReducedMotion) return false;
+    if (window.matchMedia("(max-width: 900px)").matches) return false;
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
+      return false;
+    }
+    try {
+      var conn =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+      if (conn) {
+        if (conn.saveData) return false;
+        var type = String(conn.effectiveType || "");
+        if (type.indexOf("2g") !== -1 || type === "3g") return false;
+      }
+    } catch (err) {
+      /* connection API unavailable */
+    }
+    return true;
   }
 
   function pausePropertyLeadVideo() {
@@ -855,11 +882,11 @@
   }
 
   function resumePropertyLeadVideo() {
-    if (prefersReducedMotion) return;
+    if (!canAutoplayPropertyLeadVideo()) return;
     var leadVideo = document.querySelector(
       ".property-images-tile--lead .property-images-video"
     );
-    if (!leadVideo) return;
+    if (!leadVideo || !leadVideo.getAttribute("src")) return;
     var rect = leadVideo.getBoundingClientRect();
     if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
     var playPromise = leadVideo.play();
@@ -1151,20 +1178,26 @@
   });
 
   /* --- Property Images lead video ---
-     Keep the muted loop playing while the lead tile is on screen.
-     Reduced-motion visitors get the poster only. */
+     Desktop: muted loop while on screen.
+     Mobile / constrained networks: poster only; video loads in lightbox. */
+  var propertyLeadTile = document.querySelector(".property-images-tile--lead");
   var propertyLeadVideo = document.querySelector(
     ".property-images-tile--lead .property-images-video"
   );
 
-  if (propertyLeadVideo) {
-    if (prefersReducedMotion) {
+  if (propertyLeadVideo && propertyLeadTile) {
+    if (!canAutoplayPropertyLeadVideo()) {
+      propertyLeadTile.classList.add("is-poster-only");
       propertyLeadVideo.removeAttribute("autoplay");
+      propertyLeadVideo.removeAttribute("src");
+      propertyLeadVideo.load();
       propertyLeadVideo.pause();
     } else {
       propertyLeadVideo.muted = true;
       propertyLeadVideo.defaultMuted = true;
       propertyLeadVideo.setAttribute("muted", "");
+      propertyLeadVideo.setAttribute("playsinline", "");
+      propertyLeadVideo.setAttribute("webkit-playsinline", "");
       resumePropertyLeadVideo();
 
       if ("IntersectionObserver" in window) {

@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -412,7 +412,7 @@
             <p class="section-eyebrow">The Land</p>
             <h3 class="property-images-title" id="property-images-heading">Property Images</h3>
             <p class="property-images-lead">
-              Current photographs of the site, plus a drone video. Select any image to explore the full set.
+              Current photographs of the site, plus a drone video. Tap any image to explore the full set.
             </p>
           </header>
 
@@ -424,6 +424,15 @@
               data-lightbox-alt="Drone video of the Kings Canyon property"
               aria-label="Play drone video of the Kings Canyon property"
             >
+              <img
+                class="property-images-poster"
+                src="assets/images/property-cover.jpeg"
+                alt=""
+                width="3992"
+                height="2242"
+                decoding="async"
+                fetchpriority="low"
+              >
               <video
                 class="property-images-video"
                 src="assets/images/property-drone.mp4"
@@ -432,7 +441,8 @@
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                webkit-playsinline
+                preload="none"
                 disablepictureinpicture
                 aria-hidden="true"
               ></video>
@@ -1102,9 +1112,11 @@
         id="lightbox-video"
         muted
         playsinline
+        webkit-playsinline
         autoplay
         controls
         controlslist="nodownload noplaybackrate"
+        preload="metadata"
         hidden
       ></video>
       <figcaption class="lightbox-caption" id="lightbox-caption"></figcaption>
@@ -1112,6 +1124,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=24" defer></script>
+  <script src="script.js?v=25" defer></script>
 </body>
 </html>
