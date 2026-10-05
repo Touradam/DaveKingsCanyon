@@ -1547,6 +1547,11 @@ html.js .hero.is-parallax .hero-content {
   white-space: nowrap;
 }
 
+.financial-facts--asking {
+  max-width: 52rem;
+  margin: var(--space-md) auto 0;
+}
+
 /* --- Tax research summary (question + findings) --- */
 .tax-research {
   display: grid;
