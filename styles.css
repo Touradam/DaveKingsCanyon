@@ -199,10 +199,6 @@ a:hover {
   background: var(--ink);
 }
 
-.section--weather {
-  background: var(--ink-raised);
-}
-
 .section--concepts {
   background: var(--ink);
 }
@@ -1134,9 +1130,9 @@ html.js .hero.is-parallax .hero-content {
 /* --- Weather --- */
 .weather-sunshine {
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-md);
   align-items: center;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .weather-stat {
@@ -1224,9 +1220,8 @@ html.js .hero.is-parallax .hero-content {
   line-height: 1.55;
 }
 
-.weather-details {
-  max-width: none;
-  margin-bottom: var(--space-lg);
+.weather-source-figure {
+  margin-top: var(--space-md);
 }
 
 .weather-source-figure img {
@@ -1235,7 +1230,8 @@ html.js .hero.is-parallax .hero-content {
 
 .weather-tule {
   max-width: 52rem;
-  margin-bottom: var(--space-lg);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
 .weather-tule p {
