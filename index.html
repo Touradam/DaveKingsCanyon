@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -57,6 +57,7 @@
       <nav class="site-nav" id="site-nav" aria-label="Primary">
         <ul class="nav-list">
           <li><a class="nav-link" href="#location">Location</a></li>
+          <li><a class="nav-link" href="#weather">Weather</a></li>
           <li><a class="nav-link" href="#concepts">Concepts</a></li>
           <li><a class="nav-link" href="#financial">Financial</a></li>
           <li><a class="nav-link" href="#potential">Potential</a></li>
@@ -339,6 +340,95 @@
             </figure>
           </div>
         </details>
+      </div>
+    </section>
+
+    <!-- WEATHER -->
+    <section class="section section--weather" id="weather" aria-labelledby="weather-heading">
+      <div class="container">
+        <header class="section-header" data-reveal>
+          <p class="section-eyebrow">Climate</p>
+          <h2 class="section-title" id="weather-heading">Weather</h2>
+        </header>
+
+        <div class="weather-sunshine" data-reveal>
+          <div class="weather-stat" aria-label="About 269 sunny days per year in Dunlap, California">
+            <span class="weather-stat-number">269</span>
+            <span class="weather-stat-label">sunny days per year</span>
+            <span class="weather-stat-note">Dunlap, CA average &middot; U.S. average is 205</span>
+          </div>
+
+          <div class="weather-sunshine-copy">
+            <h3 class="weather-subhead">Sunshine Breakdown</h3>
+            <ul class="weather-breakdown">
+              <li>
+                <strong>Annual sunny days:</strong>
+                About 269 days on average, well above the national average of 205.
+              </li>
+              <li>
+                <strong>Clearest months:</strong>
+                July and August bring the highest concentration of clear or mostly sunny weather.
+              </li>
+              <li>
+                <strong>Winter and spring:</strong>
+                December and February see fewer clear days, with partly cloudy skies mixed with precipitation.
+              </li>
+            </ul>
+            <p class="weather-source">
+              Climate averages for Dunlap (zip 93621), summarized from
+              <a href="https://www.bestplaces.net/climate/zip-code/california/dunlap/93621" target="_blank" rel="noopener noreferrer">BestPlaces</a>
+              and related climate references.
+            </p>
+          </div>
+        </div>
+
+        <details class="financial-details weather-details" data-reveal>
+          <summary class="financial-summary">View climate search source</summary>
+          <div class="financial-body">
+            <figure class="parcel-map weather-source-figure">
+              <img
+                src="assets/images/sunny-days-climate.png"
+                alt="Google search overview stating Dunlap, California averages about 269 sunny days per year, with sunshine breakdown and BestPlaces climate source"
+                loading="lazy"
+                decoding="async"
+                width="3158"
+                height="892"
+              >
+              <figcaption>Sunny days</figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <div class="weather-tule" data-reveal>
+          <p>
+            The San Joaquin Valley is known for its sunny days, but in the winter there is a month of dense fog called Tule Fog. This cold wet fog does not reach the property for sale. In fact, it gives seascape-like views mimicking waves as illustrated.
+          </p>
+        </div>
+
+        <div class="weather-gallery" data-reveal>
+          <figure class="weather-photo">
+            <img
+              src="assets/images/tule-fog-at-sunset.jpeg"
+              alt="Dense Tule fog filling the valley at sunset, with mountain ridges rising above a seascape-like layer of fog"
+              loading="lazy"
+              decoding="async"
+              width="2046"
+              height="1106"
+            >
+            <figcaption>Tule fog at sunset</figcaption>
+          </figure>
+          <figure class="weather-photo">
+            <img
+              src="assets/images/tule-fog-in-the-morning.jpeg"
+              alt="Morning view from the foothills looking down onto a bright sea of Tule fog filling the valley below"
+              loading="lazy"
+              decoding="async"
+              width="1542"
+              height="2048"
+            >
+            <figcaption>Tule fog in the morning</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
