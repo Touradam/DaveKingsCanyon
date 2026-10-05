@@ -1370,6 +1370,10 @@ html.js .hero.is-parallax .hero-content {
   transition: transform var(--transition), box-shadow var(--transition);
 }
 
+.parcel-map + .parcel-map {
+  margin-top: var(--space-sm);
+}
+
 .parcel-map:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
