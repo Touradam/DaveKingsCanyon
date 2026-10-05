@@ -1220,14 +1220,6 @@ html.js .hero.is-parallax .hero-content {
   line-height: 1.55;
 }
 
-.weather-source-figure {
-  margin-top: var(--space-md);
-}
-
-.weather-source-figure img {
-  background: #fff;
-}
-
 .weather-tule {
   max-width: 52rem;
   margin-top: var(--space-md);
@@ -1271,15 +1263,15 @@ html.js .hero.is-parallax .hero-content {
   object-position: center 35%;
 }
 
-.weather-photo figcaption {
+.weather-photo-title {
   padding: var(--space-sm) var(--space-md);
   font-family: var(--font-display);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--text);
+  color: var(--gold-light);
   background: var(--surface);
-  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 820px) {
