@@ -8,6 +8,11 @@ Archive/
 *.mp4
 # Exception: videos the live site actually serves
 !assets/images/*.mp4
+# Keep duplicate local video copies out of the repo
+assets/images/mensionhouse (2).mp4
+
+# Source drop folder for property media; curated copies live in assets/images/
+property images/
 
 # Ignore loose image files, but always track site assets for GitHub Pages
 *.jpeg
