@@ -849,15 +849,11 @@
     }
   }
 
-  /* Skip inline autoplay of the large drone clip on phones, touch-first
-     devices, Save-Data, and slow networks. Those visitors get the poster
-     and load the video only when they open the lightbox. */
+  /* Skip inline autoplay when the visitor prefers reduced motion, asked
+     to save data, or is on a very slow connection. Otherwise the muted
+     drone clip loops in the lead tile once it is on screen. */
   function canAutoplayPropertyLeadVideo() {
     if (prefersReducedMotion) return false;
-    if (window.matchMedia("(max-width: 900px)").matches) return false;
-    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
-      return false;
-    }
     try {
       var conn =
         navigator.connection ||
@@ -866,7 +862,7 @@
       if (conn) {
         if (conn.saveData) return false;
         var type = String(conn.effectiveType || "");
-        if (type.indexOf("2g") !== -1 || type === "3g") return false;
+        if (type.indexOf("2g") !== -1) return false;
       }
     } catch (err) {
       /* connection API unavailable */
@@ -1178,8 +1174,8 @@
   });
 
   /* --- Property Images lead video ---
-     Desktop: muted loop while on screen.
-     Mobile / constrained networks: poster only; video loads in lightbox. */
+     Muted loop while the lead tile is on screen. Poster-only fallback
+     is reserved for reduced motion, Save-Data, and 2G. */
   var propertyLeadTile = document.querySelector(".property-images-tile--lead");
   var propertyLeadVideo = document.querySelector(
     ".property-images-tile--lead .property-images-video"
@@ -1213,7 +1209,7 @@
           },
           { threshold: 0.35 }
         );
-        leadVideoObserver.observe(propertyLeadVideo);
+        leadVideoObserver.observe(propertyLeadTile);
       }
     }
   }
