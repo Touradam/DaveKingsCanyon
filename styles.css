@@ -211,6 +211,16 @@ a:hover {
   background: var(--ink);
 }
 
+.section--land {
+  background: var(--ink-raised);
+}
+
+.section--land .property-images {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
 .section--contact {
   background: linear-gradient(165deg, var(--ink) 0%, var(--ink-raised) 50%, var(--surface) 100%);
   border-top: 1px solid var(--border-gold);
@@ -2878,6 +2888,15 @@ body.nav-open .floating-cta {
     padding-top: var(--space-md);
     /* Clear the fixed mobile call bar when it is visible */
     padding-bottom: calc(var(--space-md) + 4.75rem + env(safe-area-inset-bottom));
+  }
+
+  .section--land .property-images {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .section--contact {
+    padding-bottom: calc(var(--space-2xl) + 4.75rem + env(safe-area-inset-bottom));
   }
 
   .property-images-header {
