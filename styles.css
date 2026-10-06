@@ -1380,22 +1380,13 @@ html.js .hero.is-parallax .hero-content {
   touch-action: manipulation;
 }
 
-.property-images-poster {
-  display: none;
-}
-
-.property-images-tile--lead.is-poster-only .property-images-poster {
+.property-images-tile--lead .property-images-video {
   display: block;
-}
-
-.property-images-tile--lead.is-poster-only .property-images-video {
-  display: none;
-}
-
-.property-images-tile--lead img,
-.property-images-tile--lead video {
+  width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
   min-height: 12rem;
+  object-fit: cover;
 }
 
 .property-images-thumbs .property-images-tile {

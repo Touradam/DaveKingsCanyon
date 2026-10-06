@@ -882,9 +882,9 @@
     var leadVideo = document.querySelector(
       ".property-images-tile--lead .property-images-video"
     );
-    if (!leadVideo || !leadVideo.getAttribute("src")) return;
-    var rect = leadVideo.getBoundingClientRect();
-    if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+    if (!leadVideo) return;
+    leadVideo.muted = true;
+    leadVideo.defaultMuted = true;
     var playPromise = leadVideo.play();
     if (playPromise && typeof playPromise.catch === "function") {
       playPromise.catch(function () {});
@@ -1174,26 +1174,25 @@
   });
 
   /* --- Property Images lead video ---
-     Muted loop while the lead tile is on screen. Poster-only fallback
-     is reserved for reduced motion, Save-Data, and 2G. */
+     The lead tile is the muted looping drone clip. */
   var propertyLeadTile = document.querySelector(".property-images-tile--lead");
   var propertyLeadVideo = document.querySelector(
     ".property-images-tile--lead .property-images-video"
   );
 
   if (propertyLeadVideo && propertyLeadTile) {
+    propertyLeadVideo.muted = true;
+    propertyLeadVideo.defaultMuted = true;
+    propertyLeadVideo.setAttribute("muted", "");
+    propertyLeadVideo.setAttribute("playsinline", "");
+    propertyLeadVideo.setAttribute("webkit-playsinline", "");
+    propertyLeadVideo.addEventListener("canplay", resumePropertyLeadVideo);
+    propertyLeadVideo.addEventListener("loadeddata", resumePropertyLeadVideo);
+
     if (!canAutoplayPropertyLeadVideo()) {
-      propertyLeadTile.classList.add("is-poster-only");
       propertyLeadVideo.removeAttribute("autoplay");
-      propertyLeadVideo.removeAttribute("src");
-      propertyLeadVideo.load();
       propertyLeadVideo.pause();
     } else {
-      propertyLeadVideo.muted = true;
-      propertyLeadVideo.defaultMuted = true;
-      propertyLeadVideo.setAttribute("muted", "");
-      propertyLeadVideo.setAttribute("playsinline", "");
-      propertyLeadVideo.setAttribute("webkit-playsinline", "");
       resumePropertyLeadVideo();
 
       if ("IntersectionObserver" in window) {
@@ -1207,7 +1206,7 @@
               }
             });
           },
-          { threshold: 0.35 }
+          { threshold: 0.15 }
         );
         leadVideoObserver.observe(propertyLeadTile);
       }
