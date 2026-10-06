@@ -1183,33 +1183,47 @@
   if (propertyLeadVideo && propertyLeadTile) {
     propertyLeadVideo.muted = true;
     propertyLeadVideo.defaultMuted = true;
+    propertyLeadVideo.playsInline = true;
     propertyLeadVideo.setAttribute("muted", "");
     propertyLeadVideo.setAttribute("playsinline", "");
     propertyLeadVideo.setAttribute("webkit-playsinline", "");
+    propertyLeadVideo.preload = "none";
     propertyLeadVideo.addEventListener("canplay", resumePropertyLeadVideo);
     propertyLeadVideo.addEventListener("loadeddata", resumePropertyLeadVideo);
 
     if (!canAutoplayPropertyLeadVideo()) {
       propertyLeadVideo.removeAttribute("autoplay");
       propertyLeadVideo.pause();
-    } else {
-      resumePropertyLeadVideo();
+    } else if ("IntersectionObserver" in window) {
+      var leadVideoLoader = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            propertyLeadVideo.preload = "auto";
+            resumePropertyLeadVideo();
+            leadVideoLoader.disconnect();
+          });
+        },
+        { rootMargin: "500px 0px" }
+      );
+      leadVideoLoader.observe(propertyLeadTile);
 
-      if ("IntersectionObserver" in window) {
-        var leadVideoObserver = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting && (!lightbox || lightbox.hidden)) {
-                resumePropertyLeadVideo();
-              } else {
-                pausePropertyLeadVideo();
-              }
-            });
-          },
-          { threshold: 0.15 }
-        );
-        leadVideoObserver.observe(propertyLeadTile);
-      }
+      var leadVideoObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.05 && (!lightbox || lightbox.hidden)) {
+              resumePropertyLeadVideo();
+            } else if (!entry.isIntersecting) {
+              pausePropertyLeadVideo();
+            }
+          });
+        },
+        { threshold: [0, 0.05, 0.2, 0.5] }
+      );
+      leadVideoObserver.observe(propertyLeadTile);
+    } else {
+      propertyLeadVideo.preload = "auto";
+      resumePropertyLeadVideo();
     }
   }
 

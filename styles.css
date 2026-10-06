@@ -1387,6 +1387,7 @@ html.js .hero.is-parallax .hero-content {
   aspect-ratio: 16 / 9;
   min-height: 12rem;
   object-fit: cover;
+  pointer-events: none;
 }
 
 .property-images-thumbs .property-images-tile {
@@ -2877,13 +2878,15 @@ body.nav-open .floating-cta {
   .property-images {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
-    /* Clear the fixed mobile call bar when it is visible */
-    padding-bottom: calc(var(--space-md) + 4.75rem + env(safe-area-inset-bottom));
   }
 
   .section--land .property-images {
     margin-top: 0;
     padding-top: 0;
+  }
+
+  .section--land {
+    padding-bottom: calc(var(--space-lg) + 4.75rem + env(safe-area-inset-bottom));
   }
 
   .section--contact {
@@ -2922,6 +2925,7 @@ body.nav-open .floating-cta {
 
   .property-images-play {
     gap: 0.5rem;
+    min-height: 2.75rem;
     padding: 0.7rem 1.05rem 0.7rem 0.85rem;
     font-size: 0.6875rem;
     letter-spacing: 0.06em;
