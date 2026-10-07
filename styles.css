@@ -2301,16 +2301,6 @@ html.js .hero.is-parallax .hero-content {
   gap: 0.625rem;
 }
 
-.contact-agent-license {
-  margin: 0;
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--border);
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-  color: var(--text-dim);
-}
-
 .contact-agent-action {
   display: inline-flex;
   align-items: center;
@@ -2355,6 +2345,20 @@ html.js .hero.is-parallax .hero-content {
   color: var(--gold-light);
   border-color: var(--gold);
   background: var(--gold-soft);
+}
+
+.contact-agent-action--static {
+  cursor: default;
+}
+
+.contact-agent-action--static:hover,
+.contact-agent-action--static:focus-visible,
+.contact-agent-action--static:active {
+  color: var(--text);
+  border-color: var(--border);
+  background: rgba(12, 12, 15, 0.5);
+  box-shadow: none;
+  transform: none;
 }
 
 /* --- Footer --- */
