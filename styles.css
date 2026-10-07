@@ -1972,6 +1972,13 @@ html.js .hero.is-parallax .hero-content {
   margin: var(--space-md) auto 0;
 }
 
+.financial-facts--asking span {
+  font-family: var(--font-math);
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--text);
+}
+
 /* --- Tax research summary (question + findings) --- */
 .tax-research {
   display: grid;
