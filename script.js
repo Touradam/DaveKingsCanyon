@@ -693,14 +693,11 @@
           var found = sources.indexOf(src);
           lightboxIndex = found === -1 ? 0 : found;
 
-          // Skip photo titles on concept cards for now
-          if (!trigger.classList.contains("concept-image-btn")) {
-            var altsAttr = trigger.getAttribute("data-gallery-alts");
-            if (altsAttr) {
-              lightboxGalleryAlts = altsAttr.split(",").map(function (item) {
-                return item.trim();
-              });
-            }
+          var altsAttr = trigger.getAttribute("data-gallery-alts");
+          if (altsAttr) {
+            lightboxGalleryAlts = altsAttr.split(",").map(function (item) {
+              return item.trim();
+            });
           }
         }
       }
@@ -961,10 +958,7 @@
     lightboxButtons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var videoSrc = btn.getAttribute("data-lightbox-video");
-        // Concept photos stay untitled in the lightbox for now
-        var alt = btn.classList.contains("concept-image-btn")
-          ? ""
-          : btn.getAttribute("data-lightbox-alt") || "";
+        var alt = btn.getAttribute("data-lightbox-alt") || "";
         // Cards with both an image gallery and a video open the mixed
         // sequence (images first, video last); video-only cards keep the
         // plain video lightbox
