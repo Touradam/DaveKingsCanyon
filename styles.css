@@ -1991,6 +1991,39 @@ html.js .hero.is-parallax .hero-content {
   background: #fff;
 }
 
+/* Mobile browsers usually cannot scroll multi-page PDFs inside iframes */
+.pdf-mobile-fallback {
+  display: none;
+  margin-bottom: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(160deg, var(--surface) 0%, var(--ink-raised) 100%);
+  text-align: center;
+}
+
+.pdf-mobile-fallback p {
+  margin: 0 0 var(--space-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.pdf-doc-open--primary {
+  display: inline-flex;
+  min-height: 2.75rem;
+  padding-inline: 1.15rem;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+  color: var(--ink);
+  border-color: var(--gold-dark);
+}
+
+.pdf-doc-open--primary:hover,
+.pdf-doc-open--primary:focus-visible {
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+  box-shadow: 0 4px 16px var(--gold-glow);
+}
+
 .financial-facts {
   display: grid;
   gap: var(--space-xs);
@@ -2935,7 +2968,21 @@ body.nav-open .floating-cta {
   }
 
   .pdf-frame {
-    height: min(55vh, 28rem);
+    display: none;
+  }
+
+  .pdf-mobile-fallback {
+    display: block;
+  }
+
+  .pdf-doc-actions {
+    justify-content: stretch;
+  }
+
+  .pdf-doc-download,
+  .pdf-doc-open {
+    flex: 1 1 10rem;
+    min-height: 2.75rem;
   }
 
   .lightbox {
