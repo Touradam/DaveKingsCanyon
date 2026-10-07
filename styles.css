@@ -1592,11 +1592,60 @@ html.js .hero.is-parallax .hero-content {
 
 .concept-before-after .concept-image--after {
   opacity: 0;
-  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .concept-before-after.is-after .concept-image--after {
   opacity: 1;
+}
+
+.concept-ba-controls {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-sm);
+  z-index: 3;
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  transform: translateX(-50%);
+  background: rgba(12, 12, 15, 0.78);
+  border: 1px solid var(--border-gold);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-sm);
+}
+
+.concept-ba-toggle {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+
+.concept-ba-toggle.is-active {
+  color: var(--ink);
+  background: var(--gold);
+}
+
+.concept-ba-toggle:hover:not(.is-active) {
+  color: var(--gold-light);
+}
+
+.concept-image-btn:has(.concept-before-after.is-active) .concept-zoom-hint {
+  bottom: calc(var(--space-sm) + 2.5rem);
 }
 
 .concept-image-btn:hover .concept-image {
@@ -2694,11 +2743,15 @@ body.nav-open .floating-cta {
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .lightbox-before-after.is-after .lightbox-ba-image--after {
   opacity: 1;
+}
+
+.lightbox-ba-controls {
+  bottom: 0.75rem;
 }
 
 .lightbox-caption {

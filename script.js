@@ -511,9 +511,62 @@
       var overlayAfter = overlay
         ? overlay.querySelector(".concept-image--after")
         : null;
+      var baToggles = overlay
+        ? overlay.querySelectorAll("[data-ba-view]")
+        : [];
 
       var currentIndex = 0;
       var STEP_MS = 4500;
+      var BA_BEFORE_MS = 2000;
+      var BA_AFTER_MS = 2000;
+      var baTimers = [];
+      var baSession = null;
+
+      function clearBaTimers() {
+        baTimers.forEach(function (id) {
+          window.clearTimeout(id);
+        });
+        baTimers = [];
+      }
+
+      function setBaView(isAfter) {
+        if (!overlay) return;
+        overlay.classList.toggle("is-after", isAfter);
+        baToggles.forEach(function (toggle) {
+          var wantsAfter = toggle.getAttribute("data-ba-view") === "after";
+          toggle.classList.toggle("is-active", wantsAfter === isAfter);
+        });
+      }
+
+      function finishBaSession() {
+        if (!baSession || baSession.finished) return;
+        baSession.finished = true;
+        clearBaTimers();
+        if (overlay) {
+          overlay.classList.remove("is-active");
+        }
+        window.setTimeout(function () {
+          if (overlay) {
+            overlay.hidden = true;
+            setBaView(false);
+          }
+          var cb = baSession.done;
+          baSession = null;
+          if (cb) cb();
+        }, 550);
+      }
+
+      function scheduleBaAutoplay() {
+        clearBaTimers();
+        baTimers.push(
+          window.setTimeout(function () {
+            setBaView(true);
+          }, BA_BEFORE_MS)
+        );
+        baTimers.push(
+          window.setTimeout(finishBaSession, BA_BEFORE_MS + BA_AFTER_MS + 400)
+        );
+      }
 
       function swapBaseFrame(src) {
         img.classList.add("is-cycling");
@@ -544,24 +597,34 @@
         }
         overlayBefore.src = pair[0];
         overlayAfter.src = pair[1];
-        overlay.classList.remove("is-after");
+        baSession = { done: done, finished: false };
+        setBaView(false);
         overlay.hidden = false;
         // Force a style flush so the fade-in transition runs from opacity 0
         void overlay.offsetWidth;
         overlay.classList.add("is-active");
+        scheduleBaAutoplay();
+      }
 
-        window.setTimeout(function () {
-          overlay.classList.add("is-after");
-        }, 3000);
-
-        window.setTimeout(function () {
-          overlay.classList.remove("is-active");
-          window.setTimeout(function () {
-            overlay.hidden = true;
-            overlay.classList.remove("is-after");
-            done();
-          }, 550);
-        }, 6400);
+      if (overlay && baToggles.length) {
+        baToggles.forEach(function (toggle) {
+          var stop = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+          };
+          toggle.addEventListener("pointerdown", stop);
+          toggle.addEventListener("click", function (event) {
+            stop(event);
+            if (!baSession || baSession.finished) return;
+            var wantAfter = toggle.getAttribute("data-ba-view") === "after";
+            setBaView(wantAfter);
+            clearBaTimers();
+            // After a manual pick, linger then continue the cycle
+            baTimers.push(
+              window.setTimeout(finishBaSession, BA_AFTER_MS + 400)
+            );
+          });
+        });
       }
 
       function advance() {
@@ -725,13 +788,28 @@
     if (lightboxCounter) lightboxCounter.hidden = !hasGallery;
   }
 
+  var lightboxBaBeforeBtn = document.getElementById("lightbox-ba-before-btn");
+  var lightboxBaAfterBtn = document.getElementById("lightbox-ba-after-btn");
+  var LIGHTBOX_BA_BEFORE_MS = 2000;
+
+  function setLightboxBaView(isAfter) {
+    if (!lightboxBaWrap) return;
+    lightboxBaWrap.classList.toggle("is-after", isAfter);
+    if (lightboxBaBeforeBtn) {
+      lightboxBaBeforeBtn.classList.toggle("is-active", !isAfter);
+    }
+    if (lightboxBaAfterBtn) {
+      lightboxBaAfterBtn.classList.toggle("is-active", isAfter);
+    }
+  }
+
   function resetLightboxBeforeAfter() {
     if (lightboxBaTimer) {
       window.clearTimeout(lightboxBaTimer);
       lightboxBaTimer = null;
     }
     if (lightboxBaWrap) {
-      lightboxBaWrap.classList.remove("is-after");
+      setLightboxBaView(false);
       lightboxBaWrap.hidden = true;
     }
     if (lightboxBaBefore) lightboxBaBefore.src = "";
@@ -754,13 +832,13 @@
       lightboxBaBefore.src = pair[0];
       lightboxBaAfter.src = pair[1];
       lightboxBaAfter.alt = alt || "";
-      lightboxBaWrap.classList.remove("is-after");
+      setLightboxBaView(false);
       lightboxBaWrap.hidden = false;
       // Force a style flush so the crossfade replays from the before frame
       void lightboxBaWrap.offsetWidth;
       lightboxBaTimer = window.setTimeout(function () {
-        lightboxBaWrap.classList.add("is-after");
-      }, 3000);
+        setLightboxBaView(true);
+      }, LIGHTBOX_BA_BEFORE_MS);
       return true;
     }
 
@@ -768,6 +846,22 @@
     lightboxImage.hidden = false;
     return false;
   }
+
+  function wireLightboxBaToggle(btn, isAfter) {
+    if (!btn) return;
+    btn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (!lightboxBaWrap || lightboxBaWrap.hidden) return;
+      if (lightboxBaTimer) {
+        window.clearTimeout(lightboxBaTimer);
+        lightboxBaTimer = null;
+      }
+      setLightboxBaView(isAfter);
+    });
+  }
+
+  wireLightboxBaToggle(lightboxBaBeforeBtn, false);
+  wireLightboxBaToggle(lightboxBaAfterBtn, true);
 
   function stepLightbox(delta) {
     if (!lightboxGallery) return;
