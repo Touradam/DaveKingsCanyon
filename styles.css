@@ -2764,6 +2764,11 @@ body.nav-open .floating-cta {
   color: var(--text-muted);
 }
 
+.lightbox-caption:empty {
+  display: none;
+  margin: 0;
+}
+
 /* --- Mobile polish --- */
 @media (max-width: 900px) {
   .hero-tagline {
