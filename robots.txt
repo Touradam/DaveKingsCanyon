@@ -1,0 +1,10 @@
+# Kings Canyon Land — crawler policy
+# Allow indexing and AI retrieval of public listing content.
+
+User-agent: *
+Allow: /
+
+# Curated map for AI agents (llms.txt convention)
+# https://llmstxt.org/
+
+Sitemap: https://touradam.github.io/DaveKingsCanyon/sitemap.xml
