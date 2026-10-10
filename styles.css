@@ -19,7 +19,8 @@
    ============================================================ */
 
 /* --- Design Tokens --- */
-:root {
+:root,
+[data-theme="dark"] {
   /* Color */
   --gold: #c4a35a;
   --gold-light: #e2c887;
@@ -37,6 +38,13 @@
   --text: #eceae4;
   --text-muted: #a5a39c;
   --text-dim: #75736c;
+  --header-bg: rgba(12, 12, 15, 0.82);
+  --nav-overlay: rgba(12, 12, 15, 0.97);
+  --scrim: rgba(12, 12, 15, 0.72);
+  --scrim-soft: rgba(12, 12, 15, 0.45);
+  --panel-glass: rgba(12, 12, 15, 0.55);
+  --theme-meta: #0c0c0f;
+  --on-gold: #0c0c0f;
 
   /* Type */
   --font-display: "Outfit", system-ui, sans-serif;
@@ -93,6 +101,37 @@
   --tilt-y: 0deg;
 }
 
+/* Daylight luxury: luminous stone surfaces, charcoal type, same champagne gold */
+[data-theme="light"] {
+  --gold: #b8923f;
+  --gold-light: #c9a85a;
+  --gold-dark: #8f702e;
+  --gold-glow: rgba(184, 146, 63, 0.28);
+  --gold-soft: rgba(184, 146, 63, 0.12);
+  --ink: #f5f4f0;
+  --ink-deep: #ebe9e3;
+  --ink-raised: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f0eee8;
+  --border: rgba(28, 27, 25, 0.1);
+  --border-strong: rgba(28, 27, 25, 0.18);
+  --border-gold: rgba(184, 146, 63, 0.35);
+  --text: #1c1b19;
+  --text-muted: #5a5852;
+  --text-dim: #7a7872;
+  --header-bg: rgba(245, 244, 240, 0.88);
+  --nav-overlay: rgba(245, 244, 240, 0.98);
+  --scrim: rgba(28, 27, 25, 0.55);
+  --scrim-soft: rgba(28, 27, 25, 0.4);
+  --panel-glass: rgba(255, 255, 255, 0.72);
+  --theme-meta: #f5f4f0;
+  --on-gold: #0c0c0f;
+  --shadow-sm: 0 2px 12px rgba(28, 27, 25, 0.08);
+  --shadow-md: 0 10px 36px rgba(28, 27, 25, 0.1);
+  --shadow-lg: 0 20px 56px rgba(28, 27, 25, 0.14);
+  --shadow-gold: 0 4px 24px var(--gold-glow);
+}
+
 /* --- Reset & Base --- */
 *,
 *::before,
@@ -103,6 +142,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
 }
 
 body {
@@ -111,8 +155,9 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--text);
-  background-color: var(--ink);
+  background-color: var(--on-gold);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 img,
@@ -151,7 +196,7 @@ a:hover {
   z-index: 10000;
   padding: 0.75rem 1.25rem;
   background: var(--gold);
-  color: var(--ink);
+  color: var(--on-gold);
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-sm);
@@ -329,7 +374,7 @@ html.js [data-reveal].is-visible {
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-  color: var(--ink);
+  color: var(--on-gold);
   border-color: var(--gold-dark);
   box-shadow: var(--shadow-gold);
 }
@@ -353,7 +398,7 @@ html.js [data-reveal].is-visible {
 .btn--primary:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 32px var(--gold-glow);
-  color: var(--ink);
+  color: var(--on-gold);
 }
 
 .btn--primary:hover:not(:disabled)::after {
@@ -361,7 +406,7 @@ html.js [data-reveal].is-visible {
 }
 
 .btn--primary:focus-visible {
-  box-shadow: 0 0 0 3px var(--ink), 0 0 0 5px var(--gold);
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--gold);
 }
 
 .btn--secondary,
@@ -409,9 +454,60 @@ html.js [data-reveal].is-visible {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(12, 12, 15, 0.82);
+  background: var(--header-bg);
   backdrop-filter: blur(14px) saturate(1.15);
   opacity: 1;
+  transition: background-color 0.35s var(--ease);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1002;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.theme-toggle:hover {
+  color: var(--gold-light);
+  background: var(--surface-hover);
+  border-color: var(--border-gold);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icon {
+  display: none;
+  line-height: 0;
+}
+
+html[data-theme="dark"] .theme-toggle-icon--sun,
+html:not([data-theme]) .theme-toggle-icon--sun {
+  display: block;
+}
+
+html[data-theme="light"] .theme-toggle-icon--moon {
+  display: block;
 }
 
 .site-header.is-scrolled {
@@ -453,7 +549,7 @@ html.js [data-reveal].is-visible {
   font-weight: 700;
   letter-spacing: 0.04em;
   background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-  color: var(--ink);
+  color: var(--on-gold);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-gold);
 }
@@ -513,11 +609,11 @@ html.js [data-reveal].is-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(12, 12, 15, 0.97);
+  background: var(--nav-overlay);
   backdrop-filter: blur(16px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition), visibility var(--transition);
+  transition: opacity var(--transition), visibility var(--transition), background-color 0.35s var(--ease);
 }
 
 .site-nav.is-open {
@@ -593,6 +689,8 @@ html.js [data-reveal].is-visible {
   .site-nav {
     position: static;
     inset: auto;
+    margin-left: auto;
+    margin-right: 0.75rem;
     background: transparent;
     backdrop-filter: none;
     opacity: 1;
@@ -610,14 +708,14 @@ html.js [data-reveal].is-visible {
 
   .nav-link--cta {
     background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-    color: var(--ink);
+    color: var(--on-gold);
     border-color: transparent;
     box-shadow: var(--shadow-gold);
   }
 
   .nav-link--cta:hover {
     transform: translateY(-1px);
-    color: var(--ink);
+    color: var(--on-gold);
     box-shadow: 0 6px 24px var(--gold-glow);
   }
 }
@@ -739,6 +837,11 @@ html.js .hero.is-parallax .hero-content {
   margin-bottom: 18vh;
   padding-block: calc(var(--header-height) + var(--space-lg)) var(--space-lg);
   text-align: center;
+  /* Hero sits on photography: keep light type in both themes */
+  --text: #eceae4;
+  --text-muted: #c8c5bc;
+  --gold-light: #e2c887;
+  --ink: #0c0c0f;
 }
 
 .hero-title {
@@ -750,6 +853,9 @@ html.js .hero.is-parallax .hero-content {
   line-height: var(--lh-display);
   color: var(--text);
   text-wrap: balance;
+  text-shadow:
+    0 2px 18px rgba(12, 12, 15, 0.55),
+    0 1px 4px rgba(12, 12, 15, 0.4);
 }
 
 .hero-tagline {
@@ -1311,7 +1417,7 @@ html.js .hero.is-parallax .hero-content {
   align-items: center;
   gap: 0.65rem;
   padding: 0.55rem 1rem 0.55rem 0.7rem;
-  color: var(--ink);
+  color: var(--on-gold);
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 600;
@@ -1548,7 +1654,7 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .concept-ba-toggle.is-active {
-  color: var(--ink);
+  color: var(--on-gold);
   background: var(--gold);
 }
 
@@ -1859,7 +1965,7 @@ html.js .hero.is-parallax .hero-content {
 
 .pdf-doc-download {
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-  color: var(--ink);
+  color: var(--on-gold);
   border: 1px solid var(--gold-dark);
 }
 
@@ -1920,13 +2026,13 @@ html.js .hero.is-parallax .hero-content {
   min-height: 2.75rem;
   padding-inline: 1.15rem;
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
-  color: var(--ink);
+  color: var(--on-gold);
   border-color: var(--gold-dark);
 }
 
 .pdf-doc-open--primary:hover,
 .pdf-doc-open--primary:focus-visible {
-  color: var(--ink);
+  color: var(--on-gold);
   background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-dark) 100%);
   box-shadow: 0 4px 16px var(--gold-glow);
 }
@@ -2179,9 +2285,10 @@ html.js .hero.is-parallax .hero-content {
   width: fit-content;
   margin: 0 auto;
   padding: 0.375rem;
-  background: rgba(12, 12, 15, 0.6);
+  background: var(--panel-glass);
   border: 1px solid var(--border);
   border-radius: 999px;
+  backdrop-filter: blur(8px);
 }
 
 .local-tab {
@@ -2204,7 +2311,7 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .local-tab:hover {
-  color: var(--ink);
+  color: var(--on-gold);
   background: var(--gold);
   box-shadow: var(--shadow-gold);
   transform: translateY(-1px);
@@ -2450,7 +2557,7 @@ html.js .hero.is-parallax .hero-content {
   min-height: 2.75rem;
   padding: 0.625rem 1.25rem;
   background: var(--gold);
-  color: var(--ink);
+  color: var(--on-gold);
   font-family: var(--font-display);
   font-size: var(--fs-small);
   font-weight: 600;
@@ -2481,14 +2588,15 @@ html.js .hero.is-parallax .hero-content {
   width: 2rem;
   height: 2rem;
   padding: 0;
-  background: rgba(12, 12, 15, 0.85);
+  background: var(--header-bg);
   color: var(--text-muted);
   border: 1px solid var(--border);
   border-radius: 50%;
   cursor: pointer;
   transition:
     color var(--transition),
-    border-color var(--transition);
+    border-color var(--transition),
+    background var(--transition);
 }
 
 .floating-cta-dismiss:hover {

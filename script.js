@@ -115,7 +115,49 @@
     return window.matchMedia("(pointer: fine)").matches;
   }
 
-  /* --- Footer Year --- */
+  /* --- Theme Toggle (dark / light) --- */
+  var themeToggle = document.getElementById("theme-toggle");
+  var themeColorMeta = document.getElementById("theme-color");
+  var THEME_KEY = "kc-theme";
+
+  function getTheme() {
+    var current = document.documentElement.getAttribute("data-theme");
+    return current === "light" ? "light" : "dark";
+  }
+
+  function applyTheme(theme) {
+    var next = theme === "light" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    document.documentElement.style.colorScheme = next;
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch (err) {
+      /* private mode */
+    }
+    if (themeColorMeta) {
+      var metaColor = getComputedStyle(document.documentElement)
+        .getPropertyValue("--theme-meta")
+        .trim();
+      themeColorMeta.setAttribute("content", metaColor || (next === "light" ? "#f5f4f0" : "#0c0c0f"));
+    }
+    if (themeToggle) {
+      var toLight = next === "dark";
+      themeToggle.setAttribute("aria-pressed", toLight ? "false" : "true");
+      themeToggle.setAttribute(
+        "aria-label",
+        toLight ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+  }
+
+  applyTheme(getTheme());
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      applyTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+  }
+
   /* --- Sticky Header --- */
   function updateHeaderScroll() {
     if (!header) return;
