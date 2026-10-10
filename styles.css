@@ -101,65 +101,87 @@
   --tilt-y: 0deg;
 }
 
-/* Champagne Atelier (light): luminous ivory, espresso type, champagne gold accents.
-   Gold is reserved for CTAs, eyebrows, focus, and hairlines. Never a gold wash. */
+/* Champagne Atelier (light, locked): warmer ivory, espresso type, champagne gold.
+   Best choice for a $5M listing in daylight: present, not pale; gold as jewelry only. */
 [data-theme="light"] {
   --gold: #c4a35a;
-  --gold-light: #d8bc78;
-  --gold-dark: #9a7b3c;
-  --gold-glow: rgba(196, 163, 90, 0.32);
-  --gold-soft: rgba(196, 163, 90, 0.14);
-  --ink: #faf7f0;
-  --ink-deep: #f0ebe1;
-  --ink-raised: #fffdf9;
-  --surface: #fffdf9;
-  --surface-hover: #f3eee4;
-  --border: rgba(154, 123, 60, 0.16);
-  --border-strong: rgba(154, 123, 60, 0.28);
-  --border-gold: rgba(196, 163, 90, 0.42);
-  --text: #1a1612;
-  --text-muted: #6b6358;
-  --text-dim: #8a8278;
-  --header-bg: rgba(250, 247, 240, 0.92);
-  --nav-overlay: rgba(250, 247, 240, 0.98);
-  --scrim: rgba(26, 22, 18, 0.52);
-  --scrim-soft: rgba(26, 22, 18, 0.38);
-  --panel-glass: rgba(255, 253, 249, 0.82);
-  --theme-meta: #faf7f0;
-  --on-gold: #1a1612;
-  --shadow-sm: 0 2px 14px rgba(26, 22, 18, 0.06);
-  --shadow-md: 0 12px 40px rgba(26, 22, 18, 0.08);
-  --shadow-lg: 0 24px 60px rgba(26, 22, 18, 0.11);
-  --shadow-gold: 0 6px 28px var(--gold-glow);
+  --gold-light: #d4b56a;
+  --gold-dark: #8f6f32;
+  --gold-glow: rgba(196, 163, 90, 0.36);
+  --gold-soft: rgba(196, 163, 90, 0.16);
+  --ink: #f7f1e6;
+  --ink-deep: #ebe3d4;
+  --ink-raised: #fffcf7;
+  --surface: #fffcf7;
+  --surface-hover: #f0e8d8;
+  --border: rgba(143, 111, 50, 0.18);
+  --border-strong: rgba(143, 111, 50, 0.3);
+  --border-gold: rgba(196, 163, 90, 0.48);
+  --text: #171410;
+  --text-muted: #635a4e;
+  --text-dim: #82786c;
+  --header-bg: rgba(247, 241, 230, 0.94);
+  --nav-overlay: rgba(247, 241, 230, 0.98);
+  --scrim: rgba(23, 20, 16, 0.55);
+  --scrim-soft: rgba(23, 20, 16, 0.4);
+  --panel-glass: rgba(255, 252, 247, 0.88);
+  --theme-meta: #f7f1e6;
+  --on-gold: #171410;
+  --shadow-sm: 0 2px 16px rgba(23, 20, 16, 0.07);
+  --shadow-md: 0 14px 42px rgba(23, 20, 16, 0.09);
+  --shadow-lg: 0 26px 64px rgba(23, 20, 16, 0.12);
+  --shadow-gold: 0 8px 30px var(--gold-glow);
 }
 
-/* Light-mode polish: softer gold dividers and quieter chrome */
 [data-theme="light"] .site-header.is-scrolled {
   box-shadow: 0 1px 0 var(--border-gold), var(--shadow-sm);
+}
+
+[data-theme="light"] .section--about,
+[data-theme="light"] .section--land {
+  background:
+    linear-gradient(180deg, rgba(196, 163, 90, 0.06) 0%, transparent 42%),
+    var(--ink-raised);
 }
 
 [data-theme="light"] .section--contact {
   background: linear-gradient(
     165deg,
     var(--ink) 0%,
-    var(--ink-raised) 42%,
-    #f7f0e2 100%
+    var(--ink-raised) 38%,
+    #efe4cf 100%
   );
 }
 
 [data-theme="light"] .theme-toggle:hover,
 [data-theme="light"] .nav-toggle:hover {
   background: var(--gold-soft);
+  border-color: var(--border-gold);
+  color: var(--gold-dark);
 }
 
 [data-theme="light"] .financial-details,
 [data-theme="light"] .location-details {
   border-color: var(--border-gold);
+  background: var(--surface);
+}
+
+[data-theme="light"] .financial-summary:hover,
+[data-theme="light"] .location-details > summary:hover {
+  background: var(--gold-soft);
 }
 
 [data-theme="light"] .quick-fact {
   border-color: var(--border-gold);
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+[data-theme="light"] .logo:hover {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .section-eyebrow {
+  color: var(--gold-dark);
 }
 
 /* --- Reset & Base --- */
