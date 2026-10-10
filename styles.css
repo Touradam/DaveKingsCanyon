@@ -1080,110 +1080,56 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-.hero-cta,
-a.hero-cta.btn--primary {
-  position: relative;
-  z-index: 3;
-  isolation: isolate;
-  overflow: visible;
-  margin-top: var(--space-md);
-  min-height: 3.25rem;
-  padding: 0.95rem 1.65rem 0.95rem 1.85rem;
-  gap: 0.75rem;
-  border-radius: 999px;
-  border: 1px solid rgba(226, 200, 135, 0.7);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #14110d !important;
-  background: linear-gradient(135deg, #f0dfa8 0%, #c4a35a 45%, #8f6f32 100%);
-  box-shadow:
-    0 0 0 1px rgba(12, 12, 15, 0.25),
-    0 12px 40px rgba(12, 12, 15, 0.45),
-    0 4px 18px rgba(196, 163, 90, 0.4);
-}
-
-/* Kill the shared primary sheen so it cannot cover the label */
-a.hero-cta.btn--primary::after {
-  content: none;
-  display: none;
-}
-
-.hero-cta-label {
-  position: relative;
-  z-index: 2;
-  color: #14110d;
-  text-shadow: none;
-  opacity: 1;
-}
-
-.hero-cta-arrow {
-  position: relative;
-  z-index: 2;
+.hero-price {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: none;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  color: #14110d;
-  background: rgba(20, 17, 13, 0.16);
-  transition: transform var(--transition), background var(--transition);
-}
-
-.hero-cta:hover:not(:disabled),
-.hero-cta:focus-visible,
-a.hero-cta.btn--primary:hover:not(:disabled),
-a.hero-cta.btn--primary:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(226, 200, 135, 0.95);
-  color: #14110d !important;
-  box-shadow:
-    0 0 0 1px rgba(12, 12, 15, 0.22),
-    0 18px 44px rgba(12, 12, 15, 0.5),
-    0 8px 28px rgba(196, 163, 90, 0.5);
-}
-
-.hero-cta:hover:not(:disabled) .hero-cta-arrow,
-.hero-cta:focus-visible .hero-cta-arrow {
-  transform: translateX(3px);
-  background: rgba(20, 17, 13, 0.24);
-}
-
-.hero-cta:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(12, 12, 15, 0.65),
-    0 0 0 5px #c4a35a,
-    0 18px 44px rgba(12, 12, 15, 0.5);
-}
-
-.hero-price {
-  position: absolute;
-  left: 50%;
-  top: auto;
-  bottom: max(1.75rem, calc(env(safe-area-inset-bottom) + 1.25rem));
-  transform: translateX(-50%);
-  z-index: 2;
-  margin: 0;
-  padding: 0.35rem 1.25rem;
+  margin: var(--space-md) auto 0;
+  padding: 0.7rem 1.75rem;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  font-size: clamp(1.5rem, 1.15rem + 1.8vw, 2.35rem);
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.2;
-  color: var(--gold-light);
+  text-decoration: none;
   text-align: center;
-  text-shadow:
-    0 2px 12px rgba(12, 12, 15, 0.9),
-    0 0 28px rgba(12, 12, 15, 0.65);
-  background: rgba(12, 12, 15, 0.45);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(196, 163, 90, 0.35);
-  border-radius: var(--radius-sm);
-  pointer-events: none;
+  color: #f7f3ea;
+  text-shadow: 0 1px 2px rgba(12, 12, 15, 0.55);
+  background:
+    linear-gradient(
+      165deg,
+      rgba(20, 17, 13, 0.32) 0%,
+      rgba(12, 12, 15, 0.22) 48%,
+      rgba(20, 17, 13, 0.28) 100%
+    );
+  border: 1px solid rgba(226, 200, 135, 0.35);
+  border-radius: 999px;
+  box-shadow:
+    0 10px 32px rgba(12, 12, 15, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    color var(--transition);
+}
+
+.hero-price:hover,
+.hero-price:focus-visible {
+  transform: translateY(-2px);
+  color: #e2c887;
+  border-color: rgba(226, 200, 135, 0.55);
+  box-shadow:
+    0 14px 36px rgba(12, 12, 15, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero-price:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(12, 12, 15, 0.55),
+    0 0 0 5px #c4a35a,
+    0 14px 36px rgba(12, 12, 15, 0.28);
 }
 
 @media (max-width: 479px) {
@@ -2924,19 +2870,9 @@ body.nav-open .floating-cta {
   }
 
   .hero-price {
-    top: auto;
-    bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem));
-    transform: translateX(-50%);
-    font-size: clamp(1.25rem, 5vw, 1.75rem);
-    padding: 0.3rem 1rem;
-  }
-
-  .hero-cta {
-    width: min(100%, 22rem);
-    min-height: 3rem;
-    padding: 0.85rem 1.25rem 0.85rem 1.4rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    width: min(100%, 16rem);
+    font-size: clamp(1.35rem, 5vw, 1.85rem);
+    padding: 0.65rem 1.35rem;
   }
 
   .hero-title {
