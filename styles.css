@@ -891,6 +891,59 @@ body.nav-open {
   pointer-events: none;
 }
 
+/* Video hero: section height follows the full video frame (no crop) */
+.hero--video {
+  display: block;
+  min-height: 0;
+  height: auto;
+  overflow: hidden;
+}
+
+.hero--video .hero-media {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  line-height: 0;
+  aspect-ratio: var(--hero-video-ratio, 16 / 9);
+}
+
+.hero--video .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--ink);
+}
+
+.hero--video .hero-image--fallback {
+  object-fit: contain;
+  background: var(--ink);
+}
+
+.hero--video .hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding-inline: 1rem;
+  padding-block: calc(var(--header-height) + var(--space-md)) var(--space-lg);
+  box-sizing: border-box;
+}
+
+.hero--video .hero-title,
+.hero--video .hero-tagline,
+.hero--video .hero-price {
+  width: min(100%, 52rem);
+}
+
 /* If the browser cannot play the hero video, show the still */
 .hero--video:not(.is-video-ready) .hero-image--fallback {
   opacity: 1;
@@ -2914,10 +2967,9 @@ body.nav-open .floating-cta {
     padding: var(--space-xs) var(--space-sm);
   }
 
-  /* Keep hero copy above the mid-lower price anchor on phones */
-  .hero-content {
-    padding-bottom: calc(var(--space-lg) + 4rem);
-    align-self: flex-start;
+  .hero--video .hero-content {
+    justify-content: center;
+    padding-bottom: max(var(--space-lg), env(safe-area-inset-bottom));
   }
 
   .hero-price {

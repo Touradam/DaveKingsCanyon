@@ -143,6 +143,19 @@
       }
     }
 
+    function syncHeroVideoRatio() {
+      var width = heroVideo.videoWidth;
+      var height = heroVideo.videoHeight;
+      if (!width || !height) return;
+      hero.style.setProperty("--hero-video-ratio", width + " / " + height);
+      hero.classList.add("has-video-ratio");
+    }
+
+    heroVideo.addEventListener("loadedmetadata", syncHeroVideoRatio);
+    if (heroVideo.readyState >= 1) {
+      syncHeroVideoRatio();
+    }
+
     if (prefersReducedMotion) {
       heroVideo.removeAttribute("autoplay");
       heroVideo.removeAttribute("loop");
