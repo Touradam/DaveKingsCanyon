@@ -3164,16 +3164,34 @@ body.nav-open .floating-cta {
     padding: 0.3rem 0.7rem;
   }
 
+  .concept-media {
+    order: 2;
+    /* Avoid sticky hover/tilt artifacts on touch devices */
+    transform: none;
+    will-change: auto;
+  }
+
+  .concept-media:hover .concept-image-btn .concept-image {
+    transform: none;
+  }
+
   .concept-ba-controls {
-    bottom: 0.5rem;
-    max-width: calc(100% - 0.75rem);
+    left: 50%;
+    right: auto;
+    bottom: max(0.5rem, env(safe-area-inset-bottom, 0px));
+    width: max-content;
+    max-width: calc(100% - 1rem);
+    margin: 0;
     padding: 0.2rem;
+    transform: translateX(-50%);
   }
 
   .concept-ba-toggle {
-    min-height: 2.5rem;
-    min-width: 4.5rem;
-    padding: 0.45rem 0.95rem;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 4.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
   }
 
   /* Hide the explore hint while Before/After is active to reduce clutter */
@@ -3192,10 +3210,6 @@ body.nav-open .floating-cta {
 
   .concept-eyebrow {
     order: 1;
-  }
-
-  .concept-media {
-    order: 2;
   }
 
   .concept-desc {
@@ -3479,14 +3493,15 @@ body.nav-open .floating-cta {
   }
 
   .concept-ba-controls {
-    gap: 0.15rem;
+    gap: 0.2rem;
+    padding: 0.2rem;
   }
 
   .concept-ba-toggle {
-    min-width: 0;
+    flex: 0 0 auto;
+    min-width: 4.25rem;
     min-height: 2.75rem;
-    flex: 1 1 auto;
-    padding-inline: 0.7rem;
+    padding-inline: 0.85rem;
     letter-spacing: 0.06em;
   }
 
