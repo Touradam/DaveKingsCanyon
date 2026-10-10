@@ -896,12 +896,14 @@ body.nav-open {
   pointer-events: none;
 }
 
-/* Video hero: section height follows the full video frame (no crop) */
+/* Video hero: sits just under the fixed header; height follows the video frame */
 .hero--video {
   display: block;
+  margin-top: var(--header-offset);
   min-height: 0;
   height: auto;
   overflow: hidden;
+  background: var(--ink);
 }
 
 .hero--video .hero-media {
@@ -940,9 +942,7 @@ body.nav-open {
   max-width: none;
   margin: 0;
   padding-inline: clamp(0.75rem, 2.5vw, 1.5rem);
-  padding-block:
-    calc(var(--header-offset) + clamp(0.5rem, 1.5vw, 1rem))
-    clamp(0.75rem, 2vw, 1.5rem);
+  padding-block: clamp(0.75rem, 2vw, 1.5rem);
   box-sizing: border-box;
 }
 
@@ -3011,28 +3011,24 @@ body.nav-open .floating-cta {
 
 /* --- Mobile polish --- */
 @media (max-width: 900px) {
-  /* Full-viewport hero below the fixed header: video fills the frame,
-     title/tagline/price overlay it (never sit under the menu or the video). */
+  /* Same model as desktop: hero height follows the video aspect ratio,
+     content overlays the frame, section sits under the header. */
   .hero--video {
-    display: block;
-    margin-top: var(--header-offset);
-    min-height: calc(100svh - var(--header-offset));
-    height: calc(100svh - var(--header-offset));
-    overflow: hidden;
-    background: var(--ink);
+    height: auto;
+    min-height: 0;
   }
 
   .hero--video .hero-media {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    inset: auto;
     width: 100%;
-    height: 100%;
-    aspect-ratio: auto;
+    height: auto;
+    aspect-ratio: var(--hero-video-ratio, 16 / 9);
   }
 
   .hero--video .hero-video,
   .hero--video .hero-image--fallback {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 
@@ -3049,12 +3045,12 @@ body.nav-open .floating-cta {
     position: absolute;
     inset: 0;
     z-index: 3;
-    gap: 0.55rem;
+    gap: 0.45rem;
     width: auto;
     max-width: none;
     margin: 0;
-    padding-inline: max(0.85rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-    padding-block: 0.85rem max(1.15rem, env(safe-area-inset-bottom, 0px));
+    padding-inline: max(0.75rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    padding-block: 0.65rem max(0.85rem, env(safe-area-inset-bottom, 0px));
     background: transparent;
     justify-content: center;
   }
@@ -3066,29 +3062,29 @@ body.nav-open .floating-cta {
   }
 
   .hero--video .hero-title {
-    padding: 0.5rem 0.75rem;
-    font-size: clamp(1.1rem, 4.6vw, 1.55rem);
-    line-height: 1.18;
+    padding: 0.45rem 0.7rem;
+    font-size: clamp(1rem, 4.2vw, 1.4rem);
+    line-height: 1.16;
   }
 
   .hero--video .hero-tagline {
-    padding: 0.4rem 0.65rem;
+    padding: 0.35rem 0.6rem;
   }
 
   .hero--video .hero-address {
-    font-size: clamp(0.75rem, 3vw, 0.875rem);
+    font-size: clamp(0.7rem, 2.8vw, 0.8125rem);
   }
 
   .hero--video .hero-subtitle {
-    font-size: clamp(0.7rem, 2.8vw, 0.8125rem);
+    font-size: clamp(0.65rem, 2.5vw, 0.75rem);
   }
 
   .hero--video .hero-price {
     width: fit-content;
     min-width: 0;
-    margin-top: 0.1rem;
-    padding: 0.45rem 1.05rem;
-    font-size: clamp(1.05rem, 4vw, 1.35rem);
+    margin-top: 0.05rem;
+    padding: 0.4rem 0.95rem;
+    font-size: clamp(0.95rem, 3.6vw, 1.2rem);
   }
 
   .hero-address,
@@ -3411,32 +3407,31 @@ body.nav-open .floating-cta {
   }
 
   .hero--video .hero-content {
-    gap: 0.4rem;
-    padding-inline: max(0.75rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-    padding-block: 0.65rem max(1rem, env(safe-area-inset-bottom, 0px));
+    gap: 0.35rem;
+    padding-block: 0.5rem 0.7rem;
   }
 
   .hero--video .hero-title {
-    padding: 0.4rem 0.65rem;
-    font-size: clamp(0.98rem, 4.8vw, 1.2rem);
-    line-height: 1.2;
+    padding: 0.35rem 0.55rem;
+    font-size: clamp(0.9rem, 4.4vw, 1.1rem);
+    line-height: 1.18;
   }
 
   .hero--video .hero-tagline {
-    padding: 0.35rem 0.55rem;
+    padding: 0.3rem 0.5rem;
   }
 
   .hero--video .hero-address {
-    font-size: 0.72rem;
-  }
-
-  .hero--video .hero-subtitle {
     font-size: 0.68rem;
   }
 
+  .hero--video .hero-subtitle {
+    font-size: 0.64rem;
+  }
+
   .hero--video .hero-price {
-    padding: 0.4rem 0.95rem;
-    font-size: 1rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.95rem;
   }
 
   .floating-cta-label-long {
