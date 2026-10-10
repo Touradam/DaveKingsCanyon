@@ -122,14 +122,39 @@
       hero.classList.add("is-video-ready");
     }
 
+    function restartHeroVideo() {
+      try {
+        heroVideo.currentTime = 0;
+      } catch (err) {
+        /* ignore seek errors mid-load */
+      }
+      var restartPlay = heroVideo.play();
+      if (restartPlay && typeof restartPlay.catch === "function") {
+        restartPlay.catch(function () {});
+      }
+    }
+
+    /* Native loop can hitch; seek just before the end for a continuous restart */
+    function keepHeroVideoLooping() {
+      var duration = heroVideo.duration;
+      if (!duration || !isFinite(duration)) return;
+      if (heroVideo.currentTime >= duration - 0.08) {
+        restartHeroVideo();
+      }
+    }
+
     if (prefersReducedMotion) {
       heroVideo.removeAttribute("autoplay");
+      heroVideo.removeAttribute("loop");
       heroVideo.pause();
       heroVideo.setAttribute("hidden", "");
       hero.classList.remove("is-video-ready");
     } else {
+      heroVideo.loop = true;
       heroVideo.addEventListener("loadeddata", markHeroVideoReady, { once: true });
       heroVideo.addEventListener("playing", markHeroVideoReady, { once: true });
+      heroVideo.addEventListener("timeupdate", keepHeroVideoLooping);
+      heroVideo.addEventListener("ended", restartHeroVideo);
       var playPromise = heroVideo.play();
       if (playPromise && typeof playPromise.then === "function") {
         playPromise.then(markHeroVideoReady).catch(function () {
