@@ -1019,7 +1019,69 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .hero-cta {
-  margin-top: var(--space-sm);
+  position: relative;
+  z-index: 2;
+  margin-top: var(--space-md);
+  min-height: 3.25rem;
+  padding: 0.95rem 1.65rem 0.95rem 1.85rem;
+  gap: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 200, 135, 0.55);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0c0c0f;
+  background:
+    linear-gradient(135deg, #e8d39a 0%, var(--gold) 42%, #9a7b3c 100%);
+  box-shadow:
+    0 0 0 1px rgba(12, 12, 15, 0.2),
+    0 10px 36px rgba(12, 12, 15, 0.35),
+    0 4px 18px rgba(196, 163, 90, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.hero-cta-label {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta-arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(12, 12, 15, 0.14);
+  transition: transform var(--transition), background var(--transition);
+}
+
+.hero-cta:hover:not(:disabled),
+.hero-cta:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(226, 200, 135, 0.85);
+  color: #0c0c0f;
+  box-shadow:
+    0 0 0 1px rgba(12, 12, 15, 0.18),
+    0 16px 42px rgba(12, 12, 15, 0.4),
+    0 8px 28px rgba(196, 163, 90, 0.45);
+}
+
+.hero-cta:hover:not(:disabled) .hero-cta-arrow,
+.hero-cta:focus-visible .hero-cta-arrow {
+  transform: translateX(3px);
+  background: rgba(12, 12, 15, 0.22);
+}
+
+.hero-cta:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(12, 12, 15, 0.55),
+    0 0 0 5px var(--gold),
+    0 16px 42px rgba(12, 12, 15, 0.4);
 }
 
 .hero-price {
@@ -2790,6 +2852,14 @@ body.nav-open .floating-cta {
     transform: translateX(-50%);
     font-size: clamp(1.25rem, 5vw, 1.75rem);
     padding: 0.3rem 1rem;
+  }
+
+  .hero-cta {
+    width: min(100%, 22rem);
+    min-height: 3rem;
+    padding: 0.85rem 1.25rem 0.85rem 1.4rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-title {
