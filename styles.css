@@ -45,6 +45,16 @@
   --panel-glass: rgba(12, 12, 15, 0.55);
   --theme-meta: #0c0c0f;
   --on-gold: #0c0c0f;
+  --lightbox-bg: rgba(8, 8, 11, 0.94);
+  --lightbox-control-bg: rgba(24, 24, 31, 0.92);
+  --lightbox-control-hover: rgba(31, 31, 40, 0.98);
+  --lightbox-nav: rgba(226, 200, 135, 0.55);
+  --lightbox-nav-active: #e2c887;
+  --media-letterbox: #000;
+  /* Controls that sit on photography stay dark in both themes */
+  --media-overlay-bg: rgba(12, 12, 15, 0.72);
+  --media-overlay-text: #e2c887;
+  --media-overlay-muted: #c8c5bc;
 
   /* Type */
   --font-display: "Outfit", system-ui, sans-serif;
@@ -127,6 +137,15 @@
   --panel-glass: rgba(255, 252, 247, 0.88);
   --theme-meta: #f7f1e6;
   --on-gold: #171410;
+  --lightbox-bg: rgba(247, 241, 230, 0.96);
+  --lightbox-control-bg: #fffcf7;
+  --lightbox-control-hover: #f0e8d8;
+  --lightbox-nav: rgba(143, 111, 50, 0.55);
+  --lightbox-nav-active: #8f6f32;
+  --media-letterbox: #171410;
+  --media-overlay-bg: rgba(12, 12, 15, 0.72);
+  --media-overlay-text: #e2c887;
+  --media-overlay-muted: #c8c5bc;
   --shadow-sm: 0 2px 16px rgba(23, 20, 16, 0.07);
   --shadow-md: 0 14px 42px rgba(23, 20, 16, 0.09);
   --shadow-lg: 0 26px 64px rgba(23, 20, 16, 0.12);
@@ -1706,8 +1725,8 @@ html.js .hero.is-parallax .hero-content {
   gap: 0.25rem;
   padding: 0.25rem;
   transform: translateX(-50%);
-  background: var(--scrim);
-  border: 1px solid var(--border-gold);
+  background: var(--media-overlay-bg);
+  border: 1px solid rgba(196, 163, 90, 0.45);
   border-radius: 999px;
   backdrop-filter: blur(6px);
   box-shadow: var(--shadow-sm);
@@ -1723,7 +1742,7 @@ html.js .hero.is-parallax .hero-content {
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
   background: transparent;
-  color: var(--text-muted);
+  color: var(--media-overlay-muted);
   font-family: var(--font-display);
   font-size: 0.6875rem;
   font-weight: 600;
@@ -1739,12 +1758,12 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .concept-ba-toggle.is-active {
-  color: var(--on-gold);
+  color: #0c0c0f;
   background: var(--gold);
 }
 
 .concept-ba-toggle:hover:not(.is-active) {
-  color: var(--gold-light);
+  color: var(--media-overlay-text);
 }
 
 .concept-image-btn:has(.concept-before-after.is-active) .concept-zoom-hint {
@@ -1765,10 +1784,10 @@ html.js .hero.is-parallax .hero-content {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold-light);
-  background: var(--scrim);
+  color: var(--media-overlay-text);
+  background: var(--media-overlay-bg);
   backdrop-filter: blur(6px);
-  border: 1px solid var(--border-gold);
+  border: 1px solid rgba(196, 163, 90, 0.45);
   border-radius: var(--radius-sm);
   pointer-events: none;
 }
@@ -2534,10 +2553,12 @@ body.nav-open .floating-cta {
   align-items: center;
   justify-content: center;
   padding: var(--space-md);
-  background: rgba(8, 8, 11, 0.93);
+  color: var(--text);
+  background: var(--lightbox-bg);
   backdrop-filter: blur(18px) saturate(1.1);
   overscroll-behavior: contain;
   animation: lightbox-in 0.45s var(--ease-out);
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 @keyframes lightbox-in {
@@ -2574,19 +2595,22 @@ body.nav-open .floating-cta {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  background: var(--surface);
-  color: var(--gold-light);
+  background: var(--lightbox-control-bg);
+  color: var(--gold);
   border: 1px solid var(--border-gold);
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
   transition:
     background var(--transition),
+    color var(--transition),
     transform var(--transition),
     box-shadow var(--transition);
 }
 
 .lightbox-close:hover {
-  background: var(--surface-hover);
+  background: var(--lightbox-control-hover);
+  color: var(--gold-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-gold);
 }
@@ -2600,23 +2624,25 @@ body.nav-open .floating-cta {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  background: transparent;
-  color: rgba(226, 200, 135, 0.5);
-  border: 1px solid transparent;
+  background: var(--lightbox-control-bg);
+  color: var(--lightbox-nav);
+  border: 1px solid var(--border-gold);
   border-radius: 50%;
   cursor: pointer;
   transform: translateY(-50%);
-  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
+  box-shadow: var(--shadow-sm);
   transition:
     color var(--transition),
     background var(--transition),
-    border-color var(--transition);
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 .lightbox-nav:hover {
-  color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.28);
+  color: var(--lightbox-nav-active);
+  background: var(--lightbox-control-hover);
   border-color: var(--border-gold);
+  box-shadow: var(--shadow-gold);
 }
 
 .lightbox-nav--prev {
@@ -2639,10 +2665,11 @@ body.nav-open .floating-cta {
   text-align: center;
   font-size: 0.8125rem;
   letter-spacing: 0.12em;
-  color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.6);
+  color: var(--gold-dark);
+  background: var(--lightbox-control-bg);
   border: 1px solid var(--border-gold);
   border-radius: 999px;
+  box-shadow: var(--shadow-sm);
 }
 
 .lightbox-figure {
@@ -2675,7 +2702,7 @@ body.nav-open .floating-cta {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-gold);
   box-shadow: var(--shadow-lg), 0 0 80px rgba(196, 163, 90, 0.08);
-  background: #000;
+  background: var(--media-letterbox);
   animation: lightbox-image-in 0.55s var(--ease-out);
 }
 
@@ -2924,9 +2951,9 @@ body.nav-open .floating-cta {
     transform: none;
     width: 2.5rem;
     height: 2.5rem;
-    background: rgba(12, 12, 15, 0.55);
+    background: var(--lightbox-control-bg);
     border-color: var(--border-gold);
-    color: var(--gold-light);
+    color: var(--lightbox-nav-active);
   }
 
   .lightbox-nav--prev {
@@ -3184,11 +3211,97 @@ body.nav-open .floating-cta {
 }
 
 [data-theme="light"] .concept-card {
-  border-color: var(--border);
+  border-color: var(--border-gold);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
-[data-theme="light"] .lightbox-close {
-  color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.55);
+[data-theme="light"] .concept-title {
+  color: var(--text);
+}
+
+[data-theme="light"] .parcel-map {
   border-color: var(--border-gold);
+  background: var(--surface);
+}
+
+[data-theme="light"] .parcel-map figcaption,
+[data-theme="light"] .weather-photo figcaption {
+  color: var(--text-muted);
+  background: var(--panel-glass);
+}
+
+[data-theme="light"] .pdf-doc-summary {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .pdf-frame {
+  border-color: var(--border-gold);
+  background: var(--surface);
+}
+
+[data-theme="light"] .local-gallery-island {
+  background: var(--panel-glass);
+  border-color: var(--border-gold);
+}
+
+[data-theme="light"] .local-tab {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .local-tab:hover,
+[data-theme="light"] .local-tab:focus-visible {
+  color: var(--gold-dark);
+  background: var(--gold-soft);
+}
+
+[data-theme="light"] .contact-agent {
+  background: var(--surface);
+  border-color: var(--border-gold);
+}
+
+[data-theme="light"] .contact-agent-eyebrow {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .floating-cta-call {
+  color: var(--on-gold);
+}
+
+[data-theme="light"] .footer-top {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .footer-top:hover {
+  color: var(--gold);
+}
+
+[data-theme="light"] .lightbox-caption {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .lightbox-counter {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .weather-photo {
+  border-color: var(--border-gold);
+  background: var(--surface);
+}
+
+[data-theme="light"] .property-images-tile {
+  border-color: var(--border-gold);
+}
+
+[data-theme="light"] .site-nav {
+  color: var(--text);
+}
+
+[data-theme="light"] .nav-link {
+  color: var(--text-muted);
+}
+
+[data-theme="light"] .nav-link:hover,
+[data-theme="light"] .nav-link:focus-visible {
+  color: var(--gold-dark);
 }
