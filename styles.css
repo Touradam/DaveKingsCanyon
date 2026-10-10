@@ -12,10 +12,9 @@
    - Motion: slow, eased, cinematic. transform and opacity only.
      Parallax and tilt are disabled on small screens and under
      prefers-reduced-motion. CTAs never animate out of reach.
-   - Mobile CTA: fixed bottom bar under 901px, appears after the
-     hero, hides while the contact section is visible, and is
-     dismissible. Body gets bottom padding so it never covers
-     content.
+   - Mobile CTA: corner pill under 901px, appears after the hero
+     leaves view, hides on contact, and is dismissible. Sections
+     reserve bottom padding so it never covers content.
    ============================================================ */
 
 /* --- Design Tokens --- */
@@ -87,6 +86,8 @@
   --container-max: 76rem;
   --header-height: 4.5rem;
   --header-height-scrolled: 3.875rem;
+  --header-offset: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+  --header-offset-scrolled: calc(var(--header-height-scrolled) + env(safe-area-inset-top, 0px));
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
   --radius-lg: 1.25rem;
@@ -257,7 +258,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
+  scroll-padding-top: var(--header-offset);
   color-scheme: dark;
 }
 
@@ -273,6 +274,7 @@ body {
   color: var(--text);
   background-color: var(--on-gold);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
   transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
@@ -549,7 +551,9 @@ html.js [data-reveal].is-visible {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--header-height);
+  height: var(--header-offset);
+  padding-top: env(safe-area-inset-top, 0px);
+  box-sizing: border-box;
   transition:
     height var(--transition-slow),
     box-shadow var(--transition),
@@ -623,7 +627,7 @@ html[data-theme="light"] .theme-toggle-icon--moon {
 }
 
 .site-header.is-scrolled {
-  height: var(--header-height-scrolled);
+  height: var(--header-offset-scrolled);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
@@ -718,6 +722,7 @@ html[data-theme="light"] .theme-toggle-icon--moon {
 .site-nav {
   position: fixed;
   inset: 0;
+  z-index: 1001;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -936,7 +941,7 @@ body.nav-open {
   margin: 0;
   padding-inline: clamp(0.75rem, 2.5vw, 1.5rem);
   padding-block:
-    calc(var(--header-height) + clamp(0.5rem, 1.5vw, 1rem))
+    calc(var(--header-offset) + clamp(0.5rem, 1.5vw, 1rem))
     clamp(0.75rem, 2vw, 1.5rem);
   box-sizing: border-box;
 }
@@ -1076,7 +1081,7 @@ html.js .hero.is-parallax .hero-content {
   z-index: 3;
   width: min(100% - 2rem, 52rem);
   margin-bottom: 6rem;
-  padding-block: calc(var(--header-height) + var(--space-lg)) var(--space-lg);
+  padding-block: calc(var(--header-offset) + var(--space-lg)) var(--space-lg);
   text-align: center;
   /* Hero sits on photography: keep light type in both themes */
   --text: #eceae4;
@@ -2692,17 +2697,22 @@ html.js .hero.is-parallax .hero-content {
    with the lightbox or the open nav overlay. */
 .floating-cta {
   position: fixed;
-  right: 1rem;
-  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: max(1rem, env(safe-area-inset-right, 0px));
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
   z-index: 900;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  max-width: calc(100vw - 2rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
   transform: translateY(calc(100% + 2rem));
   visibility: hidden;
   transition:
     transform 0.45s var(--ease-out),
     visibility 0.45s;
+}
+
+.floating-cta-label-short {
+  display: none;
 }
 
 .floating-cta.is-visible {
@@ -3001,16 +3011,40 @@ body.nav-open .floating-cta {
 
 /* --- Mobile polish --- */
 @media (max-width: 900px) {
+  /* Stack video then copy so title/price never clip inside the 16:9 frame */
+  .hero--video {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    background: var(--ink);
+  }
+
+  .hero--video .hero-media {
+    flex: none;
+    width: 100%;
+  }
+
+  .hero--video .hero-spotlight,
+  .hero--video .hero-particles {
+    display: none;
+  }
+
   .hero-tagline {
     padding: var(--space-xs) var(--space-sm);
   }
 
   .hero--video .hero-content {
-    gap: 0.45rem;
-    padding-inline: 0.75rem;
-    padding-block:
-      calc(var(--header-height) + 0.35rem)
-      max(0.75rem, env(safe-area-inset-bottom));
+    position: relative;
+    inset: auto;
+    z-index: 3;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-inline: max(1rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    padding-block: 1.15rem max(1.25rem, env(safe-area-inset-bottom, 0px));
+    background:
+      linear-gradient(180deg, rgba(12, 12, 15, 0.92) 0%, var(--ink) 100%);
   }
 
   .hero--video .hero-title,
@@ -3020,33 +3054,43 @@ body.nav-open .floating-cta {
   }
 
   .hero--video .hero-title {
-    padding: 0.5rem 0.75rem;
-    font-size: clamp(1.15rem, 4.8vw, 1.75rem);
-    line-height: 1.15;
+    padding: 0.55rem 0.85rem;
+    font-size: clamp(1.2rem, 5vw, 1.7rem);
+    line-height: 1.18;
   }
 
   .hero--video .hero-tagline {
-    padding: 0.4rem 0.65rem;
+    padding: 0.45rem 0.7rem;
   }
 
   .hero--video .hero-address {
-    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+    font-size: clamp(0.78rem, 3.2vw, 0.9rem);
   }
 
   .hero--video .hero-subtitle {
-    font-size: clamp(0.7rem, 3vw, 0.85rem);
+    font-size: clamp(0.75rem, 3vw, 0.875rem);
   }
 
   .hero--video .hero-price {
     width: fit-content;
     min-width: 0;
-    padding: 0.45rem 1rem;
-    font-size: clamp(1.05rem, 4.2vw, 1.4rem);
+    margin-top: 0.15rem;
+    padding: 0.5rem 1.15rem;
+    font-size: clamp(1.1rem, 4.2vw, 1.4rem);
   }
 
   .hero-address,
   .hero-subtitle {
     text-wrap: pretty;
+  }
+
+  .header-inner {
+    width: min(100% - 1.25rem, var(--container-max));
+    gap: 0.5rem;
+  }
+
+  .logo-text {
+    font-size: 1rem;
   }
 
   /* Scrollable full-screen nav for the expanded link set */
@@ -3166,11 +3210,13 @@ body.nav-open .floating-cta {
 
   .pdf-doc-actions {
     justify-content: stretch;
+    flex-direction: column;
   }
 
   .pdf-doc-download,
   .pdf-doc-open {
-    flex: 1 1 10rem;
+    flex: 1 1 auto;
+    width: 100%;
     min-height: 2.75rem;
   }
 
@@ -3249,12 +3295,21 @@ body.nav-open .floating-cta {
     padding-top: 0;
   }
 
-  .section--land {
-    padding-bottom: calc(var(--space-lg) + 4.75rem + env(safe-area-inset-bottom));
+  .section--about,
+  .section--concepts,
+  .section--location,
+  .section--land,
+  .section--potential {
+    padding-bottom: calc(var(--space-lg) + 4.75rem + env(safe-area-inset-bottom, 0px));
   }
 
   .section--contact {
-    padding-bottom: calc(var(--space-2xl) + 4.75rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--space-2xl) + 4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .quick-fact-list strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .property-images-header {
@@ -3300,8 +3355,14 @@ body.nav-open .floating-cta {
   }
 
   .feature-summary {
+    min-height: 2.75rem;
     font-size: 0.9375rem;
-    padding-block: var(--space-sm);
+    padding-block: 0.75rem;
+  }
+
+  .feature-summary > :first-child {
+    flex: 1;
+    min-width: 0;
   }
 
   .contact-agent-license {
@@ -3315,12 +3376,81 @@ body.nav-open .floating-cta {
 }
 
 @media (max-width: 479px) {
+  .logo-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .header-actions {
+    gap: 0.35rem;
+  }
+
+  .theme-toggle,
+  .nav-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .hero--video .hero-content {
+    gap: 0.5rem;
+    padding-inline: max(0.85rem, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    padding-block: 1rem max(1.1rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero--video .hero-title {
+    padding: 0.45rem 0.7rem;
+    font-size: clamp(1.05rem, 5.2vw, 1.25rem);
+    line-height: 1.2;
+  }
+
+  .hero--video .hero-tagline {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .hero--video .hero-address {
+    font-size: 0.75rem;
+  }
+
+  .hero--video .hero-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .hero--video .hero-price {
+    padding: 0.45rem 1rem;
+    font-size: 1.05rem;
+  }
+
+  .floating-cta-label-long {
+    display: none;
+  }
+
+  .floating-cta-label-short {
+    display: inline;
+  }
+
+  .floating-cta-call {
+    padding-inline: 1rem;
+  }
+
+  .floating-cta-dismiss {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
   .concept-ba-controls {
     gap: 0.15rem;
   }
 
   .concept-ba-toggle {
     min-width: 0;
+    min-height: 2.75rem;
     flex: 1 1 auto;
     padding-inline: 0.7rem;
     letter-spacing: 0.06em;
@@ -3332,6 +3462,20 @@ body.nav-open .floating-cta {
 
   .local-tab {
     flex-basis: 100%;
+  }
+
+  .weather-stat-number {
+    font-size: clamp(2.75rem, 18vw, 4rem);
+  }
+
+  .property-images-play {
+    gap: 0.4rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.65rem;
+    font-size: 0.625rem;
+  }
+
+  .property-images-play-label {
+    max-width: 6.5rem;
   }
 }
 

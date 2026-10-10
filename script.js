@@ -278,6 +278,20 @@
         navToggle.focus();
       }
     });
+
+    if (window.matchMedia) {
+      var desktopNavQuery = window.matchMedia("(min-width: " + DESKTOP_NAV + "px)");
+      var onDesktopNavChange = function (event) {
+        if (event.matches) {
+          closeNav();
+        }
+      };
+      if (desktopNavQuery.addEventListener) {
+        desktopNavQuery.addEventListener("change", onDesktopNavChange);
+      } else if (desktopNavQuery.addListener) {
+        desktopNavQuery.addListener(onDesktopNavChange);
+      }
+    }
   }
 
   /* --- Hero Spotlight --- */
@@ -388,10 +402,17 @@
       if (!taglineFullWidth) {
         taglineFullWidth = tagline.offsetWidth;
       }
-      var available = tagline.parentElement
-        ? tagline.parentElement.clientWidth
-        : window.innerWidth;
+      var parent = tagline.parentElement;
+      var available = window.innerWidth;
+      if (parent) {
+        var styles = window.getComputedStyle(parent);
+        var padX =
+          (parseFloat(styles.paddingLeft) || 0) +
+          (parseFloat(styles.paddingRight) || 0);
+        available = Math.max(0, parent.clientWidth - padX);
+      }
       tagline.style.minWidth = Math.min(taglineFullWidth, available) + "px";
+      tagline.style.maxWidth = "100%";
     }
 
     pinTaglineWidth();
@@ -1186,23 +1207,26 @@
 
   /* --- Floating Call CTA ---
      The listing agent stays one tap away: the floater pops in for
-     8 seconds, retreats, then returns every minute. It stops for good
-     once the call link is tapped, stays quiet while the contact
-     section is on screen, and a dismissal lasts the whole session. */
+     8 seconds, retreats, then returns every minute. It waits until
+     the hero leaves the viewport, stays quiet on contact, and a
+     dismissal lasts the whole session. */
   var floatingCta = document.getElementById("floating-cta");
   var floatingCtaDismiss = document.getElementById("floating-cta-dismiss");
   var floatingCtaCall = floatingCta
     ? floatingCta.querySelector(".floating-cta-call")
     : null;
   var contactSection = document.getElementById("contact");
+  var heroSection = document.getElementById("hero");
   var ctaDismissed = false;
   var ctaAnswered = false;
   var ctaContactVisible = false;
-  var CTA_SHOW_AFTER = 3000;  /* first appearance, shortly after load */
+  var ctaPastHero = !heroSection;
+  var CTA_SHOW_AFTER = 3000;  /* first appearance after leaving hero */
   var CTA_VISIBLE_MS = 8000;  /* stays up for 8 seconds */
   var CTA_EVERY_MS = 60000;   /* then once a minute */
   var ctaPulseTimer = null;
   var ctaHideTimer = null;
+  var ctaStarted = false;
 
   try {
     ctaDismissed = window.sessionStorage.getItem("kc-cta-dismissed") === "1";
@@ -1225,7 +1249,7 @@
   }
 
   function pulseFloatingCta() {
-    if (ctaDismissed || ctaAnswered || ctaContactVisible) return;
+    if (ctaDismissed || ctaAnswered || ctaContactVisible || !ctaPastHero) return;
     setFloatingCtaVisible(true);
     ctaHideTimer = window.setTimeout(function () {
       setFloatingCtaVisible(false);
@@ -1233,7 +1257,8 @@
   }
 
   function startFloatingCta() {
-    if (!floatingCta || ctaDismissed) return;
+    if (!floatingCta || ctaDismissed || ctaStarted || !ctaPastHero) return;
+    ctaStarted = true;
     ctaPulseTimer = window.setTimeout(function () {
       pulseFloatingCta();
       ctaPulseTimer = window.setInterval(pulseFloatingCta, CTA_EVERY_MS);
@@ -1241,7 +1266,25 @@
   }
 
   if (floatingCta) {
-    startFloatingCta();
+    if (heroSection && "IntersectionObserver" in window) {
+      var ctaHeroObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            ctaPastHero = !entry.isIntersecting;
+            if (ctaPastHero) {
+              startFloatingCta();
+            } else {
+              window.clearTimeout(ctaHideTimer);
+              setFloatingCtaVisible(false);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      ctaHeroObserver.observe(heroSection);
+    } else {
+      startFloatingCta();
+    }
 
     if (contactSection && "IntersectionObserver" in window) {
       var ctaContactObserver = new IntersectionObserver(
@@ -1254,7 +1297,7 @@
             }
           });
         },
-        { threshold: 0.15 }
+        { threshold: 0.05, rootMargin: "0px 0px -12% 0px" }
       );
       ctaContactObserver.observe(contactSection);
     }

@@ -148,7 +148,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=48">
+  <link rel="stylesheet" href="styles.css?v=49">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -341,8 +341,8 @@
                   height="767"
                 >
                 <span class="concept-ba-controls">
-                  <span class="concept-ba-toggle is-active" data-ba-view="before">Before</span>
-                  <span class="concept-ba-toggle" data-ba-view="after">After</span>
+                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before">Before</button>
+                  <button type="button" class="concept-ba-toggle" data-ba-view="after">After</button>
                 </span>
               </span>
               <img
@@ -396,8 +396,8 @@
                   height="1023"
                 >
                 <span class="concept-ba-controls">
-                  <span class="concept-ba-toggle is-active" data-ba-view="before">Before</span>
-                  <span class="concept-ba-toggle" data-ba-view="after">After</span>
+                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before">Before</button>
+                  <button type="button" class="concept-ba-toggle" data-ba-view="after">After</button>
                 </span>
               </span>
               <img
@@ -1057,9 +1057,10 @@
   <!-- Floating call CTA: pops in for 8 seconds every minute until the
        visitor calls or dismisses it -->
   <div class="floating-cta" id="floating-cta" aria-hidden="true">
-    <a class="floating-cta-call" href="tel:+15597906432">
+    <a class="floating-cta-call" href="tel:+15597906432" aria-label="Contact the Listing Agent">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>Contact the Listing Agent</span>
+      <span class="floating-cta-label-long">Contact the Listing Agent</span>
+      <span class="floating-cta-label-short">Call Agent</span>
     </a>
     <button class="floating-cta-dismiss" id="floating-cta-dismiss" type="button" aria-label="Dismiss contact button">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
@@ -1104,6 +1105,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=33" defer></script>
+  <script src="script.js?v=34" defer></script>
 </body>
 </html>
