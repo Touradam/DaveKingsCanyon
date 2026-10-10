@@ -13,8 +13,8 @@ This site markets a rare private land holding in the Sierra foothills along High
 
 - [About the land](index.html#about): Setting, climate, terrain, and proximity to the national parks
 - [Development concepts](index.html#concepts): Grand resort, glamping, campground, hybrid caretaker model, and luxury estate concepts
-- [Features](index.html#location): Quick facts, Snowline Lodge, parcel map, zoning documents, power, water, and weather
-- [Property images](index.html#the-land): Current site photographs and drone video
+- [Features](index.html#location): Features on the Scenic Byway: quick facts, Snowline Lodge, parcel map, zoning, power, water, and weather
+- [The Land](index.html#the-land): Current site photographs and drone video
 - [Development potential](index.html#potential): Investment framing and local attractions, vegetation, and wildlife galleries
 - [Contact](index.html#contact): Listing agent Cheyenne Mullins, Prospect Real
 

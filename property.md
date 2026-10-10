@@ -22,7 +22,7 @@
 
 The parcels sit along the Kings Canyon Scenic Byway, the roughly 50-mile route known as the Gateway to the Sierras. Warm, dry Mediterranean summers give way to mild winters with occasional foothill snow. Terrain includes oak woodlands, chaparral slopes, ancient manzanita, and massive granite outcrops.
 
-The property is suited to a grand resort, glamping, campgrounds, a private estate, or a boutique business with a caretaker residence.
+The property is suited to a grand resort, glamping, campgrounds, a luxury estate, or a boutique business with a caretaker residence.
 
 Nearby destinations include General Grant Grove and the Nation’s Christmas Tree (about 11 miles), Kings Canyon features such as the Kings River, Boyden Caverns, and Cedar Grove, and Sequoia National Park / the General Sherman Tree (about 36 miles via the Generals Highway). Kings Canyon and Sequoia National Parks together draw more than 2,000,000 visitors each year.
 

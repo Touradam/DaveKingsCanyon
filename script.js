@@ -1,6 +1,6 @@
 /**
- * Kings Canyon Land - Midnight Champagne Interactions
- * Nav, hero effects, scroll reveal, lightbox, concept image cycling, map POI data
+ * Kings Canyon Land (Mia) - Midnight Champagne + Champagne Atelier
+ * Nav, theme toggle, hero effects, scroll reveal, lightbox, concept cycling
  */
 (function () {
   "use strict";

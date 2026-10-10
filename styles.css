@@ -160,13 +160,13 @@
   color: var(--gold-dark);
 }
 
-[data-theme="light"] .financial-details,
+[data-theme="light"] .feature-details,
 [data-theme="light"] .location-details {
   border-color: var(--border-gold);
   background: var(--surface);
 }
 
-[data-theme="light"] .financial-summary:hover,
+[data-theme="light"] .feature-summary:hover,
 [data-theme="light"] .location-details > summary:hover {
   background: var(--gold-soft);
 }
@@ -180,7 +180,8 @@
   color: var(--gold-dark);
 }
 
-[data-theme="light"] .section-eyebrow {
+[data-theme="light"] .section-eyebrow,
+[data-theme="light"] .concept-eyebrow {
   color: var(--gold-dark);
 }
 
@@ -298,10 +299,6 @@ a:hover {
 
 .section--concepts {
   background: var(--ink);
-}
-
-.section--financial {
-  background: var(--ink-raised);
 }
 
 .section--potential {
@@ -1376,14 +1373,12 @@ html.js .hero.is-parallax .hero-content {
   max-width: 40rem;
 }
 
-.property-images-title {
-  margin: 0 0 var(--space-xs);
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 700;
-  letter-spacing: var(--ls-tight);
-  line-height: var(--lh-title);
-  color: var(--text);
+.property-images-header.section-header {
+  margin-bottom: var(--space-md);
+}
+
+.property-images-title.section-title {
+  margin-bottom: var(--space-xs);
 }
 
 .property-images-lead {
@@ -1673,7 +1668,7 @@ html.js .hero.is-parallax .hero-content {
   gap: 0.25rem;
   padding: 0.25rem;
   transform: translateX(-50%);
-  background: rgba(12, 12, 15, 0.78);
+  background: var(--scrim);
   border: 1px solid var(--border-gold);
   border-radius: 999px;
   backdrop-filter: blur(6px);
@@ -1733,7 +1728,7 @@ html.js .hero.is-parallax .hero-content {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.72);
+  background: var(--scrim);
   backdrop-filter: blur(6px);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-sm);
@@ -1751,6 +1746,16 @@ html.js .hero.is-parallax .hero-content {
   font-weight: 700;
   letter-spacing: var(--ls-tight);
   color: var(--text);
+}
+
+.concept-eyebrow {
+  margin: -0.15rem 0 var(--space-sm);
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 .concept-desc {
@@ -1790,22 +1795,22 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-/* --- Financial Details: slim hairline accordion --- */
-.financial-details {
+/* --- Features accordions: slim hairline dropdowns --- */
+.feature-details {
   max-width: 52rem;
   margin-inline: auto;
   border-bottom: 1px solid var(--border);
 }
 
-.financial-details:first-of-type {
+.feature-details:first-of-type {
   border-top: 1px solid var(--border);
 }
 
-.financial-details[open] {
+.feature-details[open] {
   border-bottom-color: var(--border-gold);
 }
 
-.financial-summary {
+.feature-summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1820,11 +1825,11 @@ html.js .hero.is-parallax .hero-content {
   transition: color var(--transition);
 }
 
-.financial-summary::-webkit-details-marker {
+.feature-summary::-webkit-details-marker {
   display: none;
 }
 
-.financial-summary::after {
+.feature-summary::after {
   content: "";
   flex: none;
   width: 0.55rem;
@@ -1836,21 +1841,21 @@ html.js .hero.is-parallax .hero-content {
   transition: transform var(--transition);
 }
 
-.financial-details[open] .financial-summary::after {
+.feature-details[open] .feature-summary::after {
   transform: rotate(-135deg);
 }
 
-.financial-summary:hover,
-.financial-details[open] .financial-summary {
+.feature-summary:hover,
+.feature-details[open] .feature-summary {
   color: var(--gold);
 }
 
-.financial-body {
+.feature-body {
   padding: var(--space-xs) var(--space-xs) var(--space-md);
 }
 
 /* Keep the map short and wide inside the accordion */
-.financial-body .map-wrapper {
+.feature-body .map-wrapper {
   aspect-ratio: 16 / 9;
 }
 
@@ -1886,7 +1891,7 @@ html.js .hero.is-parallax .hero-content {
   background: var(--surface);
 }
 
-.financial-body p {
+.feature-body p {
   margin: 0 0 var(--space-sm);
   color: var(--text-muted);
   line-height: 1.7;
@@ -2089,187 +2094,6 @@ html.js .hero.is-parallax .hero-content {
   box-shadow: 0 4px 16px var(--gold-glow);
 }
 
-.financial-facts {
-  display: grid;
-  gap: var(--space-xs);
-  margin: var(--space-md) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.financial-facts li {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--ink-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
-.financial-facts span {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
-}
-
-.financial-facts strong {
-  font-family: var(--font-math);
-  color: var(--text);
-  white-space: nowrap;
-}
-
-.financial-facts--asking {
-  max-width: 52rem;
-  margin: var(--space-md) auto 0;
-}
-
-.financial-facts--asking span {
-  font-family: var(--font-math);
-  font-size: inherit;
-  font-weight: 700;
-  color: var(--text);
-}
-
-/* --- Tax research summary (question + findings) --- */
-.tax-research {
-  display: grid;
-  gap: var(--space-md);
-}
-
-.tax-research > p,
-.tax-research > .tax-disclaimer {
-  margin: 0;
-}
-
-.tax-query {
-  margin: 0;
-  padding: var(--space-sm) var(--space-md);
-  background: linear-gradient(160deg, var(--surface) 0%, var(--ink) 100%);
-  border: 1px solid var(--border-gold);
-  border-left: 3px solid var(--gold);
-  border-radius: var(--radius-sm);
-}
-
-.tax-query-label {
-  margin: 0 0 0.4rem;
-  font-family: var(--font-display);
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--gold-light);
-}
-
-.tax-query p:last-child {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 500;
-  line-height: 1.45;
-  color: var(--text);
-}
-
-.tax-research-lead {
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.tax-subhead {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text);
-}
-
-.tax-findings {
-  display: grid;
-  gap: 0.65rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.tax-findings li {
-  display: grid;
-  gap: 0.25rem;
-  padding: var(--space-sm);
-  background: var(--ink);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gold);
-  border-radius: var(--radius-sm);
-}
-
-.tax-findings strong,
-.tax-tests strong {
-  font-family: var(--font-display);
-  font-size: 0.975rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.tax-findings span,
-.tax-tests span:not(.tax-test-num) {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.tax-tests {
-  display: grid;
-  gap: 0.65rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.tax-tests li {
-  display: flex;
-  gap: var(--space-sm);
-  align-items: flex-start;
-  padding: var(--space-sm);
-  background: var(--ink);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-}
-
-.tax-test-num {
-  flex: none;
-  font-family: var(--font-math);
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--gold);
-  line-height: 1.1;
-  opacity: 0.9;
-}
-
-.tax-tests li div {
-  display: grid;
-  gap: 0.2rem;
-}
-
-.tax-disclaimer {
-  padding-top: var(--space-xs);
-  font-size: 0.8125rem;
-  color: var(--text-dim);
-  line-height: 1.55;
-  border-top: 1px solid var(--border);
-}
-
-@media (min-width: 720px) {
-  .tax-tests {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .tax-tests li {
-    flex-direction: column;
-    gap: 0.55rem;
-    min-height: 100%;
-  }
-}
-
 /* --- Potential --- */
 .potential-copy {
   max-width: 44rem;
@@ -2462,7 +2286,7 @@ html.js .hero.is-parallax .hero-content {
   padding: 0.65rem 1rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(12, 12, 15, 0.5);
+  background: var(--panel-glass);
   color: var(--text);
   text-decoration: none;
   font-size: var(--fs-small);
@@ -2979,6 +2803,10 @@ body.nav-open .floating-cta {
     order: 1;
   }
 
+  .concept-eyebrow {
+    order: 1;
+  }
+
   .concept-image-btn {
     order: 2;
   }
@@ -3018,21 +2846,6 @@ body.nav-open .floating-cta {
     flex: 1 1 8rem;
     min-height: 2.75rem;
     padding: 0.65rem 0.75rem;
-  }
-
-  .financial-facts li {
-    flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
-  }
-
-  .financial-facts--asking li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .financial-facts--asking strong,
-  .financial-facts strong {
-    white-space: normal;
   }
 
   .pdf-frame {
@@ -3178,7 +2991,7 @@ body.nav-open .floating-cta {
     font-size: 0.75rem;
   }
 
-  .financial-summary {
+  .feature-summary {
     font-size: 0.9375rem;
     padding-block: var(--space-sm);
   }
@@ -3276,4 +3089,60 @@ body.nav-open .floating-cta {
   .contact-agent-action:active {
     transform: none;
   }
+}
+
+
+/* Mia component polish: light-mode chrome */
+[data-theme="light"] .contact-agent {
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .contact-agent-action {
+  background: var(--surface);
+  border-color: var(--border-gold);
+}
+
+[data-theme="light"] .contact-agent-role {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .feature-summary {
+  color: var(--gold-dark);
+}
+
+[data-theme="light"] .feature-summary:hover,
+[data-theme="light"] .feature-details[open] .feature-summary {
+  color: var(--gold);
+}
+
+[data-theme="light"] .pdf-doc {
+  border-color: var(--border-gold);
+  background: var(--surface);
+}
+
+[data-theme="light"] .weather-stat {
+  border-color: var(--border-gold);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .property-images {
+  border-color: var(--border-gold);
+}
+
+[data-theme="light"] .local-explorer-tile {
+  border-color: var(--border-gold);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="light"] .concept-card {
+  border-color: var(--border);
+}
+
+[data-theme="light"] .lightbox-close {
+  color: var(--gold-light);
+  background: rgba(12, 12, 15, 0.55);
+  border-color: var(--border-gold);
 }
