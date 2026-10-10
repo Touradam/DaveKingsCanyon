@@ -12,7 +12,8 @@
 | Zoning | Recreational and RC-40 |
 | Elevation | About 4,000 to 4,500 ft |
 | Highway | Kings Canyon Scenic Byway (Highway 180), miles of frontage |
-| Parks | About 7.5–8 miles to the national park entrance |
+| Parks | About 8 miles to the national park entrance |
+| Snowline Lodge | Rustic motel/restaurant on the 72-acre parcel, leased until 2050, including two acres around the business |
 | Fresno | About 38 miles west |
 | Power | PGE lines run through the property; south-facing exposure suits solar |
 | Status | For sale |
@@ -29,19 +30,13 @@ Winter Tule Fog fills the San Joaquin Valley below but typically does not reach 
 
 ## Development concepts presented on the site
 
-1. **Grand Resort** — Destination lodging concept leveraging park visitation, recreational zoning, highway frontage, aquifer access, and existing electrical power.
+1. **Grand Resort** — Destination lodging concept leveraging park visitation, recreational zoning, and highway frontage; limited luxury competition in the area.
 2. **Glamping Resort** — Outdoor hotel-style units with privacy and views.
 3. **Campground** — Individual sites screened by brush and manzanita; full-service hookups or dry camping possible; highway access for large vehicles.
-4. **Hybrid model** — Small self-service dry campground plus a luxury caretaker residence (no legal size limit noted for the residence).
-5. **Private Estate** — Custom estate concept on Sontag Point with San Joaquin Valley views, typically discussed on the larger (~240 acre) parcel with remaining acreage held for later use.
+4. **Hybrid model** — Small five-to-ten dry-site self-service campground plus a caretaker residence.
+5. **Luxury Estate** — Custom estate concept on Sontag Point with San Joaquin Valley views, sited on the ~240 acre parcel.
 
-These concepts are illustrative starting points, not approved plans.
-
-## Financial notes (as published on the site)
-
-- Sale includes three tax lots: recreational acreage; recreational acreage with a two-acre carve-out for Snowline Lodge under a long-term lease to 2050; and RC-40 acreage allowing up to six home sites on 40 acres each.
-- 2025 taxes for the undeveloped land are listed on the site as $3,152.28.
-- See the Financial Details section of the HTML page for lease, tax research, and related caveats.
+These concepts are illustrative starting points developed with reference to Fresno County’s Zoning Ordinance, not approved plans. Buyers should verify uses and approvals with Fresno County.
 
 ## Listing agent
 

@@ -31,8 +31,6 @@
   var lightboxPrev = document.getElementById("lightbox-prev");
   var lightboxNext = document.getElementById("lightbox-next");
   var lightboxCounter = document.getElementById("lightbox-counter");
-  var footerYear = document.getElementById("footer-year");
-
   var lightboxTrigger = null;
   var lightboxGallery = null;
   var lightboxGalleryAlts = null;
@@ -118,10 +116,6 @@
   }
 
   /* --- Footer Year --- */
-  if (footerYear) {
-    footerYear.textContent = new Date().getFullYear();
-  }
-
   /* --- Sticky Header --- */
   function updateHeaderScroll() {
     if (!header) return;
@@ -345,65 +339,6 @@
     parallaxQuery.addEventListener("change", syncParallax);
   } else if (typeof parallaxQuery.addListener === "function") {
     parallaxQuery.addListener(syncParallax);
-  }
-
-  /* --- Hero Backdrop Flip ---
-     Click anywhere on the hero (except links and buttons) to flip
-     between the concept rendering and the actual site photo. On touch,
-     swipe left for the site photo and swipe right for the rendering.
-     Disabled under reduced motion. */
-  var heroFlip = document.getElementById("hero-flip");
-  if (heroFlip && hero && !prefersReducedMotion) {
-    var heroSwipeIgnoreClick = false;
-    var heroTouchX = 0;
-    var heroTouchY = 0;
-
-    function setHeroFlipped(flipped) {
-      hero.classList.toggle("is-flipped", flipped);
-      heroFlip.classList.toggle("is-flipped", flipped);
-      hero.setAttribute(
-        "aria-label",
-        flipped
-          ? "Property overview. Showing the actual site photo. Click or swipe right for the concept rendering."
-          : "Property overview. Showing the concept rendering. Click or swipe left for the actual site photo."
-      );
-    }
-
-    hero.classList.add("hero--flippable");
-    setHeroFlipped(false);
-
-    hero.addEventListener("click", function (e) {
-      if (heroSwipeIgnoreClick) {
-        heroSwipeIgnoreClick = false;
-        return;
-      }
-      if (e.target.closest("a, button")) return;
-      setHeroFlipped(!heroFlip.classList.contains("is-flipped"));
-    });
-
-    hero.addEventListener("touchstart", function (e) {
-      if (e.touches.length !== 1) return;
-      heroTouchX = e.touches[0].clientX;
-      heroTouchY = e.touches[0].clientY;
-    }, { passive: true });
-
-    hero.addEventListener("touchend", function (e) {
-      if (e.target.closest("a, button")) return;
-      if (!e.changedTouches.length) return;
-      var touch = e.changedTouches[0];
-      var dx = touch.clientX - heroTouchX;
-      var dy = touch.clientY - heroTouchY;
-      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
-
-      var flipped = heroFlip.classList.contains("is-flipped");
-      if (dx < 0 && !flipped) {
-        setHeroFlipped(true);
-        heroSwipeIgnoreClick = true;
-      } else if (dx > 0 && flipped) {
-        setHeroFlipped(false);
-        heroSwipeIgnoreClick = true;
-      }
-    }, { passive: true });
   }
 
   /* --- Local Explorer Island ---

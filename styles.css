@@ -661,42 +661,6 @@ body.nav-open {
   }
 }
 
-/* 3D flip between the two hero backdrops. The parallax transforms
-   .hero-media, so the flip lives on this inner wrapper to avoid
-   transform conflicts. */
-.hero-flip {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  transition: transform 1.4s var(--ease);
-  will-change: transform;
-}
-
-.hero-flip.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.hero--flippable {
-  cursor: pointer;
-  /* Touch polish: no gray tap flash, no double-tap zoom delay,
-     and no accidental text selection while tapping to flip */
-  -webkit-tap-highlight-color: transparent;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.hero-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.hero-face--back {
-  transform: rotateY(180deg);
-}
-
 /* Cinematic entrance for hero content when parallax owns its reveal */
 @keyframes hero-content-in {
   from {
@@ -772,6 +736,7 @@ html.js .hero.is-parallax .hero-content {
   position: relative;
   z-index: 2;
   width: min(100% - 2rem, 52rem);
+  margin-bottom: 18vh;
   padding-block: calc(var(--header-height) + var(--space-lg)) var(--space-lg);
   text-align: center;
 }
@@ -841,91 +806,33 @@ html.js .hero.is-parallax .hero-content {
   }
 }
 
-.hero-flip-hint {
-  display: none;
-  justify-content: center;
-  margin: var(--space-md) 0 0;
-  pointer-events: none;
+.hero-cta {
+  margin-top: var(--space-sm);
 }
 
-.hero--flippable .hero-flip-hint {
-  display: flex;
-}
-
-.hero-flip-hint-set {
-  display: none;
-  padding: 0.375rem 0.875rem;
-  font-family: var(--font-display);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  background: rgba(12, 12, 15, 0.72);
-  backdrop-filter: blur(6px);
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-sm);
-}
-
-.hero-flip-hint-set--swipe {
-  display: inline-flex;
-}
-
-.hero-flip-hint-set [data-for="back"] {
-  display: none;
-}
-
-.hero.is-flipped .hero-flip-hint-set [data-for="front"] {
-  display: none;
-}
-
-.hero.is-flipped .hero-flip-hint-set [data-for="back"] {
-  display: inline;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero-flip-hint-set--swipe {
-    display: none;
-  }
-
-  .hero-flip-hint-set--click {
-    display: inline-flex;
-  }
-}
-
-/* Per-side disclaimer pinned to the bottom of the hero image. Swaps text
-   with the flip state, mirroring the data-for pattern of the flip hint. */
-.hero-disclaimer {
+.hero-price {
   position: absolute;
   left: 50%;
-  bottom: var(--space-md);
-  transform: translateX(-50%);
+  top: 72%;
+  transform: translate(-50%, -50%);
   z-index: 2;
-  width: fit-content;
-  max-width: min(100% - 2rem, 44rem);
   margin: 0;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.625rem;
-  line-height: 1.5;
+  padding: 0.35rem 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--gold-light);
   text-align: center;
-  white-space: nowrap;
-  color: var(--text-muted);
-  background: rgba(12, 12, 15, 0.6);
-  backdrop-filter: blur(6px);
+  text-shadow:
+    0 2px 12px rgba(12, 12, 15, 0.9),
+    0 0 28px rgba(12, 12, 15, 0.65);
+  background: rgba(12, 12, 15, 0.45);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(196, 163, 90, 0.35);
   border-radius: var(--radius-sm);
   pointer-events: none;
-}
-
-.hero-disclaimer [data-for="back"] {
-  display: none;
-}
-
-.hero.is-flipped .hero-disclaimer [data-for="front"] {
-  display: none;
-}
-
-.hero.is-flipped .hero-disclaimer [data-for="back"] {
-  display: inline;
 }
 
 @media (max-width: 479px) {
@@ -2461,6 +2368,14 @@ html.js .hero.is-parallax .hero-content {
   gap: var(--space-xs);
 }
 
+.footer-inner--minimal {
+  gap: 0;
+}
+
+.footer-inner--minimal::before {
+  display: none;
+}
+
 /* Small gold rule above the footer brand */
 .footer-inner::before {
   content: "";
@@ -2469,6 +2384,10 @@ html.js .hero.is-parallax .hero-content {
   margin-bottom: var(--space-sm);
   background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
   border-radius: 1px;
+}
+
+.footer-inner--minimal .footer-top {
+  margin-top: 0;
 }
 
 .footer-brand {
@@ -2810,29 +2729,18 @@ body.nav-open .floating-cta {
     padding: var(--space-xs) var(--space-sm);
   }
 
-  /* Lift the centered hero content (and its flip hint pill) clear of the
-     disclaimer pinned at the bottom edge so the two never crowd together */
+  /* Keep hero copy above the mid-lower price anchor on phones */
   .hero-content {
-    padding-bottom: calc(var(--space-lg) + 5rem);
+    padding-bottom: calc(var(--space-lg) + 4rem);
+    align-self: flex-start;
   }
 
-  .hero-flip-hint-set {
-    font-size: 0.625rem;
-    padding: 0.3rem 0.7rem;
-    letter-spacing: 0.08em;
-    text-align: center;
-  }
-
-  /* Quieter disclaimer on phones: smaller, tighter to the bottom edge,
-     and clear of the home-indicator safe area. Allow wrapping so longer
-     copy never clips on narrow viewports. */
-  .hero-disclaimer {
-    bottom: max(var(--space-xs), env(safe-area-inset-bottom));
-    max-width: calc(100% - 1.5rem);
-    padding: 0.25rem 0.6rem;
-    font-size: clamp(0.5625rem, 2.4vw, 0.6875rem);
-    line-height: 1.4;
-    white-space: normal;
+  .hero-price {
+    top: auto;
+    bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem));
+    transform: translateX(-50%);
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+    padding: 0.3rem 1rem;
   }
 
   .hero-title {

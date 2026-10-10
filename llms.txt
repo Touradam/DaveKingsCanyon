@@ -7,16 +7,15 @@ This site markets a rare private land holding in the Sierra foothills along High
 ## Core facts
 
 - [Property brief (Markdown)](property.md): Address, acreage, zoning, price, access, water, power, development concepts, and listing agent contacts in clean prose for agents
-- [Full listing page (HTML)](index.html): Complete marketing site with photos, concept renderings, maps, zoning PDFs, and contact form
+- [Full listing page (HTML)](index.html): Complete marketing site with photos, concept renderings, maps, zoning PDFs, and listing agent contact
 
 ## Page sections
 
 - [About the land](index.html#about): Setting, climate, terrain, and proximity to the national parks
-- [Development concepts](index.html#concepts): Grand resort, glamping, campground, hybrid caretaker model, and private estate concepts
-- [Features](index.html#location): Quick facts, parcel maps, zoning documents, water resources, and weather
-- [Financial details](index.html#financial): Asking price, tax lots, lease notes, and California property tax research
-- [Development potential](index.html#potential): Investment framing and local attractions, vegetation, and wildlife galleries
+- [Development concepts](index.html#concepts): Grand resort, glamping, campground, hybrid caretaker model, and luxury estate concepts
+- [Features](index.html#location): Quick facts, Snowline Lodge, parcel map, zoning documents, power, water, and weather
 - [Property images](index.html#the-land): Current site photographs and drone video
+- [Development potential](index.html#potential): Investment framing and local attractions, vegetation, and wildlife galleries
 - [Contact](index.html#contact): Listing agent Cheyenne Mullins, Prospect Real
 
 ## Key documents
