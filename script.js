@@ -138,7 +138,7 @@
       var metaColor = getComputedStyle(document.documentElement)
         .getPropertyValue("--theme-meta")
         .trim();
-      themeColorMeta.setAttribute("content", metaColor || (next === "light" ? "#f5f4f0" : "#0c0c0f"));
+      themeColorMeta.setAttribute("content", metaColor || (next === "light" ? "#faf7f0" : "#0c0c0f"));
     }
     if (themeToggle) {
       var toLight = next === "dark";
