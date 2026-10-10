@@ -148,7 +148,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=51">
+  <link rel="stylesheet" href="styles.css?v=52">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -284,26 +284,27 @@
 
         <div class="concepts-list">
           <article class="concept-card" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/hero1-rendering.png"
-              data-lightbox-alt="Rendering concept of a grand resort on the recreational-zoned parcels near Kings Canyon"
-              aria-label="Explore Grand Resort rendering"
-            >
-              <img
-                class="concept-image"
-                src="assets/images/hero1-rendering.png"
-                alt="Rendering of a grand destination resort on the Kings Canyon property"
-                loading="lazy"
-                decoding="async"
-                width="1536"
-                height="1024"
-                data-cycle-images="assets/images/hero1-rendering.png,assets/images/R7.jpg,assets/images/R1.jpg,assets/images/R4.jpg,assets/images/R3.jpg,assets/images/R6.jpg,assets/images/R2.jpg"
+            <div class="concept-media" data-tilt>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-lightbox-src="assets/images/hero1-rendering.png"
+                data-lightbox-alt="Rendering concept of a grand resort on the recreational-zoned parcels near Kings Canyon"
+                aria-label="Explore Grand Resort rendering"
               >
-              <span class="concept-zoom-hint">Click to explore</span>
-            </button>
+                <img
+                  class="concept-image"
+                  src="assets/images/hero1-rendering.png"
+                  alt="Rendering of a grand destination resort on the Kings Canyon property"
+                  loading="lazy"
+                  decoding="async"
+                  width="1536"
+                  height="1024"
+                  data-cycle-images="assets/images/hero1-rendering.png,assets/images/R7.jpg,assets/images/R1.jpg,assets/images/R4.jpg,assets/images/R3.jpg,assets/images/R6.jpg,assets/images/R2.jpg"
+                >
+                <span class="concept-zoom-hint">Click to explore</span>
+              </button>
+            </div>
             <div class="concept-body">
               <h3 class="concept-title">Grand Resort</h3>
               <p class="concept-desc">
@@ -313,15 +314,28 @@
           </article>
 
           <article class="concept-card concept-card--reverse" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/GP1.jpg"
-              data-lightbox-alt="Rendering of a glamping resort concept on the Kings Canyon property"
-              aria-label="Explore Glamping Resort rendering"
-            >
-              <span class="concept-before-after" aria-hidden="true" hidden>
+            <div class="concept-media" data-tilt>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-lightbox-src="assets/images/GP1.jpg"
+                data-lightbox-alt="Rendering of a glamping resort concept on the Kings Canyon property"
+                aria-label="Explore Glamping Resort rendering"
+              >
+                <img
+                  class="concept-image concept-image--cycle"
+                  src="assets/images/GP1.jpg"
+                  alt="Rendering of a glamping resort concept on the Kings Canyon property"
+                  loading="lazy"
+                  decoding="async"
+                  width="1536"
+                  height="1024"
+                  data-cycle-images="assets/images/GP1.jpg,assets/images/GP3.png,assets/images/GP4.jpg,assets/images/GP5.jpg,assets/images/GP6.jpg,assets/images/GP7.jpg,assets/images/GP8.jpg,assets/images/GP9.jpg,assets/images/GP10.jpg,assets/images/GP11.jpg,assets/images/GP13.jpg"
+                  data-before-after="assets/images/GP1.jpg|assets/images/HGP1.png|assets/images/HGP2.png;assets/images/GP3.png|assets/images/HGPa1.png|assets/images/HGPa2.png"
+                >
+                <span class="concept-zoom-hint">Click to explore</span>
+              </button>
+              <div class="concept-before-after" aria-hidden="true" hidden>
                 <img
                   class="concept-image concept-image--before"
                   src="assets/images/HGP1.png"
@@ -340,24 +354,12 @@
                   width="1020"
                   height="767"
                 >
-                <span class="concept-ba-controls">
-                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before">Before</button>
-                  <button type="button" class="concept-ba-toggle" data-ba-view="after">After</button>
-                </span>
-              </span>
-              <img
-                class="concept-image concept-image--cycle"
-                src="assets/images/GP1.jpg"
-                alt="Rendering of a glamping resort concept on the Kings Canyon property"
-                loading="lazy"
-                decoding="async"
-                width="1536"
-                height="1024"
-                data-cycle-images="assets/images/GP1.jpg,assets/images/GP3.png,assets/images/GP4.jpg,assets/images/GP5.jpg,assets/images/GP6.jpg,assets/images/GP7.jpg,assets/images/GP8.jpg,assets/images/GP9.jpg,assets/images/GP10.jpg,assets/images/GP11.jpg,assets/images/GP13.jpg"
-                data-before-after="assets/images/GP1.jpg|assets/images/HGP1.png|assets/images/HGP2.png;assets/images/GP3.png|assets/images/HGPa1.png|assets/images/HGPa2.png"
-              >
-              <span class="concept-zoom-hint">Click to explore</span>
-            </button>
+                <div class="concept-ba-controls">
+                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before" aria-pressed="true">Before</button>
+                  <button type="button" class="concept-ba-toggle" data-ba-view="after" aria-pressed="false">After</button>
+                </div>
+              </div>
+            </div>
             <div class="concept-body">
               <h3 class="concept-title">Glamping Resort</h3>
               <p class="concept-desc">
@@ -367,16 +369,29 @@
           </article>
 
           <article class="concept-card" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/CG5.png"
-              data-lightbox-alt="Real photo of the Kings Canyon property campground area"
-              data-gallery-alts="Real photo of the Kings Canyon property campground area,Enhanced photo of a campground clearing on the property,Empty oak woodland campsite before an RV stay,Dirt road campsite before a travel trailer stay"
-              aria-label="Explore campground photos"
-            >
-              <span class="concept-before-after" aria-hidden="true" hidden>
+            <div class="concept-media" data-tilt>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-lightbox-src="assets/images/CG5.png"
+                data-lightbox-alt="Real photo of the Kings Canyon property campground area"
+                data-gallery-alts="Real photo of the Kings Canyon property campground area,Enhanced photo of a campground clearing on the property,Empty oak woodland campsite before an RV stay,Dirt road campsite before a travel trailer stay"
+                aria-label="Explore campground photos"
+              >
+                <img
+                  class="concept-image"
+                  src="assets/images/CG5.png"
+                  alt="Real photo of the Kings Canyon property campground area"
+                  loading="lazy"
+                  decoding="async"
+                  width="1536"
+                  height="863"
+                  data-cycle-images="assets/images/CG5.png,assets/images/kingsCanyon1217_enhanced.png,assets/images/RV1a.png,assets/images/RV2a.png"
+                  data-before-after="assets/images/RV1a.png|assets/images/RV1a.png|assets/images/RV1b.png;assets/images/RV2a.png|assets/images/RV2a.png|assets/images/RV2b.png"
+                >
+                <span class="concept-zoom-hint">Click to explore</span>
+              </button>
+              <div class="concept-before-after" aria-hidden="true" hidden>
                 <img
                   class="concept-image concept-image--before"
                   src="assets/images/RV1a.png"
@@ -395,24 +410,12 @@
                   width="1024"
                   height="1023"
                 >
-                <span class="concept-ba-controls">
-                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before">Before</button>
-                  <button type="button" class="concept-ba-toggle" data-ba-view="after">After</button>
-                </span>
-              </span>
-              <img
-                class="concept-image"
-                src="assets/images/CG5.png"
-                alt="Real photo of the Kings Canyon property campground area"
-                loading="lazy"
-                decoding="async"
-                width="1536"
-                height="863"
-                data-cycle-images="assets/images/CG5.png,assets/images/kingsCanyon1217_enhanced.png,assets/images/RV1a.png,assets/images/RV2a.png"
-                data-before-after="assets/images/RV1a.png|assets/images/RV1a.png|assets/images/RV1b.png;assets/images/RV2a.png|assets/images/RV2a.png|assets/images/RV2b.png"
-              >
-              <span class="concept-zoom-hint">Click to explore</span>
-            </button>
+                <div class="concept-ba-controls">
+                  <button type="button" class="concept-ba-toggle is-active" data-ba-view="before" aria-pressed="true">Before</button>
+                  <button type="button" class="concept-ba-toggle" data-ba-view="after" aria-pressed="false">After</button>
+                </div>
+              </div>
+            </div>
             <div class="concept-body">
               <h3 class="concept-title">Campground</h3>
               <p class="concept-desc">
@@ -422,27 +425,28 @@
           </article>
 
           <article class="concept-card concept-card--reverse" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/C0.png"
-              data-lightbox-alt="Renderings of the hybrid campground and caretaker's residence concept above the San Joaquin Valley"
-              aria-label="Explore hybrid concept renderings"
-            >
-              <img
-                class="concept-image"
-                src="assets/images/C0.png"
-                alt="Renderings of the hybrid campground and caretaker's residence concept above the San Joaquin Valley"
-                loading="lazy"
-                decoding="async"
-                width="1024"
-                height="576"
-                data-no-cycle
-                data-cycle-images="assets/images/C0.png,assets/images/CG4.png"
+            <div class="concept-media" data-tilt>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-lightbox-src="assets/images/C0.png"
+                data-lightbox-alt="Renderings of the hybrid campground and caretaker's residence concept above the San Joaquin Valley"
+                aria-label="Explore hybrid concept renderings"
               >
-              <span class="concept-zoom-hint">Click to explore</span>
-            </button>
+                <img
+                  class="concept-image"
+                  src="assets/images/C0.png"
+                  alt="Renderings of the hybrid campground and caretaker's residence concept above the San Joaquin Valley"
+                  loading="lazy"
+                  decoding="async"
+                  width="1024"
+                  height="576"
+                  data-no-cycle
+                  data-cycle-images="assets/images/C0.png,assets/images/CG4.png"
+                >
+                <span class="concept-zoom-hint">Click to explore</span>
+              </button>
+            </div>
             <div class="concept-body">
               <h3 class="concept-title">Hybrid Model</h3>
               <p class="concept-eyebrow">Small Campground + Luxury Caretaker&rsquo;s Residence</p>
@@ -453,28 +457,29 @@
           </article>
 
           <article class="concept-card" data-reveal>
-            <button
-              class="concept-image-btn"
-              type="button"
-              data-tilt
-              data-lightbox-src="assets/images/estate-kc21.jpg"
-              data-lightbox-video="assets/images/ME1.mp4"
-              data-lightbox-alt="Walkthrough video of a luxury estate mansion concept on the Kings Canyon property"
-              data-gallery-alts="Concept rendering of a luxury estate with a circular driveway on Sontag Point,Luxury estate concept rendering overlooking the hillside,Luxury estate concept rendering of terraced hillside living spaces,Luxury estate concept rendering with helipad and valley views,Luxury estate concept rendering"
-              aria-label="Explore Luxury Estate renderings"
-            >
-              <img
-                class="concept-image"
-                src="assets/images/estate-kc21.jpg"
-                alt="Concept rendering of a luxury estate with a circular driveway on Sontag Point"
-                loading="lazy"
-                decoding="async"
-                width="1536"
-                height="1024"
-                data-cycle-images="assets/images/estate-kc21.jpg,assets/images/estate1.jpg,assets/images/estate2.jpg,assets/images/estate3.jpg,assets/images/estates4.png"
+            <div class="concept-media" data-tilt>
+              <button
+                class="concept-image-btn"
+                type="button"
+                data-lightbox-src="assets/images/estate-kc21.jpg"
+                data-lightbox-video="assets/images/ME1.mp4"
+                data-lightbox-alt="Walkthrough video of a luxury estate mansion concept on the Kings Canyon property"
+                data-gallery-alts="Concept rendering of a luxury estate with a circular driveway on Sontag Point,Luxury estate concept rendering overlooking the hillside,Luxury estate concept rendering of terraced hillside living spaces,Luxury estate concept rendering with helipad and valley views,Luxury estate concept rendering"
+                aria-label="Explore Luxury Estate renderings"
               >
-              <span class="concept-zoom-hint">Click to explore</span>
-            </button>
+                <img
+                  class="concept-image"
+                  src="assets/images/estate-kc21.jpg"
+                  alt="Concept rendering of a luxury estate with a circular driveway on Sontag Point"
+                  loading="lazy"
+                  decoding="async"
+                  width="1536"
+                  height="1024"
+                  data-cycle-images="assets/images/estate-kc21.jpg,assets/images/estate1.jpg,assets/images/estate2.jpg,assets/images/estate3.jpg,assets/images/estates4.png"
+                >
+                <span class="concept-zoom-hint">Click to explore</span>
+              </button>
+            </div>
             <div class="concept-body">
               <h3 class="concept-title">Luxury Estate</h3>
               <p class="concept-desc">
@@ -1105,6 +1110,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=34" defer></script>
+  <script src="script.js?v=35" defer></script>
 </body>
 </html>

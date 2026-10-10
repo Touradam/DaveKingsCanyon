@@ -478,7 +478,7 @@
   if (!prefersReducedMotion && isFinePointer()) {
     var tiltTargets = tiltElements.length
       ? tiltElements
-      : document.querySelectorAll(".concept-image-btn");
+      : document.querySelectorAll(".concept-media");
 
     var TILT_MAX = 6;
     var TILT_EASE = 0.12;
@@ -563,8 +563,12 @@
       });
 
       var lightboxBtn = img.closest("[data-lightbox-src]");
+      var media = img.closest(".concept-media");
       var btn = img.closest(".concept-image-btn");
-      var overlay = btn ? btn.querySelector(".concept-before-after") : null;
+      var overlayHost = media || btn;
+      var overlay = overlayHost
+        ? overlayHost.querySelector(".concept-before-after")
+        : null;
       var overlayBefore = overlay
         ? overlay.querySelector(".concept-image--before")
         : null;
@@ -594,7 +598,9 @@
         overlay.classList.toggle("is-after", isAfter);
         baToggles.forEach(function (toggle) {
           var wantsAfter = toggle.getAttribute("data-ba-view") === "after";
-          toggle.classList.toggle("is-active", wantsAfter === isAfter);
+          var active = wantsAfter === isAfter;
+          toggle.classList.toggle("is-active", active);
+          toggle.setAttribute("aria-pressed", active ? "true" : "false");
         });
       }
 
@@ -685,6 +691,17 @@
             );
           });
         });
+
+        // Keep Before/After taps from bubbling into the image lightbox button
+        var baControls = overlay.querySelector(".concept-ba-controls");
+        if (baControls) {
+          baControls.addEventListener("click", stopPropagationSafe);
+          baControls.addEventListener("pointerdown", stopPropagationSafe);
+        }
+      }
+
+      function stopPropagationSafe(event) {
+        event.stopPropagation();
       }
 
       function advance() {
