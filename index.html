@@ -148,7 +148,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="stylesheet" href="styles.css?v=33">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -205,15 +205,29 @@
   </header>
 
   <main id="main-content">
-    <section class="hero" id="hero" aria-label="Property overview">
+    <section class="hero hero--video" id="hero" aria-label="Property overview">
       <div class="hero-media">
+        <video
+          class="hero-video"
+          poster="assets/images/property-drone-0058.jpeg"
+          autoplay
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          preload="metadata"
+          disablepictureinpicture
+          aria-label="Aerial video of the Kings Canyon property"
+        >
+          <source src="assets/images/landing-video.mp4" type="video/mp4">
+        </video>
         <img
-          class="hero-image"
+          class="hero-image hero-image--fallback"
           src="assets/images/property-drone-0058.jpeg"
           alt="Property looking from East to West"
-          fetchpriority="high"
           width="2048"
           height="1152"
+          decoding="async"
         >
       </div>
 
@@ -1079,6 +1093,6 @@
     </figure>
   </div>
 
-  <script src="script.js?v=30" defer></script>
+  <script src="script.js?v=31" defer></script>
 </body>
 </html>

@@ -791,12 +791,50 @@ body.nav-open {
   will-change: transform;
 }
 
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(12, 12, 15, 0.35) 0%, transparent 28%, transparent 58%, rgba(12, 12, 15, 0.55) 100%),
+    radial-gradient(ellipse at center, transparent 35%, rgba(12, 12, 15, 0.28) 100%);
+}
+
+.hero-video,
 .hero-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  /* Keep native aspect ratio; crop edges only, never stretch */
   object-fit: cover;
-  /* Gentle Ken Burns drift, transform only so it stays on the GPU */
+  object-position: center;
+}
+
+.hero-image {
+  /* Gentle Ken Burns drift for still fallback */
   animation: hero-drift 28s ease-in-out infinite alternate;
+}
+
+.hero-video {
+  z-index: 0;
+}
+
+.hero-image--fallback {
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* If the browser cannot play the hero video, show the still */
+.hero--video:not(.is-video-ready) .hero-image--fallback {
+  opacity: 1;
+}
+
+.hero--video.is-video-ready .hero-image--fallback {
+  opacity: 0;
 }
 
 @keyframes hero-drift {
@@ -3058,6 +3096,14 @@ body.nav-open .floating-cta {
 
   .hero-image {
     animation: none;
+  }
+
+  .hero-video {
+    display: none !important;
+  }
+
+  .hero-image--fallback {
+    opacity: 1 !important;
   }
 
   html.js .hero.is-parallax .hero-content {

@@ -115,6 +115,30 @@
     return window.matchMedia("(pointer: fine)").matches;
   }
 
+  /* --- Hero landing video --- */
+  var heroVideo = hero ? hero.querySelector(".hero-video") : null;
+  if (hero && heroVideo) {
+    function markHeroVideoReady() {
+      hero.classList.add("is-video-ready");
+    }
+
+    if (prefersReducedMotion) {
+      heroVideo.removeAttribute("autoplay");
+      heroVideo.pause();
+      heroVideo.setAttribute("hidden", "");
+      hero.classList.remove("is-video-ready");
+    } else {
+      heroVideo.addEventListener("loadeddata", markHeroVideoReady, { once: true });
+      heroVideo.addEventListener("playing", markHeroVideoReady, { once: true });
+      var playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(markHeroVideoReady).catch(function () {
+          hero.classList.remove("is-video-ready");
+        });
+      }
+    }
+  }
+
   /* --- Theme Toggle (dark / light) --- */
   var themeToggle = document.getElementById("theme-toggle");
   var themeColorMeta = document.getElementById("theme-color");
