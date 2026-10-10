@@ -127,9 +127,10 @@
   --border: rgba(143, 111, 50, 0.18);
   --border-strong: rgba(143, 111, 50, 0.3);
   --border-gold: rgba(196, 163, 90, 0.48);
-  --text: #171410;
-  --text-muted: #635a4e;
-  --text-dim: #82786c;
+  --text: #14110e;
+  --text-body: #2a2620;
+  --text-muted: #3f3a33;
+  --text-dim: #5a534a;
   --header-bg: rgba(247, 241, 230, 0.94);
   --nav-overlay: rgba(247, 241, 230, 0.98);
   --scrim: rgba(23, 20, 16, 0.55);
@@ -202,6 +203,49 @@
 [data-theme="light"] .section-eyebrow,
 [data-theme="light"] .concept-eyebrow {
   color: var(--gold-dark);
+}
+
+/* Body reading: stronger ink on champagne so paragraphs stay easy on the eyes */
+[data-theme="light"] .about-copy p,
+[data-theme="light"] .concept-desc,
+[data-theme="light"] .potential-copy p,
+[data-theme="light"] .feature-body p,
+[data-theme="light"] .section-lead,
+[data-theme="light"] .weather-tule p,
+[data-theme="light"] .weather-breakdown li,
+[data-theme="light"] .weather-source,
+[data-theme="light"] .contact-info > p,
+[data-theme="light"] .property-images-lead,
+[data-theme="light"] .quick-fact dd,
+[data-theme="light"] .parcel-map figcaption,
+[data-theme="light"] .weather-photo figcaption,
+[data-theme="light"] .local-explorer-tile p,
+[data-theme="light"] .pdf-mobile-fallback p {
+  color: var(--text-body);
+}
+
+[data-theme="light"] .about-copy p,
+[data-theme="light"] .concept-desc,
+[data-theme="light"] .potential-copy p,
+[data-theme="light"] .feature-body p,
+[data-theme="light"] .section-lead,
+[data-theme="light"] .contact-info > p {
+  line-height: 1.75;
+}
+
+[data-theme="light"] .section-title,
+[data-theme="light"] .concept-title,
+[data-theme="light"] .local-explorer-title,
+[data-theme="light"] .weather-subhead,
+[data-theme="light"] .weather-stat-number,
+[data-theme="light"] .contact-agent-name {
+  color: var(--text);
+}
+
+[data-theme="light"] .quick-fact dt,
+[data-theme="light"] .weather-stat-label,
+[data-theme="light"] .contact-agent-license {
+  color: var(--text-muted);
 }
 
 /* --- Reset & Base --- */
