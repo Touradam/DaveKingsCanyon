@@ -1790,7 +1790,7 @@ html.js .hero.is-parallax .hero-content {
 .concept-card {
   display: grid;
   gap: var(--space-md);
-  align-items: center;
+  align-items: start;
   perspective: 1200px;
 }
 
@@ -1982,7 +1982,9 @@ html.js .hero.is-parallax .hero-content {
 }
 
 .concept-body {
-  padding: var(--space-sm) 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .concept-title {
@@ -3576,10 +3578,27 @@ body.nav-open .floating-cta {
   box-shadow: var(--shadow-sm);
 }
 
+/* Concept cards are layout grids, not panels. Chrome belongs on the media. */
 [data-theme="light"] .concept-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+[data-theme="light"] .concept-media {
   border-color: var(--border-gold);
   background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .concept-body {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
 }
 
 [data-theme="light"] .concept-title {
