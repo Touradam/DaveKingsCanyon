@@ -733,6 +733,91 @@
     });
   }
 
+  /* --- Feature before/after (Power accordion) --- */
+  (function initFeatureBeforeAfter() {
+    var blocks = document.querySelectorAll("[data-feature-ba]");
+    if (!blocks.length) return;
+
+    var BA_BEFORE_MS = 1800;
+    var BA_AFTER_MS = 2600;
+
+    blocks.forEach(function (block) {
+      var overlay = block.querySelector(".concept-before-after");
+      var toggles = block.querySelectorAll("[data-ba-view]");
+      var details = block.closest("details");
+      var timers = [];
+      var playing = false;
+
+      if (!overlay) return;
+
+      function clearTimers() {
+        timers.forEach(function (id) {
+          window.clearTimeout(id);
+        });
+        timers = [];
+      }
+
+      function setView(isAfter) {
+        overlay.classList.toggle("is-after", isAfter);
+        toggles.forEach(function (toggle) {
+          var wantsAfter = toggle.getAttribute("data-ba-view") === "after";
+          var active = wantsAfter === isAfter;
+          toggle.classList.toggle("is-active", active);
+          toggle.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+      }
+
+      function playSequence() {
+        clearTimers();
+        playing = true;
+        setView(false);
+        if (prefersReducedMotion) {
+          playing = false;
+          return;
+        }
+        timers.push(
+          window.setTimeout(function () {
+            setView(true);
+          }, BA_BEFORE_MS)
+        );
+        timers.push(
+          window.setTimeout(function () {
+            playing = false;
+          }, BA_BEFORE_MS + BA_AFTER_MS)
+        );
+      }
+
+      toggles.forEach(function (toggle) {
+        toggle.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          clearTimers();
+          playing = false;
+          setView(toggle.getAttribute("data-ba-view") === "after");
+        });
+      });
+
+      if (details) {
+        details.addEventListener("toggle", function () {
+          if (details.open) {
+            playSequence();
+          } else {
+            clearTimers();
+            playing = false;
+            setView(false);
+          }
+        });
+        if (details.open) {
+          playSequence();
+        } else {
+          setView(false);
+        }
+      } else {
+        playSequence();
+      }
+    });
+  })();
+
   /* --- Scroll Reveal with Stagger --- */
   function applyStaggerDelays() {
     var groups = document.querySelectorAll(
