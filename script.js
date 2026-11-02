@@ -585,16 +585,6 @@
       var BA_AFTER_MS = 2000;
       var baTimers = [];
       var baSession = null;
-      var mobileBaUi = overlay
-        ? attachBaMobileGesture(overlay, setBaView, function () {
-            clearBaTimers();
-            if (baSession && !baSession.finished) {
-              baTimers.push(
-                window.setTimeout(finishBaSession, BA_AFTER_MS + 800)
-              );
-            }
-          })
-        : { pulseUi: function () {} };
 
       function clearBaTimers() {
         baTimers.forEach(function (id) {
@@ -679,7 +669,6 @@
         // Force a style flush so the fade-in transition runs from opacity 0
         void overlay.offsetWidth;
         overlay.classList.add("is-active");
-        mobileBaUi.pulseUi(true);
         scheduleBaAutoplay();
       }
 
@@ -744,81 +733,7 @@
     });
   }
 
-  /* --- Feature before/after (Power accordion) + mobile swipe / auto-hide --- */
-  function attachBaMobileGesture(overlay, setView, onManualInteract) {
-    if (!overlay) return { pulseUi: function () {} };
-
-    var controls = overlay.querySelector(".concept-ba-controls");
-    var hint = overlay.querySelector(".concept-ba-swipe-hint");
-    if (!hint) {
-      hint = document.createElement("span");
-      hint.className = "concept-ba-swipe-hint";
-      hint.setAttribute("aria-hidden", "true");
-      hint.innerHTML =
-        '<span class="concept-ba-swipe-arrow">&larr;</span> Swipe <span class="concept-ba-swipe-arrow">&rarr;</span>';
-      overlay.appendChild(hint);
-    }
-
-    var hideTimer = null;
-    var hintTimer = null;
-    var touchX = 0;
-    var touchY = 0;
-    var UI_VISIBLE_MS = 2200;
-    var HINT_VISIBLE_MS = 1800;
-
-    function showControlsBriefly(showSwipePrompt) {
-      if (controls) {
-        controls.classList.remove("is-auto-hidden");
-      }
-      if (showSwipePrompt && hint && !prefersReducedMotion) {
-        hint.classList.add("is-showing");
-        window.clearTimeout(hintTimer);
-        hintTimer = window.setTimeout(function () {
-          hint.classList.remove("is-showing");
-        }, HINT_VISIBLE_MS);
-      }
-      window.clearTimeout(hideTimer);
-      hideTimer = window.setTimeout(function () {
-        if (controls) {
-          controls.classList.add("is-auto-hidden");
-        }
-      }, UI_VISIBLE_MS);
-    }
-
-    overlay.addEventListener(
-      "touchstart",
-      function (e) {
-        if (e.touches.length !== 1) return;
-        touchX = e.touches[0].clientX;
-        touchY = e.touches[0].clientY;
-        showControlsBriefly(false);
-      },
-      { passive: true }
-    );
-
-    overlay.addEventListener(
-      "touchend",
-      function (e) {
-        if (e.changedTouches.length !== 1) return;
-        var dx = e.changedTouches[0].clientX - touchX;
-        var dy = e.changedTouches[0].clientY - touchY;
-        if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return;
-        if (onManualInteract) onManualInteract();
-        // Swipe left -> After, swipe right -> Before
-        setView(dx < 0);
-        if (hint) hint.classList.remove("is-showing");
-        showControlsBriefly(false);
-      },
-      { passive: true }
-    );
-
-    return {
-      pulseUi: function (withSwipePrompt) {
-        showControlsBriefly(Boolean(withSwipePrompt));
-      }
-    };
-  }
-
+  /* --- Feature before/after (Power accordion) --- */
   (function initFeatureBeforeAfter() {
     var blocks = document.querySelectorAll("[data-feature-ba]");
     if (!blocks.length) return;
@@ -852,16 +767,10 @@
         });
       }
 
-      var mobileUi = attachBaMobileGesture(overlay, setView, function () {
-        clearTimers();
-        playing = false;
-      });
-
       function playSequence() {
         clearTimers();
         playing = true;
         setView(false);
-        mobileUi.pulseUi(true);
         if (prefersReducedMotion) {
           playing = false;
           return;
@@ -869,7 +778,6 @@
         timers.push(
           window.setTimeout(function () {
             setView(true);
-            mobileUi.pulseUi(true);
           }, BA_BEFORE_MS)
         );
         timers.push(
@@ -886,7 +794,6 @@
           clearTimers();
           playing = false;
           setView(toggle.getAttribute("data-ba-view") === "after");
-          mobileUi.pulseUi(false);
         });
       });
 
